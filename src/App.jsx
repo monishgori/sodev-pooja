@@ -5,8 +5,12 @@ import { bhajans } from './data/bhajans';
 import { aartis } from './data/aartis';
 import { stutis } from './data/stutis';
 import { quotes } from './data/quotes';
-import { Haptics, ImpactStyle } from '@capacitor/haptics';
-import './App.css';
+// Web haptics fallback
+const ImpactStyle = {
+  Light: 10,
+  Medium: 20,
+  Heavy: 30
+};
 
 function App() {
   const [currentMode, setCurrentMode] = useState('chalisa'); // 'chalisa', 'mantras', 'bhajans', 'aartis', or 'stutis'
@@ -49,11 +53,9 @@ function App() {
     }
   };
 
-  const triggerHaptic = async (style = ImpactStyle.Medium) => {
-    try {
-      await Haptics.impact({ style });
-    } catch (e) {
-      // Not on mobile or plugin issue, ignore
+  const triggerHaptic = (style = ImpactStyle.Medium) => {
+    if ('vibrate' in navigator) {
+      navigator.vibrate(style);
     }
   };
 
