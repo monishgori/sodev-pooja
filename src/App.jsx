@@ -32,6 +32,7 @@ function App() {
   const [dailyQuote, setDailyQuote] = useState({ gujarati: '', hindi: '', english: '' });
   const [isDiyaLit, setIsDiyaLit] = useState(false);
   const [isUIHidden, setIsUIHidden] = useState(false);
+  const [isRitualMode, setIsRitualMode] = useState(false);
 
   const audioRef = useRef(null);
   const bellAudioRef = useRef(null);
@@ -239,8 +240,25 @@ function App() {
             setCurrentRepeat(prev => prev + 1);
             audioRef.current.play();
           } else {
-            setIsPlaying(false);
             setCurrentRepeat(0);
+            if (isRitualMode) {
+              // Move to next item in library
+              let max = 0;
+              if (currentMode === 'mantras') max = mantras.length;
+              else if (currentMode === 'bhajans') max = bhajans.length;
+              else if (currentMode === 'aartis') max = aartis.length;
+              else if (currentMode === 'stutis') max = stutis.length;
+              else if (currentMode === 'chalisa') max = 1;
+
+              if (activeItemIndex + 1 < max) {
+                setActiveItemIndex(prev => prev + 1);
+                // The useEffect for source changes will handle playing
+              } else {
+                setIsPlaying(false);
+              }
+            } else {
+              setIsPlaying(false);
+            }
           }
         }} />
       <audio ref={bellAudioRef} src="/assets/audio/bell.mp3" />
@@ -337,6 +355,17 @@ function App() {
                 else { audioRef.current.play(); setIsPlaying(true); }
               }}>
                 {isPlaying ? '⏸' : '▶'}
+              </button>
+
+              <button
+                className={`ritual-toggle-btn ${isRitualMode ? 'active' : ''}`}
+                onClick={() => {
+                  triggerHaptic(ImpactStyle.Light);
+                  setIsRitualMode(!isRitualMode);
+                }}
+                title="Ritual Mode (Auto-play next)"
+              >
+                ♾️
               </button>
 
               <div className="dock-control-cluster">

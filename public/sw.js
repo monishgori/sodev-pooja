@@ -1,17 +1,48 @@
-// Advanced Service Worker for Real-Time Updates
+// Premium Service Worker for Offline Devotional Experience
 const CACHE_NAME = 'pooja-v1';
+const ASSET_CACHE = 'pooja-assets-v1';
+
+// Assets to pre-cache for immediate offline use
+const PRECACHE_URLS = [
+    '/',
+    '/index.html',
+    '/manifest.json',
+    '/assets/audio/bell.mp3',
+    '/assets/audio/shankh.mp3'
+];
 
 self.addEventListener('install', (event) => {
-    self.skipWaiting(); // Force the waiting service worker to become the active one
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
+    );
+    self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-    event.waitUntil(clients.claim()); // Take control of all clients immediately
+    event.waitUntil(clients.claim());
 });
 
 self.addEventListener('fetch', (event) => {
-    // Always try the network first, fall back to cache if offline
+    const { request } = event;
+    const url = new URL(request.url);
+
+    // Strategy: Cache-First for Audio and Images to ensure offline playback
+    if (url.pathname.endsWith('.mp3') || url.pathname.endsWith('.png') || url.pathname.endsWith('.jpg') || url.pathname.includes('/assets/')) {
+        event.respondWith(
+            caches.open(ASSET_CACHE).then((cache) => {
+                return cache.match(request).then((response) => {
+                    return response || fetch(request).then((networkResponse) => {
+                        cache.put(request, networkResponse.clone());
+                        return networkResponse;
+                    });
+                });
+            })
+        );
+        return;
+    }
+
+    // Strategy: Network-First for everything else
     event.respondWith(
-        fetch(event.request).catch(() => caches.match(event.request))
+        fetch(request).catch(() => caches.match(request))
     );
 });
