@@ -109,43 +109,25 @@ function App() {
 
 
 
-  // High-Speed Smooth Sync
-  useEffect(() => {
-    let rafId;
-
-    const updateSmoothProgress = () => {
-      if (audioRef.current && isPlaying && !isSeeking) {
-        const cur = audioRef.current.currentTime;
-        const dur = audioRef.current.duration;
-
-        setCurrentTime(cur);
-
-        if (dur && isFinite(dur) && dur > 0) {
-          if (duration !== dur) setDuration(dur);
-
-          // Lyrics Sync
-          if (currentMode === 'chalisa') {
-            const verseCount = chalisaData.lyrics.length;
-            const index = Math.floor((cur / dur) * verseCount);
-            const safeIndex = Math.min(index, verseCount - 1);
-            if (safeIndex !== activeVerse) setActiveVerse(safeIndex);
-          }
-        }
-        rafId = requestAnimationFrame(updateSmoothProgress);
-      } else if (isPlaying) {
-        // Keep the loop alive even if seeking, just don't overwrite currentTime
-        rafId = requestAnimationFrame(updateSmoothProgress);
+  // Time Update Handler
+  const handleTimeUpdate = () => {
+    if (audioRef.current && !isSeeking) {
+      const cur = audioRef.current.currentTime;
+      const dur = audioRef.current.duration;
+      setCurrentTime(cur);
+      if (dur && isFinite(dur) && dur > 0 && duration !== dur) {
+        setDuration(dur);
       }
-    };
 
-    if (isPlaying) {
-      rafId = requestAnimationFrame(updateSmoothProgress);
-    } else {
-      cancelAnimationFrame(rafId);
+      // Lyrics Sync
+      if (currentMode === 'chalisa') {
+        const verseCount = chalisaData.lyrics.length;
+        const index = Math.floor((cur / (dur || 1)) * verseCount);
+        const safeIndex = Math.min(index, verseCount - 1);
+        if (safeIndex !== activeVerse) setActiveVerse(safeIndex);
+      }
     }
-
-    return () => cancelAnimationFrame(rafId);
-  }, [isPlaying, currentMode, duration, activeVerse, isSeeking]);
+  };
 
   const handleLoadedMetadata = () => {
     const audio = audioRef.current;
@@ -303,7 +285,7 @@ function App() {
                 currentMode === 'aartis' ? (aartis[activeItemIndex]?.audio || "/assets/audio/aarti.mp3") :
                   (stutis[activeItemIndex]?.audio || "/assets/audio/stuti.mp3")
         }
-        onTimeUpdate={null} // Using RAF for smoother sync
+        onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
         onEnded={() => {
           if (currentRepeat + 1 < repeatCount) {
@@ -450,19 +432,24 @@ function App() {
 
             <div className="dock-seek-row">
               <span className="dock-time">{formatTime(currentTime)}</span>
-              <input
-                type="range"
-                className="seek-bar"
-                min="0"
-                max={duration || 0}
-                value={currentTime}
-                onMouseDown={() => setIsSeeking(true)}
-                onTouchStart={() => setIsSeeking(true)}
-                onMouseUp={handleSeekEnd}
-                onTouchEnd={handleSeekEnd}
-                onChange={handleSeek}
-                style={{ '--progress': `${(currentTime / (duration || 1)) * 100}%` }}
-              />
+              <div className="seek-container">
+                <div
+                  className="seek-fill"
+                  style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}
+                ></div>
+                <input
+                  type="range"
+                  className="seek-bar"
+                  min="0"
+                  max={duration || 0}
+                  value={currentTime}
+                  onMouseDown={() => setIsSeeking(true)}
+                  onTouchStart={() => setIsSeeking(true)}
+                  onMouseUp={handleSeekEnd}
+                  onTouchEnd={handleSeekEnd}
+                  onChange={handleSeek}
+                />
+              </div>
               <span className="dock-time">{formatTime(duration)}</span>
             </div>
           </div>
