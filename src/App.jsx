@@ -116,7 +116,12 @@ function App() {
     const cur = audio.currentTime;
     const dur = audio.duration;
 
-    setCurrentTime(cur);
+    // Snap to end visually if very close
+    if (dur - cur < 0.2) {
+      setCurrentTime(dur);
+    } else {
+      setCurrentTime(cur);
+    }
 
     // Ensure we have a valid duration to calculate sync
     if (dur && dur > 0 && isFinite(dur)) {
@@ -293,11 +298,13 @@ function App() {
             setCurrentRepeat(prev => prev + 1);
             if (audioRef.current) {
               audioRef.current.currentTime = 0;
+              setCurrentTime(0);
               audioRef.current.play().catch(() => { });
             }
           } else {
             setIsPlaying(false);
             setCurrentRepeat(0);
+            if (audioRef.current) setCurrentTime(audioRef.current.duration);
           }
         }} />
       <audio ref={bellAudioRef} src="/assets/audio/bell.mp3" />
