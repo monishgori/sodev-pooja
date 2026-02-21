@@ -31,7 +31,6 @@ function App() {
   const [isFocusMode, setIsFocusMode] = useState(false);
   const [dailyQuote, setDailyQuote] = useState({ gujarati: '', hindi: '', english: '' });
   const [isDiyaLit, setIsDiyaLit] = useState(false);
-  const [isUIHidden, setIsUIHidden] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
 
   const audioRef = useRef(null);
@@ -155,35 +154,6 @@ function App() {
     return `${min}:${sec < 10 ? '0' : ''}${sec}`;
   };
 
-  // Digital Darshan: Auto-hide UI during playback
-  useEffect(() => {
-    let hideTimer;
-    const resetTimer = () => {
-      setIsUIHidden(false);
-      if (hideTimer) clearTimeout(hideTimer);
-      if (isPlaying && !isLyricsVisible && !isLibraryOpen) {
-        hideTimer = setTimeout(() => setIsUIHidden(true), 6000);
-      }
-    };
-
-    if (isPlaying) {
-      window.addEventListener('mousemove', resetTimer);
-      window.addEventListener('touchstart', resetTimer);
-      window.addEventListener('click', resetTimer);
-      window.addEventListener('keydown', resetTimer);
-      resetTimer();
-    } else {
-      setIsUIHidden(false);
-    }
-
-    return () => {
-      window.removeEventListener('mousemove', resetTimer);
-      window.removeEventListener('touchstart', resetTimer);
-      window.removeEventListener('click', resetTimer);
-      window.removeEventListener('keydown', resetTimer);
-      if (hideTimer) clearTimeout(hideTimer);
-    };
-  }, [isPlaying, isLyricsVisible, isLibraryOpen]);
 
   // Auto-scroll logic: When activeVerse changes, scroll the lyrics container
   useEffect(() => {
@@ -258,7 +228,7 @@ function App() {
   };
 
   return (
-    <div className={`app-container ${isLyricsVisible ? 'view-mode' : 'home-mode'} ${isUIHidden ? 'ui-dimmed' : ''}`}>
+    <div className={`app-container ${isLyricsVisible ? 'view-mode' : 'home-mode'}`}>
       {/* Diya (Lamp) */}
       <div className={`diya-container ${isDiyaLit ? 'lit' : ''}`}>
         <div className="diya-glow"></div>

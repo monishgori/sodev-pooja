@@ -274,22 +274,6 @@ body {
   transition: all 0.5s ease;
 }
 
-.ui-dimmed .glass-panel,
-.ui-dimmed .top-bar,
-.ui-dimmed .daily-quote-card,
-.ui-dimmed .bottom-dashboard-container {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(20px) scale(0.98);
-  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-panel,
-.top-bar,
-.daily-quote-card,
-.bottom-dashboard-container {
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 /* Daily Quote Card */
 /* Daily Quote Card Redesign */
