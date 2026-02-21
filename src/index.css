@@ -892,14 +892,13 @@ body {
   top: 45%;
   left: 50%;
   z-index: 2000;
-  /* In front of everything for the virtual pooja */
   display: flex;
   flex-direction: column;
   align-items: center;
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.5);
-  transition: opacity 0.8s ease;
+  transform: translate(-50%, -50%);
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .diya-container.lit {
@@ -918,30 +917,68 @@ body {
 }
 
 .diya-base {
-  font-size: 4rem;
-  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.5));
+  width: 120px;
+  height: auto;
   position: relative;
   z-index: 2;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
 }
 
-.diya-container.lit .diya-base {
-  filter: drop-shadow(0 0 20px #FFD700) drop-shadow(0 0 40px #FF9933);
-  animation: diya-flicker 0.15s ease-in-out infinite alternate;
-  transform: scale(1.1);
+.diya-img {
+  width: 100%;
+  height: auto;
 }
 
-@keyframes diya-flicker {
+.diya-flame {
+  position: absolute;
+  top: -15px;
+  /* Adjust based on image */
+  right: -5px;
+  /* Adjust based on image pour spout */
+  width: 40px;
+  height: auto;
+  z-index: 3;
+  mix-blend-mode: screen;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.8s ease;
+}
+
+.diya-container.lit .diya-flame {
+  opacity: 1;
+  transform: scale(1);
+  animation: flame-flicker 0.1s ease-in-out infinite alternate,
+    flame-sway 3s ease-in-out infinite alternate;
+}
+
+.diya-flame img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 10px #ff6600) brightness(1.2);
+}
+
+@keyframes flame-flicker {
   0% {
-    transform: scale(1.1) rotate(-1deg);
-    filter: drop-shadow(0 0 20px #FFD700) drop-shadow(0 0 35px #FF9933);
+    transform: scale(1) rotate(-1deg);
+    filter: brightness(1);
   }
 
   100% {
-    transform: scale(1.12) rotate(1deg);
-    filter: drop-shadow(0 0 25px #FFD700) drop-shadow(0 0 50px #FF9933);
+    transform: scale(1.05) rotate(1deg);
+    filter: brightness(1.2);
   }
 }
+
+@keyframes flame-sway {
+  0% {
+    transform: translateX(-1px) skewX(-1deg);
+  }
+
+  100% {
+    transform: translateX(1px) skewX(1deg);
+  }
+}
+
 
 .diya-glow {
   position: absolute;
