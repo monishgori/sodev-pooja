@@ -32,6 +32,7 @@ function App() {
   const [dailyQuote, setDailyQuote] = useState({ gujarati: '', hindi: '', english: '' });
   const [isDiyaLit, setIsDiyaLit] = useState(false);
   const [isUIHidden, setIsUIHidden] = useState(false);
+  const [isSeeking, setIsSeeking] = useState(false);
 
   const audioRef = useRef(null);
   const bellAudioRef = useRef(null);
@@ -113,7 +114,7 @@ function App() {
     let rafId;
 
     const updateSmoothProgress = () => {
-      if (audioRef.current && isPlaying) {
+      if (audioRef.current && isPlaying && !isSeeking) {
         const cur = audioRef.current.currentTime;
         const dur = audioRef.current.duration;
 
@@ -131,6 +132,9 @@ function App() {
           }
         }
         rafId = requestAnimationFrame(updateSmoothProgress);
+      } else if (isPlaying) {
+        // Keep the loop alive even if seeking, just don't overwrite currentTime
+        rafId = requestAnimationFrame(updateSmoothProgress);
       }
     };
 
@@ -141,7 +145,7 @@ function App() {
     }
 
     return () => cancelAnimationFrame(rafId);
-  }, [isPlaying, currentMode, duration, activeVerse]);
+  }, [isPlaying, currentMode, duration, activeVerse, isSeeking]);
 
   const handleLoadedMetadata = () => {
     const audio = audioRef.current;
@@ -152,8 +156,15 @@ function App() {
 
   const handleSeek = (e) => {
     const time = Number(e.target.value);
-    audioRef.current.currentTime = time;
     setCurrentTime(time);
+  };
+
+  const handleSeekEnd = (e) => {
+    const time = Number(e.target.value);
+    if (audioRef.current) {
+      audioRef.current.currentTime = time;
+    }
+    setIsSeeking(false);
   };
 
   const formatTime = (time) => {
@@ -445,6 +456,10 @@ function App() {
                 min="0"
                 max={duration || 0}
                 value={currentTime}
+                onMouseDown={() => setIsSeeking(true)}
+                onTouchStart={() => setIsSeeking(true)}
+                onMouseUp={handleSeekEnd}
+                onTouchEnd={handleSeekEnd}
                 onChange={handleSeek}
                 style={{ '--progress': `${(currentTime / (duration || 1)) * 100}%` }}
               />
