@@ -276,7 +276,6 @@ body {
   border: 1px solid rgba(255, 215, 0, 0.2) !important;
   border-radius: 20px;
   backdrop-filter: blur(20px);
-  animation: float-quote 6s ease-in-out infinite;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
   text-align: left;
   overflow: hidden;

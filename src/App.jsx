@@ -60,9 +60,12 @@ function App() {
   };
 
   useEffect(() => {
-    // Select daily quote
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    setDailyQuote(randomQuote);
+    // Select daily quote based on current date (Deterministic)
+    const today = new Date();
+    // Using simple hash: (Year * 1000) + (Month * 40) + Date
+    const dayHash = (today.getFullYear() * 1000) + (today.getMonth() * 40) + today.getDate();
+    const quoteIndex = dayHash % quotes.length;
+    setDailyQuote(quotes[quoteIndex]);
   }, []);
 
   // Sleep Timer logic
