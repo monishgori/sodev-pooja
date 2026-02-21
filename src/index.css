@@ -88,6 +88,22 @@ body {
   animation: bg-pan-zoom 30s linear infinite alternate;
 }
 
+.bg-image.pulse-visualizer {
+  animation: bg-pulse-sacred 4s ease-in-out infinite alternate !important;
+}
+
+@keyframes bg-pulse-sacred {
+  0% {
+    transform: scale(1.1);
+    filter: brightness(0.6) contrast(1);
+  }
+
+  100% {
+    transform: scale(1.18);
+    filter: brightness(0.8) contrast(1.1) drop-shadow(0 0 20px rgba(255, 215, 0, 0.2));
+  }
+}
+
 @keyframes bg-pan-zoom {
   0% {
     transform: scale(1);
@@ -303,6 +319,26 @@ body {
   letter-spacing: 2px;
   font-weight: 800;
   opacity: 0.8;
+}
+
+.quote-share-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quote-share-btn:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.5);
+  transform: scale(1.1);
 }
 
 .quote-content {

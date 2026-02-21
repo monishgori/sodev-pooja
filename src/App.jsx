@@ -13,10 +13,10 @@ const ImpactStyle = {
 };
 
 function App() {
-  const [currentMode, setCurrentMode] = useState('chalisa'); // 'chalisa', 'mantras', 'bhajans', 'aartis', or 'stutis'
+  const [currentMode, setCurrentMode] = useState(localStorage.getItem('pooja_mode') || 'chalisa');
   const [isPlaying, setIsPlaying] = useState(false);
-  const [language, setLanguage] = useState('gujarati'); // 'gujarati', 'hindi'
-  const [repeatCount, setRepeatCount] = useState(1);
+  const [language, setLanguage] = useState(localStorage.getItem('pooja_lang') || 'gujarati');
+  const [repeatCount, setRepeatCount] = useState(Number(localStorage.getItem('pooja_repeat')) || 1);
   const [currentRepeat, setCurrentRepeat] = useState(0);
   const [isBellRinging, setIsBellRinging] = useState(false);
   const [flowers, setFlowers] = useState([]);
@@ -24,7 +24,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [activeVerse, setActiveVerse] = useState(0);
-  const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const [activeItemIndex, setActiveItemIndex] = useState(Number(localStorage.getItem('pooja_index')) || 0);
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [sleepTimer, setSleepTimer] = useState(null); // in minutes
   const [timerId, setTimerId] = useState(null);
@@ -68,6 +68,14 @@ function App() {
     setDailyQuote(quotes[quoteIndex]);
   }, []);
 
+  // Save Preferences
+  useEffect(() => {
+    localStorage.setItem('pooja_mode', currentMode);
+    localStorage.setItem('pooja_lang', language);
+    localStorage.setItem('pooja_repeat', repeatCount);
+    localStorage.setItem('pooja_index', activeItemIndex);
+  }, [currentMode, language, repeatCount, activeItemIndex]);
+
   // Sleep Timer logic
   useEffect(() => {
     if (sleepTimer) {
@@ -94,6 +102,19 @@ function App() {
       }).catch(console.error);
     } else {
       alert("Sharing is not supported on this browser/device.");
+    }
+  };
+
+  const shareQuote = () => {
+    const text = `✨ *Daily Thought from SODEV POOJA* ✨\n\n"${dailyQuote[language] || dailyQuote.gujarati}"\n\n🙏 Read more sacred prayers at: ${window.location.href}`;
+    if (navigator.share) {
+      navigator.share({
+        title: 'Daily Thought',
+        text: text
+      }).catch(console.error);
+    } else {
+      const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+      window.open(whatsappUrl, '_blank');
     }
   };
 
@@ -260,7 +281,7 @@ function App() {
 
       {/* Background Section */}
       <div className="background-slider" onClick={() => setIsLyricsVisible(false)}>
-        <img src={backgroundImage} alt="SODEV" className="bg-image active" />
+        <img src={backgroundImage} alt="SODEV" className={`bg-image active ${isPlaying ? 'pulse-visualizer' : ''}`} />
         <div className="bg-overlay"></div>
       </div>
 
@@ -278,8 +299,13 @@ function App() {
           {!isLyricsVisible && !isFocusMode && (dailyQuote.gujarati || dailyQuote.hindi) && (
             <div className="daily-quote-card glass-panel">
               <div className="quote-header">
-                <span className="quote-icon">❝</span>
-                <span className="quote-label">{language === 'gujarati' ? 'આજનો વિચાર' : 'आज का विचार'}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1 }}>
+                  <span className="quote-icon">❝</span>
+                  <span className="quote-label">{language === 'gujarati' ? 'આજનો વિચાર' : 'आज का विचार'}</span>
+                </div>
+                <button className="quote-share-btn" onClick={shareQuote} title="Share to WhatsApp">
+                  📤
+                </button>
               </div>
               <div className="quote-content">
                 <div className="main-quote">
