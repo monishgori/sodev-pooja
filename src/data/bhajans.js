@@ -1,7 +1,7 @@
 export const bhajans = [
     {
         id: "b1",
-        name: "jholi ri Bhar De",
+        name: "jholi Bhar De",
         audio: "/assets/audio/Jholi Meri Bhar De.mp3"
     },
     {
