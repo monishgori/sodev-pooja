@@ -1,6 +1,6 @@
 // Premium Service Worker for Offline Devotional Experience
-const CACHE_NAME = 'pooja-v3'; // Bump version
-const ASSET_CACHE = 'pooja-assets-v3';
+const CACHE_NAME = 'pooja-v4'; // Bump version
+const ASSET_CACHE = 'pooja-assets-v4';
 
 // Assets to pre-cache for immediate offline use
 const PRECACHE_URLS = [
