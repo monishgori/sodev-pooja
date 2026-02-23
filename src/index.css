@@ -9,6 +9,43 @@
   --text-primary: #ffffff;
   --text-secondary: hsl(0, 0%, 80%);
   --shadow-gold: 0 0 30px hsla(45, 100%, 50%, 0.2);
+
+  /* Spacing System */
+  --space-3xs: 2px;
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Typography System */
+  --font-serif: 'Tiro Devanagari Hindi', serif;
+  --font-sans: 'Inter', sans-serif;
+
+  --font-size-3xs: 0.65rem;
+  --font-size-2xs: 0.75rem;
+  --font-size-xs: 0.875rem;
+  --font-size-sm: 1rem;
+  --font-size-md: 1.125rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2.25rem;
+  --font-size-3xl: 3.5rem;
+  --font-size-hero: clamp(2.5rem, 10vw, 4.5rem);
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.7;
+
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
 }
 
 * {
@@ -23,24 +60,26 @@ body {
   overflow: hidden;
   height: 100vh;
   width: 100vw;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
 }
 
 .hindi-text {
-  font-family: 'Tiro Devanagari Hindi', serif;
-  font-size: 1.8rem;
-  line-height: 1.5;
-  margin-bottom: 12px;
-  font-weight: 500;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--space-xs);
+  font-weight: var(--font-weight-medium);
   color: #fffaf0;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 1);
 }
 
 .english-text {
-  font-size: 1rem;
-  line-height: 1.4;
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-normal);
   color: rgba(255, 255, 255, 0.7);
-  font-weight: 300;
+  font-weight: var(--font-weight-light);
 }
 
 #root {
@@ -164,11 +203,11 @@ body {
 /* Responsive Top Bar */
 .top-bar {
   width: 100%;
-  padding: env(safe-area-inset-top, 40px) 20px 15px 20px;
+  padding: env(safe-area-inset-top, var(--space-2xl)) var(--space-lg) var(--space-md) var(--space-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  gap: var(--space-md);
   z-index: 100;
   position: relative;
 }
@@ -186,18 +225,18 @@ body {
 }
 
 .divine-name {
-  font-family: 'Tiro Devanagari Hindi', serif;
-  font-size: clamp(1.6rem, 7vw, 2.8rem);
-  font-weight: 800;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-hero);
+  font-weight: var(--font-weight-black);
   background: linear-gradient(to bottom, #FFD700 0%, #FF9933 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
   animation: divine-pulse 4s infinite ease-in-out;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   white-space: nowrap;
-  margin-top: 5px;
+  margin-top: var(--space-2xs);
 }
 
 .top-bar-side-content {
@@ -205,7 +244,7 @@ body {
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-xs);
 }
 
 @media (min-width: 1024px) {
@@ -256,8 +295,8 @@ body {
 }
 
 .greeting-text {
-  font-family: 'Tiro Devanagari Hindi', serif;
-  font-size: clamp(1rem, 4vw, 1.4rem);
+  font-family: var(--font-serif);
+  font-size: var(--font-size-lg);
   color: #fff;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
@@ -270,7 +309,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2);
   border-radius: 24px;
-  padding: 15px;
+  padding: var(--space-md);
   transition: all 0.5s ease;
 }
 
@@ -280,7 +319,7 @@ body {
 .daily-quote-card {
   width: auto;
   max-width: clamp(240px, 80vw, 380px);
-  padding: 12px 20px;
+  padding: var(--space-sm) var(--space-lg);
   background: rgba(20, 20, 20, 0.7) !important;
   border: 1px solid rgba(255, 215, 0, 0.2) !important;
   border-radius: 20px;
@@ -293,10 +332,10 @@ body {
 .quote-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 6px;
+  padding-bottom: var(--space-2xs);
 }
 
 .quote-icon {
@@ -306,11 +345,11 @@ body {
 }
 
 .quote-label {
-  font-size: 0.65rem;
+  font-size: var(--font-size-3xs);
   color: var(--secondary);
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-weight: 800;
+  font-weight: var(--font-weight-black);
   opacity: 0.8;
 }
 
@@ -319,15 +358,15 @@ body {
 .quote-content {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-2xs);
 }
 
 .main-quote {
-  font-family: 'Tiro Devanagari Hindi', serif;
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
   color: #fff;
-  line-height: 1.3;
+  line-height: var(--line-height-tight);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -363,24 +402,24 @@ body {
 
 /* Main Content (Lyrics) Titles */
 .page-header {
-  margin-bottom: 40px;
+  margin-bottom: var(--space-2xl);
   animation: fade-slide-up 0.8s ease-out;
 }
 
 .page-title {
-  font-family: 'Tiro Devanagari Hindi', serif;
-  font-size: clamp(2.2rem, 8vw, 3.5rem);
-  font-weight: 800;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-black);
   color: #fff;
   text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-  margin-bottom: 5px;
-  line-height: 1.2;
+  margin-bottom: var(--space-3xs);
+  line-height: var(--line-height-tight);
 }
 
 .page-subtitle {
-  font-size: 1.1rem;
+  font-size: var(--font-size-sm);
   color: var(--secondary);
-  font-weight: 600;
+  font-weight: var(--font-weight-semi);
   letter-spacing: 2px;
   text-transform: uppercase;
   opacity: 0.9;
@@ -403,7 +442,7 @@ body {
   flex: 1;
   width: 100%;
   overflow-y: auto;
-  padding: 30px 20px 250px 20px;
+  padding: var(--space-xl) var(--space-lg) 250px var(--space-lg);
   text-align: center;
   z-index: 10;
   scrollbar-width: none;
@@ -415,8 +454,8 @@ body {
 }
 
 .verse {
-  margin: 0 auto 30px auto;
-  padding: 24px;
+  margin: 0 auto var(--space-xl) auto;
+  padding: var(--space-lg);
   width: 100%;
   max-width: 650px;
   border-radius: 24px;
@@ -464,7 +503,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px;
+  padding: var(--space-md);
   /* Added more bottom padding to lift the content */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -510,7 +549,7 @@ body {
   background: rgba(15, 15, 15, 0.98) !important;
   backdrop-filter: blur(50px) !important;
   border-radius: 35px 35px 0 0 !important;
-  padding: 30px 20px 60px 20px !important;
+  padding: var(--space-xl) var(--space-lg) var(--space-3xl) var(--space-lg) !important;
   opacity: 1;
   /* Keep opacity 1, control via transform */
   visibility: visible;
@@ -535,22 +574,22 @@ body {
   height: 5px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
-  margin: -15px auto 20px auto;
+  margin: calc(var(--space-md) * -1) auto var(--space-lg) auto;
 }
 
 .tray-title {
-  font-family: 'Tiro Devanagari Hindi', serif;
-  font-size: 1.5rem;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-xl);
   color: var(--secondary);
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: var(--space-lg);
   letter-spacing: 1px;
 }
 
 .library-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: var(--space-md);
 }
 
 .library-card {
@@ -577,13 +616,13 @@ body {
 }
 
 .lib-hindi {
-  font-family: 'Tiro Devanagari Hindi', serif;
-  font-size: 1.2rem;
+  font-family: var(--font-serif);
+  font-size: var(--font-size-lg);
   color: #fff;
 }
 
 .lib-eng {
-  font-size: 0.7rem;
+  font-size: var(--font-size-3xs);
   color: var(--secondary);
   opacity: 0.8;
   text-transform: uppercase;
@@ -611,7 +650,7 @@ body {
   backdrop-filter: blur(25px) !important;
   border: 1px solid rgba(255, 215, 0, 0.15) !important;
   border-radius: 100px !important;
-  padding: 8px 24px !important;
+  padding: var(--space-xs) var(--space-lg) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   pointer-events: auto;
   display: flex;
@@ -626,12 +665,12 @@ body {
   backdrop-filter: blur(40px) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 35px !important;
-  padding: 12px 20px !important;
+  padding: var(--space-sm) var(--space-lg) !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
   pointer-events: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-sm);
 }
 
 @keyframes float-island {
@@ -649,12 +688,12 @@ body {
 .dock-seek-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-sm);
   width: 100%;
 }
 
 .dock-time {
-  font-size: 0.7rem;
+  font-size: var(--font-size-3xs);
   font-weight: 600;
   color: var(--secondary);
   min-width: 40px;
@@ -727,7 +766,7 @@ body {
 
 .ritual-scroller {
   display: flex;
-  gap: 20px;
+  gap: var(--space-lg);
   justify-content: center;
   width: 100%;
 }
@@ -740,7 +779,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-2xs);
   cursor: pointer;
 }
 
@@ -773,7 +812,7 @@ body {
 
 .dock-icon-item span {
   display: block;
-  font-size: 0.55rem;
+  font-size: var(--font-size-3xs);
   color: var(--secondary);
   opacity: 0.8;
   text-transform: uppercase;
@@ -794,7 +833,7 @@ body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-sm);
 }
 
 .dock-play-btn {
@@ -1024,11 +1063,11 @@ body {
   display: flex;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
-  padding: 4px;
+  padding: var(--space-2xs);
   border-radius: 100px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  gap: 2px;
+  gap: var(--space-3xs);
 }
 
 .lang-pill-btn {
@@ -1037,7 +1076,7 @@ body {
   border: none;
   background: transparent;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.75rem;
+  font-size: var(--font-size-2xs);
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1071,14 +1110,14 @@ body {
 
 .language-pill-container.mini .lang-pill-btn {
   padding: 4px 12px;
-  font-size: 0.7rem;
+  font-size: var(--font-size-xs);
   height: 100%;
 }
 
 .repeat-pill-container {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-2xs);
   background: rgba(255, 255, 255, 0.05);
   padding: 0 12px;
   border-radius: 50px;
@@ -1096,7 +1135,7 @@ body {
   background: transparent;
   border: none;
   color: var(--secondary);
-  font-size: 0.75rem;
+  font-size: var(--font-size-2xs);
   font-weight: 700;
   outline: none;
   cursor: pointer;
@@ -1120,7 +1159,7 @@ body {
   position: absolute;
   right: 12px;
   pointer-events: none;
-  font-size: 0.7rem;
+  font-size: var(--font-size-xs);
   color: var(--secondary);
 }
 
@@ -1147,13 +1186,13 @@ body {
 .back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  padding: 10px 24px;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
   border-radius: 30px;
   background: rgba(255, 255, 255, 0.1);
   color: white;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-md);
   transition: all 0.3s;
 }
 
@@ -1164,7 +1203,7 @@ body {
 
 @media (max-width: 600px) {
   .hindi-text {
-    font-size: 1.5rem;
+    font-size: var(--font-size-lg);
   }
 
   .divine-name {
@@ -1172,7 +1211,7 @@ body {
   }
 
   .pooja-dashboard-panel {
-    padding: 15px;
-    gap: 10px;
+    padding: var(--space-md);
+    gap: var(--space-xs);
   }
 }

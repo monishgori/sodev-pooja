@@ -37,8 +37,14 @@ self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
 
-    // Skip non-GET requests
-    if (request.method !== 'GET') return;
+    // Skip non-GET requests and Vite-internal development paths
+    if (request.method !== 'GET' || 
+        url.pathname.includes('/@vite/') || 
+        url.pathname.includes('/node_modules/') ||
+        url.pathname.includes('/@id/') ||
+        url.pathname.includes('react-refresh')) {
+        return;
+    }
 
     // Strategy for Media / Static Assets: Cache-First
     if (url.pathname.endsWith('.mp3') || url.pathname.endsWith('.png') ||
