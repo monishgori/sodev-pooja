@@ -81,7 +81,7 @@ export const videos = [
   },
 
   {
-    id: 10,
+    id: 11,
     title: "Shree Sodevpir Dada Kori 3",
     gujarati: "શ્રી સોદેવપીર દાદા કોરી ૩",
     hindi: "श्री सोदेवपीर दादा कोरी ३",
@@ -89,7 +89,7 @@ export const videos = [
     thumbnail: "https://img.youtube.com/vi/QQX7Y6zUBIU/mqdefault.jpg"
   },
   {
-    id: 11,
+    id: 12,
     title: "Shree Sodevpir Dada Kori 2",
     gujarati: "શ્રી સોદેવપીર દાદા કોરી ૨",
     hindi: "श्री सोदेवपीर दादा कोरी ૨",
