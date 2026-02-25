@@ -1,6 +1,6 @@
 // Premium Service Worker for Offline Devotional Experience
-const CACHE_NAME = 'pooja-v1';
-const ASSET_CACHE = 'pooja-assets-v1';
+const CACHE_NAME = 'pooja-v4';
+const ASSET_CACHE = 'pooja-assets-v4';
 
 // Assets to pre-cache for immediate offline use
 const PRECACHE_URLS = [
@@ -27,7 +27,7 @@ self.addEventListener('fetch', (event) => {
     const url = new URL(request.url);
 
     // Strategy: Cache-First for Audio and Images to ensure offline playback
-    if (url.pathname.endsWith('.mp3') || url.pathname.endsWith('.png') || url.pathname.endsWith('.jpg') || url.pathname.includes('/assets/')) {
+    if (url.pathname.endsWith('.mp3') || url.pathname.endsWith('.m4a') || url.pathname.endsWith('.png') || url.pathname.endsWith('.jpg') || url.pathname.includes('/assets/')) {
         event.respondWith(
             caches.open(ASSET_CACHE).then((cache) => {
                 return cache.match(request).then((response) => {

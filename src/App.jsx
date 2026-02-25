@@ -33,10 +33,6 @@ function App() {
   const [isDiyaLit, setIsDiyaLit] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
 
-  const audioRef = useRef(null);
-  const bellAudioRef = useRef(null);
-  const shankhAudioRef = useRef(null);
-
   const backgroundImage = '/assets/images/1.png';
 
   // Background Slider & Time-based Greeting
@@ -108,32 +104,10 @@ function App() {
 
 
 
-  // Time Update Handler
-  const handleTimeUpdate = () => {
-    if (audioRef.current && !isSeeking) {
-      const cur = audioRef.current.currentTime;
-      const dur = audioRef.current.duration;
-      setCurrentTime(cur);
-      if (dur && isFinite(dur) && dur > 0 && duration !== dur) {
-        setDuration(dur);
-      }
-
-      // Lyrics Sync
-      if (currentMode === 'chalisa') {
-        const verseCount = chalisaData.lyrics.length;
-        const index = Math.floor((cur / (dur || 1)) * verseCount);
-        const safeIndex = Math.min(index, verseCount - 1);
-        if (safeIndex !== activeVerse) setActiveVerse(safeIndex);
-      }
-    }
-  };
-
-  const handleLoadedMetadata = () => {
-    const audio = audioRef.current;
-    if (audio && audio.duration && isFinite(audio.duration)) {
-      setDuration(audio.duration);
-    }
-  };
+  // Audio Instance Managed by Ref
+  const audioRef = useRef(null);
+  const bellAudioRef = useRef(null);
+  const shankhAudioRef = useRef(null);
 
   const handleSeek = (e) => {
     const time = Number(e.target.value);
@@ -153,7 +127,6 @@ function App() {
     const sec = Math.floor(time % 60);
     return `${min}:${sec < 10 ? '0' : ''}${sec}`;
   };
-
 
   // Auto-scroll logic: When activeVerse changes, scroll the lyrics container
   useEffect(() => {
@@ -181,41 +154,125 @@ function App() {
     }, 6000);
   };
 
-  const ringBell = () => {
-    triggerHaptic(ImpactStyle.Heavy);
-    setIsBellRinging(true);
-    if (bellAudioRef.current) {
-      bellAudioRef.current.currentTime = 0;
-      bellAudioRef.current.play().catch(() => { });
-    }
-    setTimeout(() => setIsBellRinging(false), 500);
-  };
-
-  const playShankh = () => {
-    triggerHaptic(ImpactStyle.Heavy);
-    if (shankhAudioRef.current) {
-      shankhAudioRef.current.currentTime = 0;
-      shankhAudioRef.current.play().catch(() => { });
-    }
-  };
-
   const toggleDiya = () => {
     triggerHaptic();
     setIsDiyaLit(!isDiyaLit);
   };
 
+  // Helper to create and setup a new audio instance
+  const createAudioInstance = (path) => {
+    // Stop previous if exists
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = "";
+      audioRef.current.onended = null;
+      audioRef.current.ontimeupdate = null;
+      audioRef.current.onloadedmetadata = null;
+      audioRef.current.onerror = null;
+      audioRef.current = null;
+    }
 
-  // Reset playback when song changes
+    // Create new instance
+    console.log("Loading audio path:", path);
+    const audio = new Audio(path);
+
+    audio.onerror = (e) => {
+      console.log("Audio failed to load from path:", audio.src);
+      console.error("Audio Error Details:", audio.error);
+      setIsPlaying(false);
+    };
+
+    audio.ontimeupdate = () => {
+      if (!isSeeking) {
+        const cur = audio.currentTime;
+        const dur = audio.duration;
+        setCurrentTime(cur);
+        if (dur && isFinite(dur) && dur > 0) {
+          setDuration(dur);
+        }
+
+        // Lyrics Sync
+        if (currentMode === 'chalisa') {
+          const verseCount = chalisaData.lyrics.length;
+          const index = Math.floor((cur / (dur || 1)) * verseCount);
+          const safeIndex = Math.min(index, verseCount - 1);
+          if (safeIndex !== activeVerse) setActiveVerse(safeIndex);
+        }
+      }
+    };
+
+    audio.onloadedmetadata = () => {
+      if (audio.duration && isFinite(audio.duration)) {
+        setDuration(audio.duration);
+      }
+    };
+
+    audio.onended = () => {
+      if (currentRepeat + 1 < repeatCount) {
+        setCurrentRepeat(prev => prev + 1);
+        audio.currentTime = 0;
+        setCurrentTime(0);
+        console.log("Replaying track, path:", path);
+        audio.play().catch(e => console.error("Replay error:", e));
+      } else {
+        setIsPlaying(false);
+        setCurrentRepeat(0);
+        setCurrentTime(audio.duration);
+      }
+    };
+
+    audioRef.current = audio;
+    return audio;
+  };
+
+  // Effect to handle source changes (switching tracks)
   useEffect(() => {
+    const rawAudioSrc =
+      currentMode === 'chalisa' ? "/assets/audio/chalisa1.mp3" :
+        currentMode === 'mantras' ? (mantras[activeItemIndex]?.audio || "/assets/audio/mantra.mp3") :
+          currentMode === 'bhajans' ? (bhajans[activeItemIndex]?.audio || "/assets/audio/bhajan.mp3") :
+            currentMode === 'aartis' ? (aartis[activeItemIndex]?.audio || "/assets/audio/aarti.mp3") :
+              currentMode === 'stutis' ? (stutis[activeItemIndex]?.audio || "/assets/audio/stuti.m4a") :
+                "/assets/audio/chalisa1.mp3";
+
+    console.log(`Mode: ${currentMode} | Index: ${activeItemIndex} | Resolved Source: ${rawAudioSrc}`);
+
     setCurrentTime(0);
     setDuration(0);
     setCurrentRepeat(0);
     setIsPlaying(false);
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.pause();
-    }
+
+    createAudioInstance(rawAudioSrc);
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
   }, [currentMode, activeItemIndex]);
+
+  const ringBell = () => {
+    triggerHaptic(ImpactStyle.Heavy);
+    setIsBellRinging(true);
+    if (!bellAudioRef.current) {
+      bellAudioRef.current = new Audio("/assets/audio/bell.mp3");
+      bellAudioRef.current.onerror = () => console.log("Bell audio failed to load");
+    }
+    bellAudioRef.current.currentTime = 0;
+    bellAudioRef.current.play().catch(() => { });
+    setTimeout(() => setIsBellRinging(false), 500);
+  };
+
+  const playShankh = () => {
+    triggerHaptic(ImpactStyle.Heavy);
+    if (!shankhAudioRef.current) {
+      shankhAudioRef.current = new Audio("/assets/audio/shankh.mp3");
+      shankhAudioRef.current.onerror = () => console.log("Shankh audio failed to load");
+    }
+    shankhAudioRef.current.currentTime = 0;
+    shankhAudioRef.current.play().catch(() => { });
+  };
 
   const startReading = (mode) => {
     triggerHaptic(ImpactStyle.Light);
@@ -246,33 +303,6 @@ function App() {
           }}></div>
         ))}
       </div>
-      <audio
-        ref={audioRef}
-        src={
-          currentMode === 'chalisa' ? "/assets/audio/chalisa.mp3" :
-            currentMode === 'mantras' ? (mantras[activeItemIndex]?.audio || "/assets/audio/mantra.mp3") :
-              currentMode === 'bhajans' ? (bhajans[activeItemIndex]?.audio || "/assets/audio/bhajan.mp3") :
-                currentMode === 'aartis' ? (aartis[activeItemIndex]?.audio || "/assets/audio/aarti.mp3") :
-                  (stutis[activeItemIndex]?.audio || "/assets/audio/stuti.mp3")
-        }
-        onTimeUpdate={handleTimeUpdate}
-        onLoadedMetadata={handleLoadedMetadata}
-        onEnded={() => {
-          if (currentRepeat + 1 < repeatCount) {
-            setCurrentRepeat(prev => prev + 1);
-            if (audioRef.current) {
-              audioRef.current.currentTime = 0;
-              setCurrentTime(0);
-              audioRef.current.play().catch(() => { });
-            }
-          } else {
-            setIsPlaying(false);
-            setCurrentRepeat(0);
-            if (audioRef.current) setCurrentTime(audioRef.current.duration);
-          }
-        }} />
-      <audio ref={bellAudioRef} src="/assets/audio/bell.mp3" />
-      <audio ref={shankhAudioRef} src="/assets/audio/shankh.mp3" />
 
       {/* Flower Shower */}
       {flowers.map(flower => (
@@ -361,8 +391,27 @@ function App() {
 
               <button className="dock-play-btn" onClick={() => {
                 triggerHaptic(ImpactStyle.Medium);
-                if (isPlaying) { audioRef.current.pause(); setIsPlaying(false); }
-                else { audioRef.current.play(); setIsPlaying(true); }
+                console.log(`[DOCK PLAY] Mode: ${currentMode} | isPlaying: ${isPlaying} | Audio state: ${audioRef.current?.paused ? 'paused' : 'playing'}`);
+                if (audioRef.current) {
+                  if (isPlaying) {
+                    console.log("[DOCK] Pausing:", audioRef.current.src);
+                    audioRef.current.pause();
+                    setIsPlaying(false);
+                  } else {
+                    console.log("[DOCK] Playing:", audioRef.current.src);
+                    audioRef.current.play()
+                      .then(() => {
+                        console.log("[DOCK] Play Success");
+                        setIsPlaying(true);
+                      })
+                      .catch(e => {
+                        console.error("[DOCK] Play Error:", e.message);
+                        console.error("Path attempted:", audioRef.current.src);
+                      });
+                  }
+                } else {
+                  console.error("[DOCK] No audio instance found!");
+                }
               }}>
                 {isPlaying ? '⏸' : '▶'}
               </button>
@@ -479,12 +528,14 @@ function App() {
                 currentMode === 'chalisa' ? 'સોદેવ ચાલીસા' :
                   currentMode === 'mantras' ? 'સિદ્ધ મંત્ર સંગ્રહ' :
                     currentMode === 'bhajans' ? 'ભજન સંગ્રહ' :
-                      currentMode === 'aartis' ? 'સોદેવ આરતી' : 'સોદેવ સ્તુતિ'
+                      currentMode === 'aartis' ? 'સોદેવ આરતી' :
+                        currentMode === 'stutis' ? 'સોદેવ સ્તુતિ' : 'સોદેવ પૂજા'
               ) : (
                 currentMode === 'chalisa' ? 'सोदेव चालीसा' :
                   currentMode === 'mantras' ? 'सिद्ध मंत्र संग्रह' :
                     currentMode === 'bhajans' ? 'भजन संग्रह' :
-                      currentMode === 'aartis' ? 'सोदेव आरती' : 'सोदेव स्तुति'
+                      currentMode === 'aartis' ? 'सोदेव आरती' :
+                        currentMode === 'stutis' ? 'सोदेव स्तुति' : 'सोदेव पूजा'
               )}
             </div>
             <div className="page-subtitle">
@@ -508,7 +559,6 @@ function App() {
                   setIsPlaying(false);
                   if (audioRef.current) {
                     audioRef.current.pause();
-                    audioRef.current.load();
                   }
                 }}
               >
@@ -526,10 +576,6 @@ function App() {
                 onClick={() => {
                   setActiveItemIndex(index);
                   setIsPlaying(false);
-                  if (audioRef.current) {
-                    audioRef.current.pause();
-                    audioRef.current.load();
-                  }
                 }}
               >
                 <div style={{ color: 'var(--secondary)', fontSize: '0.9rem', marginBottom: '10px' }}>
@@ -546,10 +592,6 @@ function App() {
                 onClick={() => {
                   setActiveItemIndex(index);
                   setIsPlaying(false);
-                  if (audioRef.current) {
-                    audioRef.current.pause();
-                    audioRef.current.load();
-                  }
                 }}
               >
                 <div style={{ color: 'var(--secondary)', fontSize: '0.9rem', marginBottom: '10px' }}>
@@ -558,7 +600,7 @@ function App() {
                 <div className="hindi-text">{aarti[language] || aarti.gujarati || aarti.hindi}</div>
               </div>
             ))
-          ) : (
+          ) : currentMode === 'stutis' ? (
             stutis.map((stuti, index) => (
               <div
                 key={index}
@@ -566,10 +608,6 @@ function App() {
                 onClick={() => {
                   setActiveItemIndex(index);
                   setIsPlaying(false);
-                  if (audioRef.current) {
-                    audioRef.current.pause();
-                    audioRef.current.load();
-                  }
                 }}
               >
                 <div style={{ color: 'var(--secondary)', fontSize: '0.9rem', marginBottom: '10px' }}>
@@ -578,7 +616,7 @@ function App() {
                 <div className="hindi-text">{stuti[language] || stuti.gujarati || stuti.hindi}</div>
               </div>
             ))
-          )}
+          ) : null}
         </main>
       )}
 

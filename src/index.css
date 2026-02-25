@@ -455,8 +455,8 @@ body {
 /* MODERN FLOATING DOCK & LIBRARY TRAY */
 .bottom-dashboard-container {
   position: fixed;
-  bottom: 20px;
-  /* Lifted the entire container from the floor */
+  bottom: 0;
+  /* Seated on the floor */
   left: 0;
   width: 100%;
   z-index: 1000;
@@ -464,9 +464,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 15px;
-  /* Added more bottom padding to lift the content */
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+  padding: 15px 15px env(safe-area-inset-bottom, 15px) 15px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, transparent 100%);
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -626,7 +625,7 @@ body {
   backdrop-filter: blur(40px) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 35px !important;
-  padding: 12px 20px !important;
+  padding: 15px 20px 0 20px !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
   pointer-events: auto;
   display: flex;
