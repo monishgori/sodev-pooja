@@ -14,10 +14,20 @@ const ImpactStyle = {
 };
 
 function App() {
-  const [currentMode, setCurrentMode] = useState(localStorage.getItem('pooja_mode') || 'chalisa');
+  // Safe Storage Utility
+  const getSafeStorage = (key, fallback) => {
+    try {
+      return localStorage.getItem(key) || fallback;
+    } catch (e) {
+      console.warn("Storage access failed:", e);
+      return fallback;
+    }
+  };
+
+  const [currentMode, setCurrentMode] = useState(() => getSafeStorage('pooja_mode', 'chalisa'));
   const [isPlaying, setIsPlaying] = useState(false);
-  const [language, setLanguage] = useState(localStorage.getItem('pooja_lang') || 'gujarati');
-  const [repeatCount, setRepeatCount] = useState(Number(localStorage.getItem('pooja_repeat')) || 1);
+  const [language, setLanguage] = useState(() => getSafeStorage('pooja_lang', 'gujarati'));
+  const [repeatCount, setRepeatCount] = useState(() => Number(getSafeStorage('pooja_repeat', 1)));
   const [currentRepeat, setCurrentRepeat] = useState(0);
   const [isBellRinging, setIsBellRinging] = useState(false);
   const [flowers, setFlowers] = useState([]);
@@ -25,7 +35,7 @@ function App() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [activeVerse, setActiveVerse] = useState(0);
-  const [activeItemIndex, setActiveItemIndex] = useState(Number(localStorage.getItem('pooja_index')) || 0);
+  const [activeItemIndex, setActiveItemIndex] = useState(() => Number(getSafeStorage('pooja_index', 0)));
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [sleepTimer, setSleepTimer] = useState(null); // in minutes
   const [timerId, setTimerId] = useState(null);
@@ -33,6 +43,18 @@ function App() {
   const [dailyQuote, setDailyQuote] = useState({ gujarati: '', hindi: '', english: '' });
   const [isDiyaLit, setIsDiyaLit] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
+
+  // Save Preferences
+  useEffect(() => {
+    try {
+      localStorage.setItem('pooja_mode', currentMode);
+      localStorage.setItem('pooja_lang', language);
+      localStorage.setItem('pooja_repeat', repeatCount);
+      localStorage.setItem('pooja_index', activeItemIndex);
+    } catch (e) {
+      console.warn("Saving to storage failed:", e);
+    }
+  }, [currentMode, language, repeatCount, activeItemIndex]);
 
   const audioRef = useRef(null);
   const bellAudioRef = useRef(null);
@@ -69,13 +91,6 @@ function App() {
     setDailyQuote(quotes[quoteIndex]);
   }, []);
 
-  // Save Preferences
-  useEffect(() => {
-    localStorage.setItem('pooja_mode', currentMode);
-    localStorage.setItem('pooja_lang', language);
-    localStorage.setItem('pooja_repeat', repeatCount);
-    localStorage.setItem('pooja_index', activeItemIndex);
-  }, [currentMode, language, repeatCount, activeItemIndex]);
 
   // Sleep Timer logic
   useEffect(() => {
