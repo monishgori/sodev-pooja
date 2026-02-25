@@ -247,6 +247,11 @@ function App() {
     triggerHaptic(ImpactStyle.Medium);
     if (!audioRef.current) return;
 
+    // Safety: Initialize if not already done
+    if (!isAudioInitialized) {
+      initializeAudio();
+    }
+
     if (audioRef.current.paused) {
       try {
         // Essential for iOS: ensure source is valid and primed
@@ -291,8 +296,8 @@ function App() {
               currentMode === 'videos' ? "" :
                 (stutis[activeItemIndex]?.audio || "/assets/audio/Stuti.mp3");
 
-    // Standardize URL for browser compatibility
-    const currentAudioSrc = rawAudioSrc ? encodeURI(rawAudioSrc) : "";
+    // Standardize URL to absolute for iOS compatibility
+    const currentAudioSrc = rawAudioSrc ? new URL(rawAudioSrc, window.location.origin).href : "";
 
     const prevSrc = audioRef.current?.getAttribute('data-prev-src');
 
