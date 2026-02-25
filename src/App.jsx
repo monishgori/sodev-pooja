@@ -117,14 +117,6 @@ function App() {
       if (dur && isFinite(dur) && dur > 0 && duration !== dur) {
         setDuration(dur);
       }
-
-      // Lyrics Sync
-      if (currentMode === 'chalisa') {
-        const verseCount = chalisaData.lyrics.length;
-        const index = Math.floor((cur / (dur || 1)) * verseCount);
-        const safeIndex = Math.min(index, verseCount - 1);
-        if (safeIndex !== activeVerse) setActiveVerse(safeIndex);
-      }
     }
   };
 
@@ -155,15 +147,7 @@ function App() {
   };
 
 
-  // Auto-scroll logic: When activeVerse changes, scroll the lyrics container
-  useEffect(() => {
-    if (isLyricsVisible && isPlaying) {
-      const activeElement = document.querySelector('.active-verse');
-      if (activeElement) {
-        activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }
-  }, [activeVerse, isLyricsVisible, isPlaying]);
+  // Auto-scroll logic removed as per user request to revoke auto-sync
 
   // Flower Shower Logic
   const startFlowerShower = () => {
