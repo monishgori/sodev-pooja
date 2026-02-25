@@ -887,18 +887,27 @@ body {
 }
 
 .diya-container {
+  --diya-scale: 0.5;
+  --diya-y-offset: -140px;
   position: fixed;
   top: 45%;
   left: 50%;
   z-index: 2000;
-  /* In front of everything for the virtual pooja */
   display: flex;
   flex-direction: column;
   align-items: center;
   pointer-events: none;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.5);
-  transition: opacity 0.8s ease;
+  transform: translate(-50%, -50%) scale(var(--diya-scale));
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-mode .diya-container {
+  --diya-scale: 0.4;
+  --diya-y-offset: -180px;
+  z-index: 5;
+  top: 40%;
+  opacity: 0.4 !important;
 }
 
 .diya-container.lit {
@@ -908,11 +917,11 @@ body {
 
 @keyframes aarti-motion {
   0% {
-    transform: translate(-50%, -50%) rotate(0deg) translateY(-140px) rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg) translateY(var(--diya-y-offset)) rotate(0deg) scale(var(--diya-scale));
   }
 
   100% {
-    transform: translate(-50%, -50%) rotate(360deg) translateY(-140px) rotate(-360deg);
+    transform: translate(-50%, -50%) rotate(360deg) translateY(var(--diya-y-offset)) rotate(-360deg) scale(var(--diya-scale));
   }
 }
 
