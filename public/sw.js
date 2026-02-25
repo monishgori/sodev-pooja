@@ -1,4 +1,4 @@
-const CACHE_NAME = 'sodev-pooja-v1.0.3';
+const CACHE_NAME = 'sodev-pooja-v1.0.4';
 
 // Install Event
 self.addEventListener('install', (event) => {
@@ -19,6 +19,13 @@ self.addEventListener('activate', (event) => {
 // Fetch Event - Network First Strategy
 self.addEventListener('fetch', (event) => {
     if (event.request.method !== 'GET') return;
+
+    // 🚨 iOS FIX: Do not intercept or cache media files (mp3, mp4, etc.)
+    // Safari requires 'Range' requests which Service Workers break unless handled specifically.
+    const url = event.request.url.toLowerCase();
+    if (url.endsWith('.mp3') || url.endsWith('.wav') || url.endsWith('.mp4') || url.includes('/assets/audio/')) {
+        return; // Fallback to browser's native network handler
+    }
 
     event.respondWith(
         fetch(event.request)

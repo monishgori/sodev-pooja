@@ -184,6 +184,7 @@ function App() {
   };
 
   const ringBell = () => {
+    if (!isAudioInitialized) initializeAudio();
     triggerHaptic(ImpactStyle.Heavy);
     setIsBellRinging(true);
     if (bellAudioRef.current) {
@@ -194,6 +195,7 @@ function App() {
   };
 
   const playShankh = () => {
+    if (!isAudioInitialized) initializeAudio();
     triggerHaptic(ImpactStyle.Heavy);
     if (shankhAudioRef.current) {
       shankhAudioRef.current.currentTime = 0;
@@ -201,22 +203,77 @@ function App() {
     }
   };
 
+  const showerFlowers = () => {
+    if (!isAudioInitialized) initializeAudio();
+    startFlowerShower();
+  };  // Global iOS Audio Unlock
+  useEffect(() => {
+    const unlock = () => {
+      initializeAudio();
+      window.removeEventListener('touchstart', unlock);
+      window.removeEventListener('click', unlock);
+    };
+    window.addEventListener('touchstart', unlock);
+    window.addEventListener('click', unlock);
+    return () => {
+      window.removeEventListener('touchstart', unlock);
+      window.removeEventListener('click', unlock);
+    };
+  }, [isAudioInitialized]);
+
   const toggleDiya = () => {
     triggerHaptic();
     setIsDiyaLit(!isDiyaLit);
   };
 
 
+  const [isAudioInitialized, setIsAudioInitialized] = useState(false);
+
+  const initializeAudio = () => {
+    if (isAudioInitialized) return;
+
+    // iOS/WebKit requires audio to be "primed" by a user gesture
+    if (audioRef.current) {
+      audioRef.current.play().then(() => {
+        audioRef.current.pause();
+        setIsAudioInitialized(true);
+      }).catch(() => {
+        // Fallback for strict browsers
+        audioRef.current.load();
+        setIsAudioInitialized(true);
+      });
+    }
+  };
+
   const togglePlay = () => {
     triggerHaptic(ImpactStyle.Medium);
     if (!audioRef.current) return;
 
+    // Ensure audio is initialized on interaction
+    if (!isAudioInitialized) {
+      initializeAudio();
+    }
+
     if (audioRef.current.paused) {
-      audioRef.current.play().catch(error => {
-        console.error("Playback failed:", error);
-      });
+      // iOS sometimes needs an explicit load if src changed
+      if (!audioRef.current.src || audioRef.current.src.includes('localhost')) {
+        audioRef.current.load();
+      }
+
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          setIsPlaying(true);
+        }).catch(error => {
+          console.error("Playback failed:", error);
+          // Auto-retry once on user gesture
+          audioRef.current.load();
+          audioRef.current.play().catch(e => console.error("Retry failed:", e));
+        });
+      }
     } else {
       audioRef.current.pause();
+      setIsPlaying(false);
     }
   };
 
@@ -278,7 +335,11 @@ function App() {
       </div>
       <audio
         ref={audioRef}
+        src="/assets/audio/chalisa.mp3"
         preload="auto"
+        crossOrigin="anonymous"
+        playsInline
+        webkit-playsinline="true"
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
         onTimeUpdate={handleTimeUpdate}
@@ -301,8 +362,8 @@ function App() {
             if (audioRef.current) setCurrentTime(audioRef.current.duration);
           }
         }} />
-      <audio ref={bellAudioRef} src="/assets/audio/bell.mp3" />
-      <audio ref={shankhAudioRef} src="/assets/audio/shankh.mp3" />
+      <audio ref={bellAudioRef} src="/assets/audio/bell.mp3" playsInline webkit-playsinline="true" />
+      <audio ref={shankhAudioRef} src="/assets/audio/shankh.mp3" playsInline webkit-playsinline="true" />
 
       {/* Flower Shower */}
       {flowers.map(flower => (
@@ -365,7 +426,7 @@ function App() {
                 <div className="dock-icon">🐚</div>
                 <span>Shankh</span>
               </div>
-              <div className="dock-icon-item" onClick={startFlowerShower}>
+              <div className="dock-icon-item" onClick={showerFlowers}>
                 <div className="dock-icon">🌸</div>
                 <span>Flowers</span>
               </div>
