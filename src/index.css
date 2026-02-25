@@ -80,7 +80,7 @@ body {
   object-position: 50% 20%;
   transition: opacity 3s ease-in-out;
   opacity: 0;
-  filter: brightness(0.9) contrast(1.05);
+  filter: brightness(1.1) contrast(1.1);
 }
 
 .bg-image.active {
@@ -94,11 +94,11 @@ body {
 
 @keyframes bg-pulse-sacred {
   0% {
-    filter: brightness(0.9) contrast(1.05);
+    filter: brightness(1.1) contrast(1.1);
   }
 
   100% {
-    filter: brightness(1.1) contrast(1.15) drop-shadow(0 0 30px rgba(255, 215, 0, 0.3));
+    filter: brightness(1.3) contrast(1.2) drop-shadow(0 0 40px rgba(255, 215, 0, 0.4));
   }
 }
 
