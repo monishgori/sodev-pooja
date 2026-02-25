@@ -79,40 +79,9 @@ export const videos = [
     youtubeId: "SZRCJFBEEcA",
     thumbnail: "https://img.youtube.com/vi/SZRCJFBEEcA/mqdefault.jpg"
   },
+
   {
-    id: 11,
-    title: "Shree Sodevpir Dada Thal",
-    gujarati: "શ્રી સોદેવપીર દાદા થાળ",
-    hindi: "श्री सोदेवपीर दादा थाल",
-    youtubeId: "bWSlFBQC4ug",
-    thumbnail: "https://img.youtube.com/vi/bWSlFBQC4ug/mqdefault.jpg"
-  },
-  {
-    id: 12,
-    title: "Shree Sodevpir Dada Stuti",
-    gujarati: "શ્રી સોદેવપીર દાદા સ્તુતિ",
-    hindi: "श्री सोदेवपीर दादा स्तुति",
-    youtubeId: "CkhWFwhZn_Q",
-    thumbnail: "https://img.youtube.com/vi/CkhWFwhZn_Q/mqdefault.jpg"
-  },
-  {
-    id: 13,
-    title: "Shree Sodevpir Dada Chalisa",
-    gujarati: "શ્રી સોદેવપીર દાદા ચાલીસા",
-    hindi: "श्री सोदेवपीर दादा चालीसा",
-    youtubeId: "eqBU-aFysHQ",
-    thumbnail: "https://img.youtube.com/vi/eqBU-aFysHQ/mqdefault.jpg"
-  },
-  {
-    id: 14,
-    title: "Sodevpir Dada Bhajan",
-    gujarati: "સોદેવપીર દાદા ભજન",
-    hindi: "सोदेवपीर दादा भजन",
-    youtubeId: "cZlfRTUflL8",
-    thumbnail: "https://img.youtube.com/vi/cZlfRTUflL8/mqdefault.jpg"
-  },
-  {
-    id: 15,
+    id: 10,
     title: "Shree Sodevpir Dada Kori 3",
     gujarati: "શ્રી સોદેવપીર દાદા કોરી ૩",
     hindi: "श्री सोदेवपीर दादा कोरी ३",
@@ -120,7 +89,7 @@ export const videos = [
     thumbnail: "https://img.youtube.com/vi/QQX7Y6zUBIU/mqdefault.jpg"
   },
   {
-    id: 16,
+    id: 11,
     title: "Shree Sodevpir Dada Kori 2",
     gujarati: "શ્રી સોદેવપીર દાદા કોરી ૨",
     hindi: "श्री सोदेवपीर दादा कोरी ૨",
