@@ -5,6 +5,8 @@ import { bhajans } from './data/bhajans';
 import { aartis } from './data/aartis';
 import { stutis } from './data/stutis';
 import { quotes } from './data/quotes';
+import { videos } from './data/videos';
+import { historyData } from './data/history';
 // Web haptics fallback
 const ImpactStyle = {
   Light: 10,
@@ -506,11 +508,23 @@ function App() {
             </span>
             <span className="lib-eng">AARTI</span>
           </button>
-          <button className="library-card library-card-wide" onClick={() => startReading('stutis')}>
+          <button className="library-card" onClick={() => startReading('stutis')}>
             <span className="lib-hindi">
               {language === 'gujarati' ? 'સોદેવ સ્તુતિ' : 'सोदेव स्तुति'}
             </span>
             <span className="lib-eng">STUTI</span>
+          </button>
+          <button className="library-card" onClick={() => startReading('history')}>
+            <span className="lib-hindi">
+              {language === 'gujarati' ? 'જીવન ચરિત્ર' : 'जीवन चरित्र'}
+            </span>
+            <span className="lib-eng">HISTORY</span>
+          </button>
+          <button className="library-card library-card-wide" onClick={() => startReading('videos')}>
+            <span className="lib-hindi">
+              {language === 'gujarati' ? 'યુટ્યુબ ભક્તિ' : 'यूट्यूब भक्ति'}
+            </span>
+            <span className="lib-eng">YOUTUBE VIDEOS</span>
           </button>
         </div>
       </div>
@@ -529,13 +543,17 @@ function App() {
                   currentMode === 'mantras' ? 'સિદ્ધ મંત્ર સંગ્રહ' :
                     currentMode === 'bhajans' ? 'ભજન સંગ્રહ' :
                       currentMode === 'aartis' ? 'સોદેવ આરતી' :
-                        currentMode === 'stutis' ? 'સોદેવ સ્તુતિ' : 'સોદેવ પૂજા'
+                        currentMode === 'stutis' ? 'સોદેવ સ્તુતિ' :
+                          currentMode === 'history' ? 'શ્રી સોદેવપીર જીવન ચરિત્ર' :
+                            currentMode === 'videos' ? 'સોદેવ ભક્તિ વીડિયો' : 'સોદેવ પૂજા'
               ) : (
                 currentMode === 'chalisa' ? 'सोदेव चालीसा' :
                   currentMode === 'mantras' ? 'सिद्ध मंत्र संग्रह' :
                     currentMode === 'bhajans' ? 'भजन संग्रह' :
                       currentMode === 'aartis' ? 'सोदेव आरती' :
-                        currentMode === 'stutis' ? 'सोदेव स्तुति' : 'सोदेव पूजा'
+                        currentMode === 'stutis' ? 'सोदेव स्तुति' :
+                          currentMode === 'history' ? 'श्री सोदेवपीर जीवन चरित्र' :
+                            currentMode === 'videos' ? 'सोदेव भक्ति वीडियो' : 'सोदेव पूजा'
               )}
             </div>
             <div className="page-subtitle">
@@ -616,6 +634,54 @@ function App() {
                 <div className="hindi-text">{stuti[language] || stuti.gujarati || stuti.hindi}</div>
               </div>
             ))
+          ) : currentMode === 'history' ? (
+            <div className="history-section">
+              {historyData.lifeStory.content.map((item) => (
+                <div key={item.id} className="verse glass-panel">
+                  <div style={{ color: 'var(--secondary)', fontSize: '1.2rem', marginBottom: '15px' }}>
+                    {item.subtitle[language]}
+                  </div>
+                  <div className="hindi-text" style={{ fontSize: '1.1rem', textAlign: 'left' }}>
+                    {item.text[language]}
+                  </div>
+                </div>
+              ))}
+              <div className="page-header" style={{ marginTop: '50px' }}>
+                <div className="page-title">{language === 'gujarati' ? 'દાદાના ચમત્કારો' : 'दादा के चमत्कार'}</div>
+              </div>
+              {historyData.incidents.map((incident) => (
+                <div key={incident.id} className="verse glass-panel">
+                  <div style={{ color: 'var(--secondary)', fontSize: '1.2rem', marginBottom: '15px' }}>
+                    {incident.title[language]}
+                  </div>
+                  <div className="hindi-text" style={{ fontSize: '1.1rem', textAlign: 'left' }}>
+                    {incident.content[language]}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : currentMode === 'videos' ? (
+            <div className="videos-grid-flow">
+              {videos.map((vid) => (
+                <div key={vid.id} className="verse glass-panel video-card-item">
+                  <div style={{ color: 'var(--secondary)', fontSize: '1rem', marginBottom: '15px' }}>
+                    {vid[language]}
+                  </div>
+                  <div className="video-container-wrapper">
+                    <iframe
+                      width="100%"
+                      height="200"
+                      src={`https://www.youtube.com/embed/${vid.youtubeId}`}
+                      title={vid.title}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      style={{ borderRadius: '15px' }}
+                    ></iframe>
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : null}
         </main>
       )}
