@@ -249,7 +249,7 @@ function App() {
     setCurrentMode(mode);
     setIsLyricsVisible(true);
     setIsLibraryOpen(false);
-    setActiveItemIndex(0); // Reset to first item
+    setActiveItemIndex(mode === 'videos' ? null : 0); // null for videos list, 0 for other modes
     setIsPlaying(false); // Stop any previous audio
     if (audioRef.current) audioRef.current.pause();
   };
