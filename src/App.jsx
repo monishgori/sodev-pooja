@@ -14,7 +14,7 @@ const ImpactStyle = {
   Heavy: 30
 };
 
-const APP_VERSION = '1.0.6';
+const APP_VERSION = '1.0.9';
 
 function App() {
   // Safe Storage Utility
@@ -47,30 +47,11 @@ function App() {
   const [isDiyaLit, setIsDiyaLit] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
   const [historyTab, setHistoryTab] = useState('story'); // 'story' or 'incidents'
+  const [debugStatus, setDebugStatus] = useState('Init...');
   const audioRef = useRef(null);
   const bellAudioRef = useRef(null);
   const shankhAudioRef = useRef(null);
 
-  const [isAudioInitialized, setIsAudioInitialized] = useState(false);
-
-  const initializeAudio = () => {
-    if (isAudioInitialized) return;
-    if (audioRef.current) {
-      // Use a simple play/pause to unlock
-      const p = audioRef.current.play();
-      if (p !== undefined) {
-        p.then(() => {
-          audioRef.current.pause();
-          setIsAudioInitialized(true);
-        }).catch(() => {
-          audioRef.current.load();
-          setIsAudioInitialized(true);
-        });
-      } else {
-        setIsAudioInitialized(true);
-      }
-    }
-  };
 
   // Save Preferences
   useEffect(() => {
@@ -206,53 +187,42 @@ function App() {
   };
 
   const ringBell = () => {
-    if (!isAudioInitialized) initializeAudio();
+    setDebugStatus('Bells On');
     triggerHaptic(ImpactStyle.Heavy);
     setIsBellRinging(true);
     if (bellAudioRef.current) {
       bellAudioRef.current.currentTime = 0;
-      bellAudioRef.current.play().catch(() => { });
+      bellAudioRef.current.play().catch(e => setDebugStatus('Bell Error: ' + e.message));
     }
     setTimeout(() => setIsBellRinging(false), 500);
   };
 
   const playShankh = () => {
-    if (!isAudioInitialized) initializeAudio();
+    setDebugStatus('Shankh On');
     triggerHaptic(ImpactStyle.Heavy);
     if (shankhAudioRef.current) {
       shankhAudioRef.current.currentTime = 0;
-      shankhAudioRef.current.play().catch(() => { });
+      shankhAudioRef.current.play().catch(e => setDebugStatus('Shankh Error: ' + e.message));
     }
   };
 
   const showerFlowers = () => {
-    if (!isAudioInitialized) initializeAudio();
+    setDebugStatus('Flowers On');
     startFlowerShower();
   };
 
   useEffect(() => {
     const unlock = () => {
-      // 1. Prime the Audio Element
+      setDebugStatus('Unlocking...');
       if (audioRef.current) {
         audioRef.current.load();
-      }
-
-      // 2. High-Level Web Audio API Unlock (The most reliable way for iOS)
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (AudioContext) {
-          const context = new AudioContext();
-          const buffer = context.createBuffer(1, 1, 22050);
-          const source = context.createBufferSource();
-          source.buffer = buffer;
-          source.connect(context.destination);
-          source.start(0);
-          if (context.state === 'suspended') {
-            context.resume();
-          }
+        const p = audioRef.current.play();
+        if (p !== undefined) {
+          p.then(() => {
+            audioRef.current.pause();
+            setDebugStatus('Ready');
+          }).catch(e => setDebugStatus('Block: ' + e.message));
         }
-      } catch (e) {
-        console.warn("WebAudio unlock failed:", e);
       }
 
       window.removeEventListener('touchstart', unlock);
@@ -275,27 +245,31 @@ function App() {
 
   const togglePlay = () => {
     triggerHaptic(ImpactStyle.Medium);
-    if (!audioRef.current) return;
+    if (!audioRef.current) {
+      setDebugStatus('No Audio Ref');
+      return;
+    }
 
     if (audioRef.current.paused) {
+      setDebugStatus('Playing...');
       const playPromise = audioRef.current.play();
       if (playPromise !== undefined) {
         playPromise.then(() => {
           setIsPlaying(true);
+          setDebugStatus('Playing');
         }).catch(error => {
-          console.error("Playback error:", error);
-          // Try loading and playing again
+          setDebugStatus('Err: ' + error.message);
           audioRef.current.load();
-          audioRef.current.play()
-            .then(() => setIsPlaying(true))
-            .catch(e => {
-              alert("Audio blocked by browser. Please tap the screen and try again. Error: " + e.message);
-            });
+          audioRef.current.play().then(() => {
+            setIsPlaying(true);
+            setDebugStatus('Playing (Retry)');
+          }).catch(e => setDebugStatus('Fail: ' + e.message));
         });
       }
     } else {
       audioRef.current.pause();
       setIsPlaying(false);
+      setDebugStatus('Paused');
     }
   };
 
@@ -309,12 +283,14 @@ function App() {
               currentMode === 'videos' ? "" :
                 (stutis[activeItemIndex]?.audio || "/assets/audio/stuti.mp3");
 
-    // Simplified Path for iOS
-    const currentAudioSrc = rawAudioSrc || "";
+    // Standardization for stability
+    const currentAudioSrc = rawAudioSrc ?
+      new URL(rawAudioSrc, window.location.origin).href : "";
 
     const prevSrc = audioRef.current?.getAttribute('data-prev-src');
 
     if (prevSrc !== currentAudioSrc) {
+      setDebugStatus('Loading New...');
       setCurrentTime(0);
       setDuration(0);
       setCurrentRepeat(0);
@@ -864,6 +840,19 @@ function App() {
       )}
 
       {/* No separate footer - all is in dashboard */}
+      <div style={{
+        position: 'fixed',
+        bottom: 5,
+        left: 0,
+        width: '100%',
+        textAlign: 'center',
+        fontSize: '10px',
+        color: 'rgba(255,255,255,0.3)',
+        pointerEvents: 'none',
+        zIndex: 9999
+      }}>
+        v{APP_VERSION} | {debugStatus}
+      </div>
     </div>
   );
 }
