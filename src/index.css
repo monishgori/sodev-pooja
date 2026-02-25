@@ -585,6 +585,22 @@ body {
   text-transform: uppercase;
 }
 
+.privacy-link {
+  display: block;
+  text-align: center;
+  margin-top: 30px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+
+.privacy-link:hover {
+  color: var(--secondary);
+}
+
 /* Celestial Duo-Island Dock */
 .pooja-dock {
   width: 100%;

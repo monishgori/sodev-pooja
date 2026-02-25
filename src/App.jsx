@@ -470,6 +470,9 @@ function App() {
             <span className="lib-eng">STUTI</span>
           </button>
         </div>
+        <a href="/privacy.html" className="privacy-link" target="_blank" rel="noopener noreferrer">
+          PRIVACY POLICY
+        </a>
       </div>
 
       {/* LYRICS VIEW */}
