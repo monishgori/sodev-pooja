@@ -1,0 +1,29 @@
+{
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "headers": [
+        {
+            "source": "/assets/audio/(.*)",
+            "headers": [
+                {
+                    "key": "Accept-Ranges",
+                    "value": "bytes"
+                },
+                {
+                    "key": "Content-Type",
+                    "value": "audio/mpeg"
+                },
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=31536000, immutable"
+                }
+            ]
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}

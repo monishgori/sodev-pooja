@@ -1,0 +1,22 @@
+{
+    "short_name": "Sodev Pooja",
+    "name": "Shri Sodevpir Dada Bhakti",
+    "icons": [
+        {
+            "src": "/assets/images/1.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/assets/images/1.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#c8a165",
+    "description": "Devotional app for Shri Sodevpir Dada Chalisa, Aarti, and Bhajans."
+}
