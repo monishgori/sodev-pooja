@@ -11,6 +11,6 @@ export const mantras = [
         name: "Shree Sodevpir Dada Dhyan Mantra",
         gujarati: "ૐ શ્રી સાદેવપીર દાદાય નમઃ",
         hindi: "ॐ श्री सादेवपीर दादाय नमः",
-        audio: "/assets/audio/shree_sodevpir_dada_dhyan_mantra.mp3"
+        audio: "/assets/audio/Shree_Sodevpir_Dada_Dhyan_Mantra.mp3"
     }
 ];
