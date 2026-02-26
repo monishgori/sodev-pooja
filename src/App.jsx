@@ -491,24 +491,6 @@ function App() {
             <div className="greeting-text">{getGreeting()}</div>
           </div>
 
-          {/* Move language here to clear space in the dock (Premium Location) */}
-          {!isLyricsVisible && (
-            <div className="language-pill-container header-lang glass-panel">
-              <button
-                className={`lang-pill-btn ${language === 'gujarati' ? 'active' : ''}`}
-                onClick={(e) => { e.stopPropagation(); setLanguage('gujarati'); triggerHaptic(); }}
-              >
-                GUJ
-              </button>
-              <button
-                className={`lang-pill-btn ${language === 'hindi' ? 'active' : ''}`}
-                onClick={(e) => { e.stopPropagation(); setLanguage('hindi'); triggerHaptic(); }}
-              >
-                HIN
-              </button>
-            </div>
-          )}
-
           {!isLyricsVisible && !isFocusMode && (dailyQuote.gujarati || dailyQuote.hindi) && (
             <div className="daily-quote-card glass-panel">
               <div className="quote-header">
@@ -595,6 +577,21 @@ function App() {
               }}>
                 {isPlaying ? '⏸' : '▶'}
               </button>
+
+              <div className="language-pill-container mini">
+                <button
+                  className={`lang-pill-btn ${language === 'gujarati' ? 'active' : ''}`}
+                  onClick={(e) => { e.stopPropagation(); setLanguage('gujarati'); triggerHaptic(); }}
+                >
+                  G
+                </button>
+                <button
+                  className={`lang-pill-btn ${language === 'hindi' ? 'active' : ''}`}
+                  onClick={(e) => { e.stopPropagation(); setLanguage('hindi'); triggerHaptic(); }}
+                >
+                  H
+                </button>
+              </div>
 
               <div className="dock-repeat-island glass-panel">
                 <span className="repeat-icon">🔁</span>
