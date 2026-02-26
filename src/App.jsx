@@ -326,9 +326,20 @@ function App() {
       setIsPlaying(false);
     };
 
-    audio.onended = null; // Hands-off: logic is now managed by a dedicated effect for stability
-
+    audio.onended = null;
     return audio;
+  };
+
+  const getAudioPath = () => {
+    const audioModes = ['chalisa', 'mantras', 'bhajans', 'aartis', 'stutis'];
+    if (!audioModes.includes(currentMode)) return "/assets/audio/chalisa1.mp3";
+
+    return currentMode === 'chalisa' ? "/assets/audio/chalisa1.mp3" :
+      currentMode === 'mantras' ? (mantras[activeItemIndex]?.audio || "/assets/audio/Shree_Sodevpir_Dada_Dhyan_Mantra.mp3") :
+        currentMode === 'bhajans' ? (bhajans[activeItemIndex]?.audio || "/assets/audio/Jholi_Meri_Bhar_De.mp3") :
+          currentMode === 'aartis' ? (aartis[activeItemIndex]?.audio || "/assets/audio/aarti.mp3") :
+            currentMode === 'stutis' ? (stutis[activeItemIndex]?.audio || "/assets/audio/Stuti.mp3") :
+              "/assets/audio/chalisa1.mp3";
   };
 
   // Effect to handle source changes (switching tracks)
@@ -336,16 +347,7 @@ function App() {
     const audioModes = ['chalisa', 'mantras', 'bhajans', 'aartis', 'stutis'];
     if (!audioModes.includes(currentMode)) return;
 
-    // Resolve source path
-    const rawAudioSrc =
-      currentMode === 'chalisa' ? "/assets/audio/chalisa1.mp3" :
-        currentMode === 'mantras' ? (mantras[activeItemIndex]?.audio || "/assets/audio/Shree_Sodevpir_Dada_Dhyan_Mantra.mp3") :
-          currentMode === 'bhajans' ? (bhajans[activeItemIndex]?.audio || "/assets/audio/Jholi_Meri_Bhar_De.mp3") :
-            currentMode === 'aartis' ? (aartis[activeItemIndex]?.audio || "/assets/audio/aarti.mp3") :
-              currentMode === 'stutis' ? (stutis[activeItemIndex]?.audio || "/assets/audio/Stuti.mp3") :
-                "/assets/audio/chalisa1.mp3";
-
-    const path = rawAudioSrc;
+    const path = getAudioPath();
 
     // RESET counters on track change
     setCurrentTime(0);
@@ -353,7 +355,15 @@ function App() {
     setCurrentRepeat(0);
     setIsPlaying(false);
 
-    createAudioInstance(path);
+    // Safari Fix: Only touch the existing instance if it's already there. 
+    // If not, it will be created on the first user "PLAY" click.
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = path;
+      audioRef.current.load(); // Prepare for next play
+    } else {
+      createAudioInstance(path); // Pre-warm
+    }
 
     return () => {
       if (audioRef.current) {
@@ -544,26 +554,25 @@ function App() {
               <button className="dock-play-btn" onClick={(e) => {
                 e.stopPropagation();
                 triggerHaptic(ImpactStyle.Medium);
-                console.log(`[DOCK PLAY] Mode: ${currentMode} | isPlaying: ${isPlaying} | Audio state: ${audioRef.current?.paused ? 'paused' : 'playing'}`);
-                if (audioRef.current) {
+
+                // CRITICAL: Ensure audio instance exists on user interaction for iOS Safari
+                if (!audioRef.current) {
+                  createAudioInstance(getAudioPath());
+                }
+
+                const audio = audioRef.current;
+                if (audio) {
                   if (isPlaying) {
-                    console.log("[DOCK] Pausing:", audioRef.current.src);
-                    audioRef.current.pause();
+                    audio.pause();
                     setIsPlaying(false);
                   } else {
-                    console.log("[DOCK] Playing:", audioRef.current.src);
-                    audioRef.current.play()
-                      .then(() => {
-                        console.log("[DOCK] Play Success");
-                        setIsPlaying(true);
-                      })
-                      .catch(e => {
-                        console.error("[DOCK] Play Error:", e.message);
-                        console.error("Path attempted:", audioRef.current.src);
-                      });
+                    const playPromise = audio.play();
+                    if (playPromise !== undefined) {
+                      playPromise
+                        .then(() => setIsPlaying(true))
+                        .catch(err => console.error("Dock Play Error:", err.message));
+                    }
                   }
-                } else {
-                  console.error("[DOCK] No audio instance found!");
                 }
               }}>
                 {isPlaying ? '⏸' : '▶'}
