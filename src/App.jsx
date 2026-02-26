@@ -28,7 +28,8 @@ function App() {
   const [duration, setDuration] = useState(0);
   const [activeVerse, setActiveVerse] = useState(0);
   const [activeItemIndex, setActiveItemIndex] = useState(Number(localStorage.getItem('pooja_index')) || 0);
-  const [activeIncidentIndex, setActiveIncidentIndex] = useState(0);
+  const [activeIncidentIndex, setActiveIncidentIndex] = useState(null);
+  const [historyView, setHistoryView] = useState('menu'); // 'menu', 'lifeStory', 'incidents'
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [sleepTimer, setSleepTimer] = useState(null); // in minutes
   const [timerId, setTimerId] = useState(null);
@@ -274,6 +275,10 @@ function App() {
 
   const startReading = (mode) => {
     triggerHaptic(ImpactStyle.Light);
+    if (mode === 'history') {
+      setHistoryView('menu');
+      setActiveIncidentIndex(null);
+    }
 
     const audioModes = ['chalisa', 'mantras', 'bhajans', 'aartis', 'stutis'];
     const isNewModeAudio = audioModes.includes(mode);
@@ -658,53 +663,87 @@ function App() {
             ))
           ) : currentMode === 'history' ? (
             <div className="history-section-container">
-              <div className="page-header">
-                <div className="page-title">{language === 'gujarati' ? 'જીવન ચરિત્ર' : 'जीवन चरित्र'}</div>
-                <div className="page-subtitle">Life Story & Miracles</div>
-              </div>
-
-              {historyData.lifeStory.content.map((item) => (
-                <div key={item.id} className="verse glass-panel">
-                  <div style={{ color: 'var(--secondary)', fontSize: '1.2rem', marginBottom: '15px' }}>
-                    {item.subtitle[language]}
+              {historyView === 'menu' ? (
+                <>
+                  <div className="page-header">
+                    <div className="page-title">{language === 'gujarati' ? 'ઇતિહાસ' : 'इतिहास'}</div>
+                    <div className="page-subtitle">Choose a Section to Read</div>
                   </div>
-                  <div className="hindi-text" style={{ fontSize: '1.1rem', textAlign: 'left' }}>
-                    {item.text[language]}
+                  <div className="history-menu-grid">
+                    <button className="history-menu-card glass-panel" onClick={() => { setHistoryView('lifeStory'); triggerHaptic(ImpactStyle.Medium); }}>
+                      <div className="menu-card-icon">📖</div>
+                      <div className="menu-card-content">
+                        <div className="menu-card-title">{language === 'gujarati' ? 'જીવન ચરિત્ર' : 'जीवन चरित्र'}</div>
+                        <div className="menu-card-subtitle">Life Story & Miracles</div>
+                      </div>
+                    </button>
+                    <button className="history-menu-card glass-panel" onClick={() => { setHistoryView('incidents'); triggerHaptic(ImpactStyle.Medium); }}>
+                      <div className="menu-card-icon">✨</div>
+                      <div className="menu-card-content">
+                        <div className="menu-card-title">{language === 'gujarati' ? 'દાદાના ચમત્કારો' : 'दादा के चमत्कार'}</div>
+                        <div className="menu-card-subtitle">True Incidents Index</div>
+                      </div>
+                    </button>
                   </div>
-                </div>
-              ))}
-
-              <div className="page-header" style={{ marginTop: '50px' }}>
-                <div className="page-title">{language === 'gujarati' ? 'દાદાના ચમત્કારો' : 'दादा के चमत्कार'}</div>
-                <div className="page-subtitle">Select a Miracle to Read</div>
-              </div>
-
-              <div className="incidents-grid">
-                {historyData.incidents.map((incident, idx) => (
-                  <button
-                    key={incident.id}
-                    className={`incident-select-card glass-panel ${activeIncidentIndex === idx ? 'active' : ''}`}
-                    onClick={() => {
-                      setActiveIncidentIndex(idx);
-                      triggerHaptic(ImpactStyle.Light);
-                    }}
-                  >
-                    <span className="incident-number">#{idx + 1}</span>
-                    <span className="incident-title-text">{incident.title[language]}</span>
+                </>
+              ) : historyView === 'lifeStory' ? (
+                <>
+                  <button className="history-back-nav" onClick={() => setHistoryView('menu')}>
+                    <span className="back-arrow">←</span> {language === 'gujarati' ? 'પાછા જાઓ' : 'वापस जाएं'}
                   </button>
-                ))}
-              </div>
+                  <div className="page-header">
+                    <div className="page-title">{language === 'gujarati' ? 'જીવન ચરિત્ર' : 'जीवन चरित्र'}</div>
+                    <div className="page-subtitle">Sacred Journey of Sodevpir Dada</div>
+                  </div>
+                  {historyData.lifeStory.content.map((item) => (
+                    <div key={item.id} className="verse glass-panel">
+                      <div style={{ color: 'var(--secondary)', fontSize: '1.2rem', marginBottom: '15px' }}>
+                        {item.subtitle[language]}
+                      </div>
+                      <div className="hindi-text" style={{ fontSize: '1.1rem', textAlign: 'left' }}>
+                        {item.text[language]}
+                      </div>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <>
+                  <button className="history-back-nav" onClick={() => setHistoryView('menu')}>
+                    <span className="back-arrow">←</span> {language === 'gujarati' ? 'પાછા જાઓ' : 'वापस जाएं'}
+                  </button>
+                  <div className="page-header">
+                    <div className="page-title">{language === 'gujarati' ? 'દાદાના ચમત્કારો' : 'दादा के चमत्कार'}</div>
+                    <div className="page-subtitle">Select a Miracle to Read</div>
+                  </div>
 
-              {historyData.incidents[activeIncidentIndex] && (
-                <div className="selected-incident-viewer glass-panel active-verse">
-                  <div className="incident-viewer-header">
-                    <span className="divine-tag">{language === 'gujarati' ? 'ચમત્કાર' : 'चमत्कार'}</span>
-                    <h2>{historyData.incidents[activeIncidentIndex].title[language]}</h2>
+                  <div className="incidents-grid">
+                    {historyData.incidents.map((incident, idx) => (
+                      <button
+                        key={incident.id}
+                        className={`incident-select-card glass-panel ${activeIncidentIndex === idx ? 'active' : ''}`}
+                        onClick={() => {
+                          setActiveIncidentIndex(idx);
+                          triggerHaptic(ImpactStyle.Light);
+                        }}
+                      >
+                        <span className="incident-number">#{idx + 1}</span>
+                        <span className="incident-title-text">{incident.title[language]}</span>
+                      </button>
+                    ))}
                   </div>
-                  <div className="hindi-text incident-content">
-                    {historyData.incidents[activeIncidentIndex].content[language]}
-                  </div>
-                </div>
+
+                  {activeIncidentIndex !== null && historyData.incidents[activeIncidentIndex] && (
+                    <div className="selected-incident-viewer glass-panel active-verse">
+                      <div className="incident-viewer-header">
+                        <span className="divine-tag">{language === 'gujarati' ? 'ચમત્કાર' : 'चमत्कार'}</span>
+                        <h2>{historyData.incidents[activeIncidentIndex].title[language]}</h2>
+                      </div>
+                      <div className="hindi-text incident-content">
+                        {historyData.incidents[activeIncidentIndex].content[language]}
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           ) : currentMode === 'videos' ? (

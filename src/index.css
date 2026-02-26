@@ -1432,6 +1432,95 @@ body {
   letter-spacing: 2px;
 }
 
+/* History Menu Styling */
+.history-menu-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+.history-menu-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px !important;
+  border-radius: 30px !important;
+  text-align: left !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  cursor: pointer;
+}
+
+.history-menu-card:hover {
+  background: rgba(255, 153, 51, 0.1) !important;
+  border-color: var(--secondary) !important;
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.menu-card-icon {
+  font-size: 2.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+
+.menu-card-content {
+  flex: 1;
+}
+
+.menu-card-title {
+  font-family: 'Tiro Devanagari Hindi', serif;
+  font-size: 1.35rem;
+  color: var(--secondary);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.menu-card-subtitle {
+  font-size: 0.85rem;
+  color: #fff;
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.history-back-nav {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.history-back-nav:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(-5px);
+  border-color: var(--secondary);
+}
+
+.back-arrow {
+  font-size: 1.2rem;
+  color: var(--secondary);
+}
+
 .tray-privacy-footer button:hover {
   opacity: 1 !important;
   text-decoration: underline;
