@@ -318,7 +318,7 @@ function App() {
 
       {/* Background Section */}
       <div className="background-slider" onClick={() => setIsLyricsVisible(false)}>
-        <img src={backgroundImage} alt="SODEV" className={`bg-image active ${isPlaying ? 'pulse-visualizer' : ''}`} />
+        <img src={backgroundImage} alt="SODEV" className="bg-image active" />
         <div className="bg-overlay"></div>
       </div>
 
