@@ -503,17 +503,19 @@ body {
 /* Library Tray */
 .library-tray {
   position: fixed;
+  /* Changed to fixed for independent overlaying */
   bottom: 0;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
+  left: 50%;
+  transform: translate(-50%, 110%);
   width: 100%;
   max-width: 550px;
   background: rgba(15, 15, 15, 0.98) !important;
-  backdrop-filter: blur(25px) !important;
-  -webkit-backdrop-filter: blur(25px) !important;
+  backdrop-filter: blur(50px) !important;
+  -webkit-backdrop-filter: blur(50px) !important;
   border-radius: 35px 35px 0 0 !important;
   padding: 30px 20px 60px 20px !important;
+  opacity: 1;
+  /* Keep opacity 1, control via transform */
   visibility: visible;
   transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
   pointer-events: auto;
@@ -525,10 +527,9 @@ body {
   scrollbar-width: none;
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  /* Ultimate iOS Stability */
-  transform: translateY(115%) translateZ(0);
-  -webkit-transform: translateY(115%) translateZ(0);
+  /* iOS stability fixes */
+  transform: translate(-50%, 110%) translateZ(0);
+  -webkit-transform: translate(-50%, 110%) translateZ(0);
   will-change: transform;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -537,8 +538,8 @@ body {
 }
 
 .library-tray.active {
-  transform: translateY(0) translateZ(0);
-  -webkit-transform: translateY(0) translateZ(0);
+  transform: translate(-50%, 0) translateZ(0);
+  -webkit-transform: translate(-50%, 0) translateZ(0);
 }
 
 .library-card {
