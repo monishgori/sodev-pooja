@@ -163,39 +163,33 @@ function App() {
     setIsDiyaLit(!isDiyaLit);
   };
 
-  // Helper to create and setup a new audio instance
+  // Robust Audio Instance Creation for Mobile/Android
   const createAudioInstance = (path) => {
-    // Stop previous if exists
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = "";
-      audioRef.current.onended = null;
-      audioRef.current.ontimeupdate = null;
-      audioRef.current.onloadedmetadata = null;
-      audioRef.current.onerror = null;
-      audioRef.current = null;
+    console.log("INITIALIZING AUDIO:", path);
+
+    // Ensure we have a persistent audio instance
+    if (!audioRef.current) {
+      audioRef.current = new Audio();
     }
 
-    // Create new instance
-    console.log("Loading audio path:", path);
-    const audio = new Audio(path);
+    const audio = audioRef.current;
+    audio.pause();
 
-    audio.onerror = (e) => {
-      console.log("Audio failed to load from path:", audio.src);
-      console.error("Audio Error Details:", audio.error);
-      setIsPlaying(false);
-    };
+    // Set source and call load() - critical for mobile stability
+    audio.src = path;
+    audio.load();
+    audio.preload = "auto";
+
+    // Setup events
+    audio.onplay = () => setIsPlaying(true);
+    audio.onpause = () => setIsPlaying(false);
 
     audio.ontimeupdate = () => {
       if (!isSeeking) {
-        const cur = audio.currentTime;
-        const dur = audio.duration;
-        setCurrentTime(cur);
-        if (dur && isFinite(dur) && dur > 0) {
-          setDuration(dur);
+        setCurrentTime(audio.currentTime);
+        if (audio.duration && isFinite(audio.duration)) {
+          setDuration(audio.duration);
         }
-
-        // Lyrics Sync disabled for manual reading
       }
     };
 
@@ -205,13 +199,16 @@ function App() {
       }
     };
 
+    audio.onerror = (e) => {
+      console.error("Audio Load Error:", path, audio.error);
+      setIsPlaying(false);
+    };
+
     audio.onended = () => {
       if (currentRepeat + 1 < repeatCount) {
         setCurrentRepeat(prev => prev + 1);
         audio.currentTime = 0;
-        setCurrentTime(0);
-        console.log("Replaying track, path:", path);
-        audio.play().catch(e => console.error("Replay error:", e));
+        audio.play().catch(e => console.error("Auto-replay failed:", e));
       } else {
         setIsPlaying(false);
         setCurrentRepeat(0);
@@ -219,37 +216,36 @@ function App() {
       }
     };
 
-    audioRef.current = audio;
     return audio;
   };
 
   // Effect to handle source changes (switching tracks)
   useEffect(() => {
-    // Only reload audio source if we are in an audio-bearing mode
     const audioModes = ['chalisa', 'mantras', 'bhajans', 'aartis', 'stutis'];
     if (!audioModes.includes(currentMode)) return;
 
+    // Resolve source with explicit preference for MP3s for Android support
     const rawAudioSrc =
       currentMode === 'chalisa' ? "/assets/audio/chalisa1.mp3" :
-        currentMode === 'mantras' ? (mantras[activeItemIndex]?.audio || "/assets/audio/mantra.mp3") :
-          currentMode === 'bhajans' ? (bhajans[activeItemIndex]?.audio || "/assets/audio/bhajan.mp3") :
+        currentMode === 'mantras' ? (mantras[activeItemIndex]?.audio || "/assets/audio/Shree_Sodevpir_Dada_Dhyan_Mantra.mp3") :
+          currentMode === 'bhajans' ? (bhajans[activeItemIndex]?.audio || "/assets/audio/Jholi_Meri_Bhar_De.mp3") :
             currentMode === 'aartis' ? (aartis[activeItemIndex]?.audio || "/assets/audio/aarti.mp3") :
-              currentMode === 'stutis' ? (stutis[activeItemIndex]?.audio || "/assets/audio/stuti.m4a") :
+              currentMode === 'stutis' ? (stutis[activeItemIndex]?.audio || "/assets/audio/Stuti.mp3") :
                 "/assets/audio/chalisa1.mp3";
 
-    console.log(`Mode: ${currentMode} | Index: ${activeItemIndex} | Resolved Source: ${rawAudioSrc}`);
+    // Use a timestamp to prevent broken cache issues on mobile
+    const path = `${rawAudioSrc}?v=${Date.now()}`;
 
     setCurrentTime(0);
     setDuration(0);
     setCurrentRepeat(0);
     setIsPlaying(false);
 
-    createAudioInstance(rawAudioSrc);
+    createAudioInstance(path);
 
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
-        audioRef.current = null;
       }
     };
   }, [currentMode, activeItemIndex]);
