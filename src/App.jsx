@@ -498,46 +498,57 @@ function App() {
 
         <div className="library-grid">
           <button className="library-card" onClick={() => startReading('chalisa')}>
+            <span className="lib-icon">📜</span>
             <span className="lib-hindi">
               {language === 'gujarati' ? 'સોદેવ ચાલીસા' : 'सोदेव चालीसा'}
             </span>
             <span className="lib-eng">CHALISA</span>
           </button>
           <button className="library-card" onClick={() => startReading('mantras')}>
+            <span className="lib-icon">💎</span>
             <span className="lib-hindi">
               {language === 'gujarati' ? 'સિદ્ધ મંત્ર' : 'सिद्ध मंत्र'}
             </span>
             <span className="lib-eng">MANTRAS</span>
           </button>
           <button className="library-card" onClick={() => startReading('bhajans')}>
+            <span className="lib-icon">🪕</span>
             <span className="lib-hindi">
               {language === 'gujarati' ? 'ભજન સંગ્રહ' : 'भजन संग्रह'}
             </span>
             <span className="lib-eng">BHAJANS</span>
           </button>
           <button className="library-card" onClick={() => startReading('aartis')}>
+            <span className="lib-icon">🕯️</span>
             <span className="lib-hindi">
               {language === 'gujarati' ? 'સોદેવ આરતી' : 'सोदेव आरती'}
             </span>
             <span className="lib-eng">AARTI</span>
           </button>
           <button className="library-card" onClick={() => startReading('stutis')}>
+            <span className="lib-icon">🙌</span>
             <span className="lib-hindi">
               {language === 'gujarati' ? 'સોદેવ સ્તુતિ' : 'सोदेव स्तुति'}
             </span>
             <span className="lib-eng">STUTI</span>
           </button>
           <button className="library-card" onClick={() => startReading('history')}>
+            <span className="lib-icon">🏺</span>
             <span className="lib-hindi">
               {language === 'gujarati' ? 'જીવન ચરિત્ર' : 'जीवन चरित्र'}
             </span>
             <span className="lib-eng">HISTORY</span>
           </button>
           <button className="library-card library-card-wide" onClick={() => startReading('videos')}>
-            <span className="lib-hindi">
-              {language === 'gujarati' ? 'યુટ્યુબ ભક્તિ' : 'यूट्यूब भक्ति'}
-            </span>
-            <span className="lib-eng">VIDEOS</span>
+            <div className="wide-card-content">
+              <span className="lib-icon">🎥</span>
+              <div className="wide-text">
+                <span className="lib-hindi" style={{ fontSize: '1.3rem' }}>
+                  {language === 'gujarati' ? 'યુટ્યુબ ભક્તિ' : 'यूट्यूब भक्ति'}
+                </span>
+                <span className="lib-eng">VIDEOS</span>
+              </div>
+            </div>
           </button>
         </div>
         <div className="tray-privacy-footer" style={{ textAlign: 'center', padding: '15px 0 10px 0', opacity: 0.5 }}>
