@@ -528,7 +528,7 @@ function App() {
             <span className="lib-eng">VIDEOS</span>
           </button>
         </div>
-        <div style={{ textAlign: 'center', padding: '15px 0 10px 0', opacity: 0.5 }}>
+        <div className="tray-privacy-footer" style={{ textAlign: 'center', padding: '15px 0 10px 0', opacity: 0.5 }}>
           <button
             onClick={() => startReading('policy')}
             style={{

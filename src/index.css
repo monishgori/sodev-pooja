@@ -1184,3 +1184,41 @@ body {
     gap: 10px;
   }
 }
+
+/* Custom Devotional Sections Styling */
+.history-section,
+.videos-grid-flow,
+.policy-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 0 10px 80px 10px;
+}
+
+.video-container-wrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  line-height: 0;
+}
+
+.video-card-item {
+  padding: 20px !important;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 153, 51, 0.15) !important;
+}
+
+.tray-privacy-footer button:hover {
+  opacity: 1 !important;
+  text-decoration: underline;
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+}
