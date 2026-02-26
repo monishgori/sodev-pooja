@@ -955,12 +955,12 @@ body {
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.view-mode .diya-container {
+.view-mode .diya-container.lit {
   --diya-scale: 0.4;
   --diya-y-offset: -180px;
   z-index: 5;
   top: 40%;
-  opacity: 0.4 !important;
+  opacity: 0.5 !important;
 }
 
 .diya-container.lit {
