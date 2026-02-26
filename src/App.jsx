@@ -606,7 +606,7 @@ function App() {
                       currentMode === 'aartis' ? 'સોદેવ આરતી' :
                         currentMode === 'stutis' ? 'સોદેવ સ્તુતિ' :
                           currentMode === 'history' ? 'શ્રી સોદેવપીર જીવન ચરિત્ર' :
-                            currentMode === 'videos' ? 'સોદેવ ભક્તિ વીડિયો' :
+                            currentMode === 'videos' ? 'સોદેવપીર દર્શન' :
                               currentMode === 'policy' ? 'ગોપનીયતા નીતિ' : 'સોદેવ પૂજા'
               ) : (
                 currentMode === 'chalisa' ? 'सोदेव चालीसा' :
@@ -615,12 +615,13 @@ function App() {
                       currentMode === 'aartis' ? 'सोदेव आरती' :
                         currentMode === 'stutis' ? 'सोदेव स्तुति' :
                           currentMode === 'history' ? 'श्री सोदेवपीर जीवन चरित्र' :
-                            currentMode === 'videos' ? 'सोदेव भक्ति वीडियो' :
+                            currentMode === 'videos' ? 'सोदेवपीर दर्शन' :
                               currentMode === 'policy' ? 'गोपनीयता नीति' : 'सोदेव पूजा'
               )}
             </div>
             <div className="page-subtitle">
               {currentMode === 'chalisa' && currentRepeat > 0 && `Jaap ${currentRepeat + 1} of ${repeatCount}`}
+              {currentMode === 'videos' && 'YouTube Devotional Library'}
             </div>
           </div>
 
@@ -768,10 +769,7 @@ function App() {
             </div>
           ) : currentMode === 'videos' ? (
             <div className="videos-section-container">
-              <div className="page-header">
-                <div className="page-title">{language === 'gujarati' ? 'સોદેવપીર દર્શન' : 'सोदेवपीर दर्शन'}</div>
-                <div className="page-subtitle">YouTube Devotional Library</div>
-              </div>
+
 
               <div className="videos-grid-flow">
                 {videos.map((vid) => (
