@@ -127,6 +127,15 @@ function App() {
   const [activeIncidentIndex, setActiveIncidentIndex] = useState(null);
   const [historyView, setHistoryView] = useState('menu'); // 'menu', 'lifeStory', 'incidents'
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
+
+  // iOS Safari Stability: Lock body scroll when tray is open to prevent jumping
+  useEffect(() => {
+    if (isLibraryOpen) {
+      document.body.classList.add('tray-open');
+    } else {
+      document.body.classList.remove('tray-open');
+    }
+  }, [isLibraryOpen]);
   const [sleepTimer, setSleepTimer] = useState(null); // in minutes
   const [timerId, setTimerId] = useState(null);
   const [isFocusMode, setIsFocusMode] = useState(false);

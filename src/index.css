@@ -503,43 +503,45 @@ body {
 /* Library Tray */
 .library-tray {
   position: fixed;
-  /* Changed to fixed for independent overlaying */
   bottom: 0;
   left: 50%;
-  transform: translate(-50%, 110%);
   width: 100%;
   max-width: 550px;
   background: rgba(15, 15, 15, 0.98) !important;
   backdrop-filter: blur(50px) !important;
   -webkit-backdrop-filter: blur(50px) !important;
   border-radius: 35px 35px 0 0 !important;
-  padding: 30px 20px 60px 20px !important;
-  opacity: 1;
-  /* Keep opacity 1, control via transform */
+  padding: 30px 20px calc(40px + env(safe-area-inset-bottom, 20px)) 20px !important;
   visibility: visible;
-  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   pointer-events: auto;
   box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.9);
   border-top: 3px solid var(--secondary) !important;
-  z-index: 3000;
-  max-height: 75vh;
+  z-index: 4000;
+  max-height: 80vh;
+  /* Use fixed height limit for stability */
   overflow-y: auto;
   scrollbar-width: none;
   touch-action: pan-y;
   -webkit-overflow-scrolling: touch;
-  /* iOS stability fixes */
-  transform: translate(-50%, 110%) translateZ(0);
-  -webkit-transform: translate(-50%, 110%) translateZ(0);
+  /* GPU STABILITY FIXES */
+  transform: translate3d(-50%, 105%, 0);
+  -webkit-transform: translate3d(-50%, 105%, 0);
   will-change: transform;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  perspective: 1000;
   isolation: isolate;
-  -webkit-tap-highlight-color: transparent;
 }
 
 .library-tray.active {
-  transform: translate(-50%, 0) translateZ(0);
-  -webkit-transform: translate(-50%, 0) translateZ(0);
+  transform: translate3d(-50%, 0%, 0);
+  -webkit-transform: translate3d(-50%, 0%, 0);
+}
+
+body.tray-open {
+  overflow: hidden !important;
+  touch-action: none;
 }
 
 .library-card {
