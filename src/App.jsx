@@ -144,6 +144,36 @@ function App() {
   const [dailyQuote, setDailyQuote] = useState({ gujarati: '', hindi: '', english: '' });
   const [isDiyaLit, setIsDiyaLit] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+
+  // Splash Screen Logic
+  useEffect(() => {
+    const splashTimer = setTimeout(() => {
+      setShowSplash(false);
+    }, 5500); // 5.5 seconds for a powerful divine intro
+    return () => clearTimeout(splashTimer);
+  }, []);
+
+  if (showSplash) {
+    return (
+      <div className="divine-splash">
+        <div className="splash-background">
+          <img src="/assets/images/merged_splash.png" className="splash-img merged-divine" alt="Divine Sodevpir Dada" />
+        </div>
+
+        <div className="divine-gears">
+          <div className="gear gear-large">⚙️</div>
+          <div className="gear gear-small-1">⚙️</div>
+          <div className="gear gear-small-2">⚙️</div>
+        </div>
+
+        <div className="splash-content">
+          <h1 className="splash-text">ॐ श्री સાદેવપીર દાદાય નમ:</h1>
+          <p className="splash-subtext">Divine Deity is coming...</p>
+        </div>
+      </div>
+    );
+  }
 
   // Initialize AdMob & Show Banner
   useEffect(() => {
