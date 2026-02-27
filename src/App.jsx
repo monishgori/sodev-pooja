@@ -149,9 +149,10 @@ function App() {
   useEffect(() => {
     const initAdMob = async () => {
       try {
+        console.log("AdMob: Starting initialization...");
         await AdMob.initialize();
 
-        // Show Banner Ad (Bottom Center with 100px margin to show ABOVE the dock)
+        // Show Banner (Bottom Center with 100px margin to show ABOVE the dock)
         const adOptions = {
           adId: 'ca-app-pub-3940256099942544/6300978111', // Master Google Test ID
           adSize: BannerAdSize.ADAPTIVE_BANNER,
@@ -162,13 +163,14 @@ function App() {
 
         await AdMob.showBanner(adOptions);
       } catch (e) {
+        window.alert("AdMob Error: " + e.message);
         console.warn("AdMob Check:", e.message);
       }
     };
 
     // Robust Native Detection (Capacitor Way)
     if (Capacitor.isNativePlatform()) {
-      setTimeout(initAdMob, 1500);
+      setTimeout(initAdMob, 3000); // Increased to 3s to ensure app is fully awake
     }
   }, []);
 
