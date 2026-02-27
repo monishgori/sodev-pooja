@@ -459,8 +459,8 @@ body {
 .bottom-dashboard-container {
   position: fixed;
   bottom: 0;
-  /* Lift the entire dock system to make room for AdMob banner */
-  padding-bottom: 65px; 
+  /* Universal Gap: Ensures room for AdMob banner on ALL phone sizes */
+  padding-bottom: 80px;
   left: 0;
   width: 100%;
   z-index: 1000;
