@@ -167,7 +167,7 @@ function App() {
           adSize: BannerAdSize.ADAPTIVE_BANNER,
           position: BannerAdPosition.BOTTOM_CENTER,
           margin: 0,
-          isTesting: true // Safe Test Mode
+          isTesting: false // LIVE ADS ENABLED 🛡️💰⚡
         };
 
         await AdMob.showBanner(adOptions);
