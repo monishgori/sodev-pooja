@@ -181,17 +181,27 @@ function App() {
 
           // 🛡️ INDEPENDENT INTERSTITIAL PREP WITH LISTENER
           try {
-            // Listen for 'Ready' Signal
-            const loadedSub = await AdMob.addListener('interstitialAdLoaded', () => {
-              console.log("AdMob: Interstitial is now DOWNLOADED and READY ✅");
+            await AdMob.addListener('interstitialAdLoaded', () => {
+              console.log("AdMob: Interstitial READY ✅");
               setIsIntReady(true);
+            });
+
+            await AdMob.addListener('interstitialAdFailedToLoad', (err) => {
+              console.log("AdMob: Interstitial Failed to Load ❌", err.message);
+              // Retry once after 5 seconds if it fails
+              setTimeout(() => {
+                AdMob.prepareInterstitial({
+                  adId: 'ca-app-pub-5914382038291713/4836567750',
+                  isTesting: false
+                }).catch(e => console.log("AdMob Retry Failed:", e.message));
+              }, 5000);
             });
 
             await AdMob.prepareInterstitial({
               adId: 'ca-app-pub-5914382038291713/4836567750',
               isTesting: false
             });
-          } catch (intErr) { console.warn("Interstitial Prep Error:", intErr.message); }
+          } catch (intErr) { console.warn("Interstitial Setup Error:", intErr.message); }
 
         } catch (e) { console.warn("AdMob Global Error:", e.message); }
       }, 2000);
