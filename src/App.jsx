@@ -206,14 +206,14 @@ function App() {
             // Retry once after 5 seconds if it fails
             setTimeout(() => {
               AdMob.prepareInterstitial({
-                adId: 'ca-app-pub-3940256099942544/1033173712',
+                adId: 'ca-app-pub-5914382038291713/4836567750',
                 isTesting: false
               }).catch(e => console.log("AdMob Retry Failed:", e.message));
             }, 5000);
           });
 
           await AdMob.prepareInterstitial({
-            adId: 'ca-app-pub-3940256099942544/1033173712',
+            adId: 'ca-app-pub-5914382038291713/4836567750',
             isTesting: false
           });
         } catch (intErr) { console.warn("Interstitial Setup Error:", intErr.message); }
