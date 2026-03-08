@@ -27,7 +27,24 @@ const DevotionalLibrary = React.memo(({ isLibraryOpen, setIsLibraryOpen, languag
         onClick={(e) => e.stopPropagation()}
       >
         <div className="tray-handle" onClick={() => setIsLibraryOpen(false)}></div>
-        <div className="tray-title">Devotional Library</div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 10px' }}>
+          <div className="tray-title" style={{ margin: 0 }}>Devotional Library</div>
+          <button
+            onClick={(e) => { e.stopPropagation(); window.showIntAd(); }}
+            style={{
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '12px',
+              color: 'var(--secondary)',
+              fontSize: '0.7rem',
+              padding: '6px 12px',
+              cursor: 'pointer',
+              fontWeight: 'bold'
+            }}
+          >
+            DEBUG ADS ⚡️
+          </button>
+        </div>
 
         <div className="library-grid">
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('chalisa'); }}>
@@ -98,20 +115,6 @@ const DevotionalLibrary = React.memo(({ isLibraryOpen, setIsLibraryOpen, languag
             }}
           >
             PRIVACY POLICY
-          </button>
-          <div style={{ margin: '5px 0', opacity: 0.3, fontSize: '0.5rem' }}>•</div>
-          <button
-            onClick={(e) => { e.stopPropagation(); window.showIntAd(); }}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--text-secondary)',
-              fontSize: '0.6rem',
-              letterSpacing: '0.5px',
-              cursor: 'pointer'
-            }}
-          >
-            LOAD ADS
           </button>
         </div>
       </div>
