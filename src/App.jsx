@@ -27,23 +27,8 @@ const DevotionalLibrary = React.memo(({ isLibraryOpen, setIsLibraryOpen, languag
         onClick={(e) => e.stopPropagation()}
       >
         <div className="tray-handle" onClick={() => setIsLibraryOpen(false)}></div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 10px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
           <div className="tray-title" style={{ margin: 0 }}>Devotional Library</div>
-          <button
-            onClick={(e) => { e.stopPropagation(); window.showIntAd(); }}
-            style={{
-              background: 'rgba(255,255,255,0.1)',
-              border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: '12px',
-              color: 'var(--secondary)',
-              fontSize: '0.7rem',
-              padding: '6px 12px',
-              cursor: 'pointer',
-              fontWeight: 'bold'
-            }}
-          >
-            DEBUG ADS ⚡️
-          </button>
         </div>
 
         <div className="library-grid">
@@ -228,20 +213,18 @@ function App() {
     };
     prepareAds();
 
-    // EXPOSE MONITORING FOR USER
+    // EXPOSE MONITORING FOR USER (Optional/Hidden)
     window.showAppOpenAd = async () => {
       try {
         console.log("AdMob: Manual App Open Triggered");
         await AdMob.showAppOpenAd();
       } catch (err) {
-        let msg = "App Open Ad not ready yet.";
-        if (window.lastAdError) msg += "\nReason: " + window.lastAdError;
-        alert(msg);
+        alert("App Open Ad not ready yet.");
       }
     };
 
     window.checkAdStatus = () => {
-      alert("AppOpen Ready: " + (isAppOpenReady ? "YES ✅" : "NO ❌") + "\nLast Error: " + (window.lastAdError || "None"));
+      alert("AppOpen Ready: " + (isAppOpenReady ? "YES ✅" : "NO ❌") + "\nLast Status: " + (window.lastAdError || "Connected"));
     };
   }, [isAppOpenReady]);
 
