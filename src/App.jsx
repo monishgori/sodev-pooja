@@ -27,8 +27,22 @@ const DevotionalLibrary = React.memo(({ isLibraryOpen, setIsLibraryOpen, languag
         onClick={(e) => e.stopPropagation()}
       >
         <div className="tray-handle" onClick={() => setIsLibraryOpen(false)}></div>
-        <div style={{ display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 10px' }}>
           <div className="tray-title" style={{ margin: 0 }}>Devotional Library</div>
+          <button
+            onClick={(e) => { e.stopPropagation(); window.checkAdStatus(); }}
+            style={{
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '8px',
+              color: 'var(--secondary)',
+              fontSize: '0.6rem',
+              padding: '4px 8px',
+              cursor: 'pointer'
+            }}
+          >
+            AD STATUS ⚡️
+          </button>
         </div>
 
         <div className="library-grid">
@@ -198,14 +212,14 @@ function App() {
             setTimeout(() => {
               AdMob.prepareAppOpenAd({
                 adId: 'ca-app-pub-3940256099942544/9257395915',
-                isTesting: false
+                isTesting: true // Enabled test mode explicitly
               }).catch(e => console.log("AdMob Open Retry Failed:", e.message));
             }, 15000);
           });
 
           await AdMob.prepareAppOpenAd({
             adId: 'ca-app-pub-3940256099942544/9257395915',
-            isTesting: false
+            isTesting: true // Enabled test mode explicitly
           });
         } catch (openErr) { console.warn("App Open Setup Error:", openErr.message); }
 
