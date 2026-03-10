@@ -208,18 +208,18 @@ function App() {
             window.lastAdError = "AppOpen: " + err.message;
             setIsAppOpenReady(false);
             
-            // Retry after 15 seconds
+            // Retry after 20 seconds
             setTimeout(() => {
               AdMob.prepareAppOpenAd({
-                adId: 'ca-app-pub-3940256099942544/9257395915',
-                isTesting: true // Enabled test mode explicitly
+                adId: 'ca-app-pub-5914382038291713/2200847101',
+                isTesting: true 
               }).catch(e => console.log("AdMob Open Retry Failed:", e.message));
-            }, 15000);
+            }, 20000);
           });
 
           await AdMob.prepareAppOpenAd({
-            adId: 'ca-app-pub-3940256099942544/9257395915',
-            isTesting: true // Enabled test mode explicitly
+            adId: 'ca-app-pub-5914382038291713/2200847101',
+            isTesting: true 
           });
         } catch (openErr) { console.warn("App Open Setup Error:", openErr.message); }
 
@@ -227,32 +227,32 @@ function App() {
     };
     prepareAds();
 
-    // EXPOSE MONITORING FOR USER (Optional/Hidden)
+    // 🛡️ MONITORING FUNCTIONS (STABLE)
     window.showAppOpenAd = async () => {
       try {
-        console.log("AdMob: Manual App Open Show Triggered");
+        console.log("AdMob: Showing App Open...");
         await AdMob.showAppOpenAd();
         setIsAppOpenReady(false);
       } catch (err) {
-        alert("App Open Ad not ready yet. Please wait...");
+        alert("App Open Ad not ready.\nStatus: " + (window.lastAdError || "Loading..."));
       }
     };
 
     window.checkAdStatus = () => {
       if (isAppOpenReady) {
-        if (confirm("AppOpen Ready: YES ✅\n\nWould you like to show it now?")) {
+        if (confirm("AppOpen Ready: YES ✅\n\nShow it now?")) {
           window.showAppOpenAd();
         }
       } else {
-        alert("AppOpen Ready: NO ❌\nLast Status: " + (window.lastAdError || "Connected & Loading..."));
-        // One more retry attempt
+        alert("AppOpen Status: NO ❌\nReason: " + (window.lastAdError || "Still Loading..."));
+        // Force retry
         AdMob.prepareAppOpenAd({
-          adId: 'ca-app-pub-3940256099942544/9257395915',
-          isTesting: true
+          adId: 'ca-app-pub-5914382038291713/2200847101',
+          isTesting: true 
         }).catch(() => { });
       }
     };
-  }, [isAppOpenReady]);
+  }, []); // Run only once to keep listeners stable
 
   // 2. SHOW APP OPEN AD AFTER SPLASH
   useEffect(() => {
