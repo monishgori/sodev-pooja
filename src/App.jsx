@@ -27,22 +27,8 @@ const DevotionalLibrary = React.memo(({ isLibraryOpen, setIsLibraryOpen, languag
         onClick={(e) => e.stopPropagation()}
       >
         <div className="tray-handle" onClick={() => setIsLibraryOpen(false)}></div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 10px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
           <div className="tray-title" style={{ margin: 0 }}>Devotional Library</div>
-          <button
-            onClick={(e) => { e.stopPropagation(); window.checkAdStatus(); }}
-            style={{
-              background: 'rgba(255,255,255,0.1)',
-              border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: '8px',
-              color: 'var(--secondary)',
-              fontSize: '0.6rem',
-              padding: '4px 8px',
-              cursor: 'pointer'
-            }}
-          >
-            AD STATUS ⚡️
-          </button>
         </div>
 
         <div className="library-grid">
@@ -212,46 +198,20 @@ function App() {
             setTimeout(() => {
               AdMob.prepareAppOpenAd({
                 adId: 'ca-app-pub-5914382038291713/2200847101',
-                isTesting: true 
+                isTesting: false 
               }).catch(e => console.log("AdMob Open Retry Failed:", e.message));
             }, 20000);
           });
 
           await AdMob.prepareAppOpenAd({
             adId: 'ca-app-pub-5914382038291713/2200847101',
-            isTesting: true 
+            isTesting: false 
           });
         } catch (openErr) { console.warn("App Open Setup Error:", openErr.message); }
 
       } catch (e) { console.warn("AdMob Global Error:", e.message); }
     };
     prepareAds();
-
-    // 🛡️ MONITORING FUNCTIONS (STABLE)
-    window.showAppOpenAd = async () => {
-      try {
-        console.log("AdMob: Showing App Open...");
-        await AdMob.showAppOpenAd();
-        setIsAppOpenReady(false);
-      } catch (err) {
-        alert("App Open Ad not ready.\nStatus: " + (window.lastAdError || "Loading..."));
-      }
-    };
-
-    window.checkAdStatus = () => {
-      if (isAppOpenReady) {
-        if (confirm("AppOpen Ready: YES ✅\n\nShow it now?")) {
-          window.showAppOpenAd();
-        }
-      } else {
-        alert("AppOpen Status: NO ❌\nReason: " + (window.lastAdError || "Still Loading..."));
-        // Force retry
-        AdMob.prepareAppOpenAd({
-          adId: 'ca-app-pub-5914382038291713/2200847101',
-          isTesting: true 
-        }).catch(() => { });
-      }
-    };
   }, []); // Run only once to keep listeners stable
 
   // 2. SHOW APP OPEN AD AFTER SPLASH
