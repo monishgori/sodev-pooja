@@ -197,14 +197,14 @@ function App() {
             // Retry after 15 seconds
             setTimeout(() => {
               AdMob.prepareAppOpenAd({
-                adId: 'ca-app-pub-5914382038291713/2200847101',
+                adId: 'ca-app-pub-3940256099942544/9257395915',
                 isTesting: false
               }).catch(e => console.log("AdMob Open Retry Failed:", e.message));
             }, 15000);
           });
 
           await AdMob.prepareAppOpenAd({
-            adId: 'ca-app-pub-5914382038291713/2200847101',
+            adId: 'ca-app-pub-3940256099942544/9257395915',
             isTesting: false
           });
         } catch (openErr) { console.warn("App Open Setup Error:", openErr.message); }
