@@ -230,15 +230,27 @@ function App() {
     // EXPOSE MONITORING FOR USER (Optional/Hidden)
     window.showAppOpenAd = async () => {
       try {
-        console.log("AdMob: Manual App Open Triggered");
+        console.log("AdMob: Manual App Open Show Triggered");
         await AdMob.showAppOpenAd();
+        setIsAppOpenReady(false);
       } catch (err) {
-        alert("App Open Ad not ready yet.");
+        alert("App Open Ad not ready yet. Please wait...");
       }
     };
 
     window.checkAdStatus = () => {
-      alert("AppOpen Ready: " + (isAppOpenReady ? "YES ✅" : "NO ❌") + "\nLast Status: " + (window.lastAdError || "Connected"));
+      if (isAppOpenReady) {
+        if (confirm("AppOpen Ready: YES ✅\n\nWould you like to show it now?")) {
+          window.showAppOpenAd();
+        }
+      } else {
+        alert("AppOpen Ready: NO ❌\nLast Status: " + (window.lastAdError || "Connected & Loading..."));
+        // One more retry attempt
+        AdMob.prepareAppOpenAd({
+          adId: 'ca-app-pub-3940256099942544/9257395915',
+          isTesting: true
+        }).catch(() => { });
+      }
     };
   }, [isAppOpenReady]);
 
