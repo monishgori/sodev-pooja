@@ -458,6 +458,7 @@ body {
 /* MODERN FLOATING DOCK & LIBRARY TRAY */
 .bottom-dashboard-container {
   position: fixed;
+  bottom: 0;
   /* Room for AdMob banner (50px-60px) + small gap */
   padding-bottom: 60px;
   left: 0;
