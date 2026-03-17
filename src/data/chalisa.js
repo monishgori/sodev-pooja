@@ -5,227 +5,227 @@ export const chalisaData = {
         {
             gujarati: "ॐ નમઃ સોદેવપીરાય સર્વ સૌખ્ય પ્રદો ભવઃ",
             hindi: "ॐ नमः सोदेवपीराय सर्व सौख्य प्रदो भवः",
-            english: "Om namah sodevapiraya sarva saukhya prado bhavah"
+            english: "Om Namah Sodevpiraya Sarva Saukhya Prado Bhavah"
         },
         {
-            gujarati: "|| દોહા ||\nસુનો દાદા અરજ કરું પ્રેમે સ્વીકારો આપ\nતવગુળ મહિમા નિશદિન ગાવહું આશિષ દેજો આપ ।।",
-            hindi: "|| दोहा ||\nसुनो दादा अरज करूं प्रेमे स्वीकारो आप\nतवगुण महिमा निशदिन गावहूं आशिष दीजो आप ।।",
-            english: "|| doha ||\nSuno dada araja karum preme svikaro apa\nTavaguna mahima nishadina gavahum ashisha dijo apa ||",
+            gujarati: "|| દોહા ||\nસુનો દાદા અરજ કરું પ્રેમે સ્વીકારો આપ\nતવગુણ મહિમા નિશદિન ગાવહું આશિષ દેજો આપ ।।",
+            hindi: "|| दोहा ||\nसुनो दादा अरज करूं प्रेमे स्वीकारो आप\nતવગુણ મહિમા નિશદિન ગાવહું આશિષ દેજો આપ ।।",
+            english: "|| Doha ||\nSuno Dada araj karu preme swikaro aap\nTavgun mahima nishdin gaavhu aashish dejo aap ||"
         },
         {
             gujarati: "વિઘ્ન વિનાશન વંદન કરું રિદ્ધી સિદ્ધી ના દાતાર ।।\nકૃપા કરી મમ હ્રદયે વસો આશિષ દેજો આપ ||",
-            hindi: "विघ्न विनाशन वंदन करूं रिद्धि सिद्धि ना दातार ।।\nकृपा करी मम हृदये वसो आशिષ दीजो आप ||",
-            english: "Vighna vinashana vamdana karum riddhi siddhi na datara ||\nKripa kari mama hridaye vaso ashiષ dijo apa ||",
+            hindi: "વિઘ્ન વિનાશન વંદન કરું રિદ્ધી સિદ્ધી ના દાતાર ।।\nકૃપા કરી મમ હ્રદયે વસો આશિષ દેજો આપ ||",
+            english: "Vighna vinashan vandan karu Riddhi Siddhi na datar ||\nKripa kari mam hridye vaso aashish dejo aap ||"
         },
         {
-            gujarati: "|| ચોપાઈ ||\nનમો નમો જય પીર દયાળા નમો નમો સોદેવજી રખખાળા....(૧)",
-            hindi: "|| चौपाई ||\nनमो नमो जय पीर दयाला नमो नमो सोदेवजी रखवाला....(१)",
-            english: "|| caupai ||\nNamo namo jaya pira dayala namo namo sodevaji rakhavala....(1)",
+            gujarati: "|| ચોપાઈ ||\nનમો નમો જય પીર દયાળા નમો નમો સોદેવજી રખવાળા....(૧)",
+            hindi: "|| चौपाई ||\nનમો નમો જય પીર દયાળા નમો નમો સોદેવજી રખવાળા....(૧)",
+            english: "|| Chaupai ||\nNamo Namo Jai Peer Dayala, Namo Namo Sodevji Rakhala....(1)"
         },
         {
             gujarati: "લીયો જન્મ દાદા મેવાળ ભૂમિ કચ્છ પઘાર્યા સીંધ દેશ ગુમી.....(૨)",
-            hindi: "लियो जन्म दादा मेवाड़ भूमि कच्छ पधारे सिंध देश घूमी.....(२)",
-            english: "Liyo janma dada mevada़ bhumi kaccha padhare simdha desha ghumi.....(2)",
+            hindi: "લીયો જન્મ દાદા મેવાળ ભૂમિ કચ્છ પઘાર્યા સીંધ દેશ ગુમી.....(૨)",
+            english: "Liyo janma Dada Mewar bhumi, Kutch padharya Sindh desh gumi.....(2)"
         },
         {
             gujarati: "ધન્ય ધરા બાયઠ કચ્છ ભૂમિ\nજયાં તમે પ્રેમે સમાધી લીધી....(૩)",
-            hindi: "धनय धरा बायठ कच्छ भूमि\nजहां तुम्ही प्रेमे समाधि लीनी....(३)",
-            english: "Dhanaya dhara bayatha kaccha bhumi\nJaham tumhi preme samadhi lini....(3)",
+            hindi: "ધન્ય ધરા બાયઠ કચ્છ ભૂમિ\nજયાં તમે પ્રેમે સમાધી લીધી....(૩)",
+            english: "Dhanya dhara Bayath Kutch bhumi\nJya tame preme samadhi lidhi....(3)"
         },
         {
             gujarati: "રાઠોડ કુળ તવ લીઘા અવતારા ભક્તો ના તમે હ્રદય વસનારા....(૪)",
-            hindi: "राठौड़ कुल तव लीधा अवतारा भक्तों ना तुम हृदय वसनारा....(४)",
-            english: "Rathauda़ kula tava lidha avatara bhaktom na tuma hridaya vasanara....(4)",
+            hindi: "રાઠોડ કુળ તવ લીઘા અવતારા ભક્તો ના તમે હ્રદય વસનારા....(૪)",
+            english: "Rathore kul tav lidha avatara, bhakto na tame hridye vasnara....(4)"
         },
         {
             gujarati: "રૂપ તમારું છે અપાર દર્શન કરતા થાયે ઊધ્ધાર....(૫)",
-            hindi: "रूप तुम्हारा है अपार दर्शन करता थाये उद्धार....(५)",
-            english: "Rupa tumhara hai apara darshana karata thaye uddhara....(5)",
+            hindi: "રૂપ તમારું છે અપાર દર્શન કરતા થાયે ઊધ્ધાર....(૫)",
+            english: "Roop tamaru che apaar, darshan karta thaye uddhaar....(5)"
         },
         {
             gujarati: "નિરાકાર પરબ્રહમ સ્વરૂપા સત્યસનાતન છો ભગવંતા..... (૬)",
-            hindi: "निराकार परब्रह्म स्वरूपा सत्य सनातन हो भगवंता..... (६)",
-            english: "Nirakara parabrahma svarupa satya sanatana ho bhagavamta..... (6)",
+            hindi: "નિરાકાર પરબ્રહમ સ્વરૂપા સત્યસનાતન છો ભગવંતા..... (૬)",
+            english: "Nirakaar parabrahm swirupa, satyasnatan cho bhagvanta..... (6)"
         },
         {
             gujarati: "કલ્યાણ કરતા મંગલદાયક છો પરમેશ્વર પરમ કુપાલક......(૭)",
-            hindi: "कल्याण करता मंगल दायक हो परमेश्वर परम कृपालक......(७)",
-            english: "Kalyana karata mamgala dayaka ho parameshvara parama kripalaka......(7)",
+            hindi: "કલ્યાણ કરતા મંગલદાયક છો પરમેશ્વર પરમ કુપાલક......(૭)",
+            english: "Kalyan karta mangaldayak, cho parameshwar param krupalak......(7)"
         },
         {
             gujarati: "તમારી લીલા નો નહિ પાર નિશદિન ગાતા બેડો પાર..... (૮)",
-            hindi: "तुम्हारी लीला का नहीं पार निशदिन गाता बेड़ा पार..... (૮)",
-            english: "Tumhari lila ka nahim para nishadina gata beda़a para..... (૮)",
+            hindi: "તમારી લીલા નો નહિ પાર નિશદિન ગાતા બેડો પાર..... (૮)",
+            english: "Tamari leela no nahi paar, nishdin gaata bedo paar..... (8)"
         },
         {
             gujarati: "કામ ક્રોધ મદ લોભ હરનારા ભક્તો ના સંગ સદા રહેનારા....(૯)",
-            hindi: "काम क्रोध मद लोभ हरनारा भक्तों ना संग सदा रहेनारा....(૯)",
-            english: "Kama krodha mada lobha haranara bhaktom na samga sada rahenara....(૯)",
+            hindi: "કામ ક્રોધ મદ લોભ હરનારા ભક્તો ના સંગ સદા રહેનારા....(૯)",
+            english: "Kaam krodh mad lobh harnara, bhakto na sang sada rahenara....(9)"
         },
         {
             gujarati: "અલખ ના છો તમે અલખ ધણી\nદર્શન આપો પ્રેમે ધણી....(૧૦)",
-            hindi: "अलख ना हो तुम अलख धणी\nદર્શન आपो प्रेमे धणी....(૧૦)",
-            english: "Alakha na ho tuma alakha dhani\nદર્શન apo preme dhani....(૧૦)",
+            hindi: "અલખ ના છો તમે અલખ ધણી\nદર્શન આપો પ્રેમે ધણી....(૧૦)",
+            english: "Alakh na cho tame alakh dhani\nDarshan aapo preme dhani....(10)"
         },
         {
             gujarati: "પરચા તમારા અપરંપાર\nએનો ગાતા આવેન પાર.....(૧૧)",
-            hindi: "परचा तुम्हारे अपरंपार\nएनो गाता आवेन पार.....(૧૧)",
-            english: "Paraca tumhare aparampara\nEno gata avena para.....(૧૧)",
+            hindi: "પરચા તમારા અપરંપાર\nએનો ગાતા આવેન પાર.....(૧૧)",
+            english: "Parcha tamara aparampaar\nEno gaata aave na paar.....(11)"
         },
         {
             gujarati: "વાંજીયા ને ઘેર પારણા બંઘાવે બેલડા પુત્રોની જોડ એ આપે..(૧૨)",
-            hindi: "वांझिया ने घेर पारणा बंधावे बेलड़ा पुत्रों की जोड़ ये आपे..(૧૨)",
-            english: "Vamjhiya ne ghera parana bamdhave belada़a putrom ki joda़ ye ape..(૧૨)",
+            hindi: "વાંજીયા ને ઘેર પારણા બંઘાવે બેલડા પુત્રોની જોડ એ આપે..(૧૨)",
+            english: "Vanjiya ne gher parna bandhave, belda putro ni jod e aape..(12)"
         },
         {
             gujarati: "શક્તિ તમારી છે અપાર જેનો કોઈ ન પામે પાર.....(૧૩)",
-            hindi: "शक्ति तुम्हारी है अपार जिसका कोई न पाये पार.....(૧૩)",
-            english: "Shakti tumhari hai apara jisaka koi na paye para.....(૧૩)",
+            hindi: "શક્તિ તમારી છે અપાર જેનો કોઈ ન પામે પાર.....(૧૩)",
+            english: "Shakti tamari che apaar, jeno koi na paame paar.....(13)"
         },
         {
             gujarati: "સુદ ચૌદસ ના જે તમને પૂજતા ધન્ય થઈ ભક્તો પાટકોરી કરતા....(૧૪)",
-            hindi: "सुद चौदस ना जो तुमको पूजता धन्य होई भक्त पाटकोरी करता....(૧૪)",
-            english: "Suda caudasa na jo tumako pujata dhanya hoi bhakta patakori karata....(૧૪)",
+            hindi: "સુદ ચૌદસ ના જે તમને પૂજતા ધન્ય થઈ ભક્તો પાટકોરી કરતા....(૧૪)",
+            english: "Sud chaudas na je tamne pujta, dhanya thai bhakto paatkori karta....(14)"
         },
         {
             gujarati: "રખિયો તમારી આરતી ગાયે\nભાવતા ભોજન એ પ્રેમે જમાડે(૧૫)",
-            hindi: "रखियो तुम्हारी आरती गाये\nभावते भोजन प्रेमे जमाड़े(૧૫)",
-            english: "Rakhiyo tumhari arati gaye\nBhavate bhojana preme jamada़e(૧૫)",
+            hindi: "રખિયો તમારી આરતી ગાયે\nભાવતા ભોજન એ પ્રેમે જમાડે(૧૫)",
+            english: "Rakhiyo tamari aarti gaaye\nBhavta bhojan e preme jamade(15)"
         },
         {
             gujarati: "ઘોડા પર તમે છો અસવાર સંગ પટરાણી ને કુંવરો સથવાર..... (૧૬)",
-            hindi: "घोड़े पर तुम हो असवार संग पटरानी और कुंवरों का सथवार..... (૧૬)",
-            english: "Ghoda़e para tuma ho asavara samga patarani aura kumvarom ka sathavara..... (૧૬)",
+            hindi: "ઘોડા પર તમે છો અસવાર સંગ પટરાણી ને કુંવરો સથવાર..... (૧૬)",
+            english: "Ghoda par tame cho aswar, sang patrani ne kunvaro sathwar..... (16)"
         },
         {
             gujarati: "દાદા તમારા ગુણલા ગાવું તમારી લીલા સાંભળું સંભળાવું.....(૧૭)",
-            hindi: "दादा तुम्हारे गुणला गाऊं तुम्हारी लीला सुनूं सुनावूं.....(૧૭)",
-            english: "Dada tumhare gunala gaum tumhari lila sunum sunavum.....(૧૭)",
+            hindi: "દાદા તમારા ગુણલા ગાવું તમારી લીલા સાંભળું સંભળાવું.....(૧૭)",
+            english: "Dada tamara gunla gaavu, tamari leela sambhalu sambhalavu.....(17)"
         },
         {
             gujarati: "જે સૌ તમારી ભક્તિ કરતા એ સૌ તમારા ઘામમાં વસતા.....(૧૮)",
-            hindi: "जो सब तुम्हारी भक्ति करता वो सब तुम्हारे धाम में वसता.....(૧૮)",
-            english: "Jo saba tumhari bhakti karata vo saba tumhare dhama mem vasata.....(૧૮)",
+            hindi: "જે સૌ તમારી ભક્તિ કરતા એ સૌ તમારા ઘામમાં વસતા.....(૧૮)",
+            english: "Je sau tamari bhakti karta, e sau tamara dhaam maa vasta.....(18)"
         },
         {
             gujarati: "હંસરાજ પીર એતો પ્રેમે કહેવાણા ભક્તિ કરતા પરમ પદ પામ્યા..(૧૯)",
-            hindi: "हंसराज पीर वो तो प्रेमे कहवाए भक्ति करते परम पद पाये..(૧૯)",
-            english: "Hamsaraja pira vo to preme kahavae bhakti karate parama pada paye..(૧૯)",
+            hindi: "હંસરાજ પીર એતો પ્રેમે કહેવાણા ભક્તિ કરતા પરમ પદ પામ્યા..(૧૯)",
+            english: "Hansraj Peer eto preme kahevana, bhakti karta param pad pamya..(19)"
         },
         {
             gujarati: "ભાટીયા કુળે કયો ઉપહાસ ક્ષમાદાન દઈ પીરે કયો ઉધ્ધાર....(૨૦)",
-            hindi: "भाटिया कुल ने किया उपहास क्षमादान दे पीर ने किया उद्धार....(૨૦)",
-            english: "Bhatiya kula ne kiya upahasa kshamadana de pira ne kiya uddhara....(૨૦)",
+            hindi: "ભાટીયા કુળે કયો ઉપહાસ ક્ષમાદાન દઈ પીરે કયો ઉધ્ધાર....(૨૦)",
+            english: "Bhatiya kule karyo upahaas, kshamadaan dai Peere karyo uddhaar....(20)"
         },
         {
             gujarati: "ગગુભા વઘુબા (ફુઇબા) છે તમારા ઉપાસક તમારી લીલા એ પ્રેમે ગાવત.... (૨૧)",
-            hindi: "गगुभा वधुभा (फुईबा) है तुम्हारे उपासक तुम्हारी लीला वो प्रेमे गावत.... (૨૧)",
-            english: "Gagubha vadhubha (phuiba) hai tumhare upasaka tumhari lila vo preme gavata.... (૨૧)",
+            hindi: "ગગુભા વઘુબા (ફુઇબા) છે તમારા ઉપાસક તમારી લીલા એ પ્રેમે ગાવત.... (૨૧)",
+            english: "Gagubha Vadhuba (Fuiba) che tamara upasak, tamari leela e preme gaavat.... (21)"
         },
         {
             gujarati: "ભક્તો બોલાવે તમને જયારે ઘોડે ચડી દાદા આવે ત્યારે.... (૨૨)",
-            hindi: "भक्त बुलावे तुमको जब भी घोड़े चढ़ दादा आवे तब ही.... (૨૨)",
-            english: "Bhakta bulave tumako jaba bhi ghoda़e cadha़ dada ave taba hi.... (૨૨)",
+            hindi: "ભક્તો બોલાવે તમને જયારે ઘોડે ચડી દાદા આવે ત્યારે.... (૨૨)",
+            english: "Bhakto bolaave tamne jyare, ghode chadi Dada aave tyare.... (22)"
         },
         {
             gujarati: "ભક્તો ના તમે તારણ હારા ભવભવની પીડા હરનારા....(૨૩)",
-            hindi: "भक्तों के तुम तारणहारा भवोभव की पीड़ा हरनारा....(૨૩)",
-            english: "Bhaktom ke tuma taranahara bhavobhava ki pida़a haranara....(૨૩)",
+            hindi: "ભક્તો ના તમે તારણ હારા ભવભવની પીડા હરનારા....(૨૩)",
+            english: "Bhakto na tame taran haara, bhav-bhav ni peeda harnara....(23)"
         },
         {
-            gujarati: "ધર્મ દાજા લીઘી છે હાથ\nદર્શન દઈને કરજો ઉધ્ધાર...(૨૪)",
-            hindi: "धर्म ध्वजा लीनी है हाथ\nदर्शन देके करना उद्धार...(૨૪)",
-            english: "Dharma dhvaja lini hai hatha\nDarshana deke karana uddhara...(૨૪)",
+            gujarati: "ધર્મ દ્વજા લીઘી છે હાથ\nદર્શન દઈને કરજો ઉધ્ધાર...(૨૪)",
+            hindi: "ધર્મ દ્વજા લીઘી છે હાથ\nદર્શન દઈને કરજો ઉધ્ધાર...(૨૪)",
+            english: "Dharma dhvaja lidhi che haath\nDarshan dai ne karjo uddhaar...(24)"
         },
         {
             gujarati: "રામ રામ કરતા ભક્તો આવે સામો સાદ દાદા રામસત આપે.... (૨૫)",
-            hindi: "राम राम करते भक्त आते साने साद दादा रामसत आपे.... (૨૫)",
-            english: "Rama rama karate bhakta ate sane sada dada ramasata ape.... (૨૫)",
+            hindi: "રામ રામ કરતા ભક્તો આવે સામો સાદ દાદા રામસત આપે.... (૨૫)",
+            english: "Ram Ram karta bhakto aave, samo saad Dada Ram-sat aape.... (25)"
         },
         {
             gujarati: "સૂર્ય સમાન તેજ મૂખવાળા સર્વ સમર્થ સોદેવપીર દાદા....(૨૬)",
-            hindi: "सूर्य समान तेज मुखवाले सर्व समर्थ सोदेवपीर दादा....(२६)",
-            english: "Surya samana teja mukhavale sarva samartha sodevapira dada....(26)",
+            hindi: "સૂર્ય સમાન તેજ મૂખવાળા સર્વ સમર્થ સોદેવપીર દાદા....(૨૬)",
+            english: "Surya saman tej mukhvala, sarva samarth Sodevpir Dada....(26)"
         },
         {
             gujarati: "દેવો તમારા ગુણલા ગાયે આનંદ સુખ એ પ્રેમે પામે.... (૨૭)",
-            hindi: "देवो तुम्हारे गुणला गाये आनंद सुख वो प्रेमे पाये.... (૨૭)",
-            english: "Devo tumhare gunala gaye anamda sukha vo preme paye.... (૨૭)",
+            hindi: "દેવો તમારા ગુણલા ગાયે આનંદ સુખ એ પ્રેમે પામે.... (૨૭)",
+            english: "Devo tamara gunla gaaye, anand sukh e preme paame.... (27)"
         },
         {
             gujarati: "જે કોઈ તમારી ભક્તિ કરતા યમના દુત એને આડેન નડતા....(૨૮)",
-            hindi: "जो कोई तुम्हारी भक्ति करता यम के दूत उसे न नडते....(૨૮)",
-            english: "Jo koi tumhari bhakti karata yama ke duta use na nadate....(૨૮)",
+            hindi: "જે કોઈ તમારી ભક્તિ કરતા યમના દુત એને આડેન નડતા....(૨૮)",
+            english: "Je koi tamari bhakti karta, yam na doot ene aade na nadta....(28)"
         },
         {
             gujarati: "ભૂત પિશાચ કોઈ નિકટ નહિ આવે જે કોઉ સોદેવપીર નામ પુકારે (૨૯)",
-            hindi: "भूत पिशाच कोई निकट नहीं आवे जो कोई सोदेवपीर नाम पुकारे (૨૯)",
-            english: "Bhuta pishaca koi nikata nahim ave jo koi sodevapira nama pukare (૨૯)",
+            hindi: "ભૂત પિશાચ કોઈ નિકટ નહિ આવે જે કોઉ સોદેવપીર નામ પુકારે (૨૯)",
+            english: "Bhoot pishach koi nikat nahi aave, je kou Sodevpir naam pukare (29)"
         },
         {
             gujarati: "સઘળી વાસના ને દૂર કરનારા બ્રહ્મ જ્ઞાન સૌને દેનારા....(૩૦)",
-            hindi: "सब वासना को दूर करनारा ब्रह्म ज्ञान सबको देनारा....(૩૦)",
-            english: "Saba vasana ko dura karanara brahma jnana sabako denara....(૩૦)",
+            hindi: "સઘળી વાસના ને દૂર કરનારા બ્રહ્મ જ્ઞાન સૌને દેનારા....(૩૦)",
+            english: "Saghli vaasna ne door karnara, brahm gyan saune denara....(30)"
         },
         {
             gujarati: "પ્રતિષ્ઠા કરી દાદા એ બોલાવ્યા ત્યારે મહાદેવ પ્રેમે પધાર્યા....(૩૧)",
-            hindi: "प्रतिष्ठा की दादा ने जब बोलाये तब महादेव प्रेमे पधारे....(૩૧)",
-            english: "Pratishtha ki dada ne jaba bolaye taba mahadeva preme padhare....(૩૧)",
+            hindi: "પ્રતિષ્ઠા કરી દાદા એ બોલાવ્યા ત્યારે મહાદેવ પ્રેમે પધાર્યા....(૩૧)",
+            english: "Pratishtha kari Dada e bolavya, tyare Mahadev preme padharya....(31)"
         },
         {
             gujarati: "ભક્તિ મુક્તિ સૌને દેનારા નિજ ભક્તનને પરમપદ દેનારા.....(૩૨)",
-            hindi: "भक्ति मुक्ति सबको देनारा निज भक्तन को परमपद देनारा.....(૩૨)",
-            english: "Bhakti mukti sabako denara nija bhaktana ko paramapada denara.....(૩૨)",
+            hindi: "ભક્તિ મુક્તિ સૌને દેનારા નિજ ભક્તનને પરમપદ દેનારા.....(૩૨)",
+            english: "Bhakti mukti saune denara, nij bhaktan ne parampad denara.....(32)"
         },
         {
             gujarati: "નામ તમારુ છે અતિ ન્યારું સોના મનને શાંતિ દેનારૂ.... (૩૩)",
-            hindi: "नाम तुम्हारा है अति न्यारा सबके मन को शांति देनारा.... (૩૩)",
-            english: "Nama tumhara hai ati nyara sabake mana ko shamti denara.... (૩૩)",
+            hindi: "નામ તમારુ છે અતિ ન્યારું સોના મનને શાંતિ દેનારૂ.... (૩૩)",
+            english: "Naam tamaru che ati nyaru, sauna man ne shanti denaru.... (33)"
         },
         {
             gujarati: "અષ્ટ સિધ્ધી નવનિધિ ઘન પામે અંતે પરમ ધામ ને એ પામે..... (૩૪)",
-            hindi: "अष्ट सिद्धि नवनिधि धन पावे अंत में परम धाम को पावे..... (૩૪)",
-            english: "Ashta siddhi navanidhi dhana pave amta mem parama dhama ko pave..... (૩૪)",
+            hindi: "અષ્ટ સિધ્ધી નવનિધિ ઘન પામે અંતે પરમ ધામ ને એ પામે..... (૩૪)",
+            english: "Asht siddhi nav-nidhi dhan paame, ante param dhaam ne e paame..... (34)"
         },
         {
             gujarati: "આપ છો સૌનું મંગલ કરનારા કૃપા કરી દયો પીર દયાળા....(૩૫)",
-            hindi: "आप हो सबका मंगल करनारा कृपा कर दो पीर दयाला....(૩૫)",
-            english: "Apa ho sabaka mamgala karanara kripa kara do pira dayala....(૩૫)",
+            hindi: "આપ છો સૌનું મંગલ કરનારા કૃપા કરી દયો પીર દયાળા....(૩૫)",
+            english: "Aap cho saunu mangal karnara, krupa kari dyo Peer dayala....(35)"
         },
         {
             gujarati: "પાપ કુકર્મ નું ક્ષમન કરનારા ધન્ય સોદેવપીર દુઃખ હરનારા..... (૩૬)",
-            hindi: "पाप कुकर्म का शमन करनारा धन्य सोदेवपीर दुःख हरनारा..... (૩૬)",
-            english: "Papa kukarma ka shamana karanara dhanya sodevapira duhkha haranara..... (૩૬)",
+            hindi: "પાપ કુકર્મ નું ક્ષમન કરનારા ધન્ય સોદેવપીર દુઃખ હરનારા..... (૩૬)",
+            english: "Paap kukarma nu shaman karnara, dhanya Sodevpir dukh harnara..... (36)"
         },
         {
             gujarati: "વિનવે તમારો બાળ વિશાલ દર્શન દેઈને કરજો ઉઘાર..... (૩૭)",
-            hindi: "विनवे तुम्हारा बाल विशाल दर्शन देके करना उद्धार..... (૩૭)",
-            english: "Vinave tumhara bala vishala darshana deke karana uddhara..... (૩૭)",
+            hindi: "વિનવે તમારો બાળ વિશાલ દર્શન દેઈને કરજો ઉઘાર..... (૩૭)",
+            english: "Vinve tamaro baal vishal, darshan daine karjo uddhaar..... (37)"
         },
         {
             gujarati: "સૌના બેડા પાર તમે કરજો દર્શન દઈને પાવન કરજો...(૩૮)",
-            hindi: "सबका बेड़ा पार तुम करना दर्शन देके पावन करना...(૩૮)",
-            english: "Sabaka beda़a para tuma karana darshana deke pavana karana...(૩૮)",
+            hindi: "સૌના બેડા પાર તમે કરજો દર્શન દઈને પાવન કરજો...(૩૮)",
+            english: "Sauna beda paar tame karjo, darshan daine pavan karjo...(38)"
         },
         {
             gujarati: "જે કોઈ આ ચાલીસા ગાયે સર્વે મનોકામના પૂરી થાયે....(૩૯)",
-            hindi: "जो कोई ये चालीसा गाये सब मनोकामना पूरी थाये....(૩૯)",
-            english: "Jo koi ye calisa gaye saba manokamana puri thaye....(૩૯)",
+            hindi: "જે કોઈ આ ચાલીસા ગાયે સર્વે મનોકામના પૂરી થાયે....(૩૯)",
+            english: "Je koi aa Chalisa gaaye, sarve manokamna puri thaaye....(39)"
         },
         {
             gujarati: "શ્રી સોદેવપીરની કૃપા એ પામે જે ચાલીસા નિશદિન ગાયે.....(૪૦)",
-            hindi: "श्री सोदेवपीर की कृपा वो पावे जो चालीसा निशदिन गाये.....(૪૦)",
-            english: "Shri sodevapira ki kripa vo pave jo calisa nishadina gaye.....(૪૦)",
+            hindi: "શ્રી સોદેવપીરની કૃપા એ પામે જે ચાલીસા નિશદિન ગાયે.....(૪૦)",
+            english: "Shri Sodevpir ni krupa e paame, je Chalisa nishdin gaaye.....(40)"
         },
         {
             gujarati: "|| દોહા ||\nશ્રી સોદેવપીર વંદન કરુ દુઃખોના હરનારા । દર્શન દઈ પાવન કરો આપછો તારણ હાર ||",
-            hindi: "|| दोहा ||\nश्री सोदेवपीर वंदन करूं दुखों के हरनारा । दर्शन दे पावन करो तुम हो तारणहार ||",
-            english: "|| doha ||\nShri sodevapira vamdana karum dukhom ke haranara | darshana de pavana karo tuma ho taranahara ||",
+            hindi: "|| દોહા ||\nશ્રી સોદેવપીર વંદન કરુ દુઃખોના હરનારા । દર્શન દઈ પાવન કરો આપછો તારણ હાર ||",
+            english: "|| Doha ||\nShri Sodevpir vandan karu, dukhona harnara |\nDarshan dai pavan karo, aapcho taran haar ||"
         },
         {
             gujarati: "બોલો શ્રી સોદેવપીર દાદાની જય શ્રી કલ્યાણેશ્વર મહાદેવની જય શ્રી નાગણેચી માતકી જય",
             hindi: "बोलो श्री सोदेवपीर दादा की जय श्री कल्याणेश्वर महादेव की जय श्री नागणेशी मात की जय",
-            english: "Bolo shri sodevapira dada ki jaya shri kalyaneshvara mahadeva ki jaya shri naganeshi mata ki jaya",
+            english: "Bolo Shri Sodevpir Dada Ki Jai! Shri Kalyaneshwar Mahadev Ki Jai! Shri Naganechi Maat Ki Jai!"
         }
     ]
 };
