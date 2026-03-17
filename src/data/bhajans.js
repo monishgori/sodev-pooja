@@ -29,4 +29,20 @@ export const bhajans = [
         name: "Sodevpir Dada Mohe",
         audio: "/assets/audio/Sodevpir_Dada_Mohe.mp3"
     },
+    {
+        id: "b7",
+        name: "Naya Bhajan 1",
+        audio: "/assets/audio/new_bhajan_1.m4a",
+        gujarati: "નવું ભજન ૧",
+        hindi: "नया भजन १",
+        english: "New Bhajan 1"
+    },
+    {
+        id: "b8",
+        name: "Naya Bhajan 2",
+        audio: "/assets/audio/new_bhajan_2.m4a",
+        gujarati: "નવું ભજન ૨",
+        hindi: "नया भजन २",
+        english: "New Bhajan 2"
+    }
 ];
