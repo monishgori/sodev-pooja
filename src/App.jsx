@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { AdMob, BannerAdSize, BannerAdPosition } from '@capacitor-community/admob';
+import { LocalNotifications } from '@capacitor/local-notifications';
 import { chalisaData } from './data/chalisa';
 import { mantras } from './data/mantras';
 import { bhajans } from './data/bhajans';
@@ -18,7 +19,7 @@ const ImpactStyle = {
 };
 
 // Memoized Library Tray to prevent jumping/flickering on re-renders (Critical for iOS Safari)
-const DevotionalLibrary = React.memo(({ isLibraryOpen, setIsLibraryOpen, language, startReading }) => {
+const DevotionalLibrary = React.memo(({ isLibraryOpen, setIsLibraryOpen, language, startReading, morningToggle, eveningToggle, isMorningOn, isEveningOn }) => {
   return (
     <>
       {isLibraryOpen && <div className="tray-backdrop" onClick={() => setIsLibraryOpen(false)}></div>}
@@ -86,7 +87,34 @@ const DevotionalLibrary = React.memo(({ isLibraryOpen, setIsLibraryOpen, languag
             </div>
           </button>
         </div>
-        <div className="tray-privacy-footer" style={{ textAlign: 'center', padding: '15px 0 10px 0', opacity: 0.5 }}>
+
+        <div className="settings-section" style={{ marginTop: '20px', padding: '0 15px' }}>
+          <div style={{ color: 'var(--secondary)', fontSize: '0.85rem', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+            {language === 'gujarati' ? 'દૈનિક સૂચનાઓ (Reminders)' : language === 'english' ? 'Daily Reminders' : 'दैनिक सूचनाएं (Reminders)'}
+          </div>
+          
+          <div className="setting-row glass-panel" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 15px', marginBottom: '10px', borderRadius: '15px' }}>
+             <div style={{ color: '#fff', fontSize: '0.9rem' }}>
+                <span style={{ fontSize: '1.2rem', marginRight: '8px' }}>🌅</span> 
+                {language === 'gujarati' ? 'આજનો વિચાર (6:30 AM)' : language === 'english' ? 'Morning Quote (6:30 AM)' : 'सुबह का विचार (6:30 AM)'}
+             </div>
+             <div className={`switch ${isMorningOn ? 'on' : ''}`} onClick={(e) => { e.stopPropagation(); morningToggle(!isMorningOn); }}>
+                <div className="switch-knob"></div>
+             </div>
+          </div>
+
+          <div className="setting-row glass-panel" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 15px', borderRadius: '15px' }}>
+             <div style={{ color: '#fff', fontSize: '0.9rem' }}>
+                <span style={{ fontSize: '1.2rem', marginRight: '8px' }}>🪔</span> 
+                {language === 'gujarati' ? 'સાંજ ની આરતી (6:30 PM)' : language === 'english' ? 'Evening Aarti (6:30 PM)' : 'शाम की आरती (6:30 PM)'}
+             </div>
+             <div className={`switch ${isEveningOn ? 'on' : ''}`} onClick={(e) => { e.stopPropagation(); eveningToggle(!isEveningOn); }}>
+                <div className="switch-knob"></div>
+             </div>
+          </div>
+        </div>
+
+        <div className="tray-privacy-footer" style={{ textAlign: 'center', padding: '25px 0 15px 0', opacity: 0.5 }}>
           <button
             onClick={(e) => { e.stopPropagation(); startReading('policy'); }}
             style={{
@@ -131,6 +159,72 @@ function App() {
   const [activeIncidentIndex, setActiveIncidentIndex] = useState(null);
   const [historyView, setHistoryView] = useState('menu'); // 'menu', 'lifeStory', 'incidents'
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
+
+  // Notification States
+  const [morningNotification, setMorningNotification] = useState(() => {
+    try { return localStorage.getItem('sodev_morning_notif') === 'true'; } catch { return false; }
+  });
+  const [eveningNotification, setEveningNotification] = useState(() => {
+    try { return localStorage.getItem('sodev_evening_notif') === 'true'; } catch { return false; }
+  });
+
+  // Handle Notification Scheduling
+  useEffect(() => {
+    const setupNotifications = async () => {
+      try {
+        const permStatus = await LocalNotifications.checkPermissions();
+        if (permStatus.display !== 'granted') {
+          if (morningNotification || eveningNotification) {
+            const reqStatus = await LocalNotifications.requestPermissions();
+            if (reqStatus.display !== 'granted') {
+               console.log('Permission not granted for notifications');
+               setMorningNotification(false);
+               setEveningNotification(false);
+               return;
+            }
+          } else {
+             return; // no perms and not trying to turn on
+          }
+        }
+
+        // Cancel existing
+        const pending = await LocalNotifications.getPending();
+        if (pending.notifications.length > 0) {
+            await LocalNotifications.cancel({ notifications: pending.notifications.map(n => ({ id: n.id })) });
+        }
+
+        const notificationsList = [];
+
+        if (morningNotification) {
+            notificationsList.push({
+                title: language === 'gujarati' ? 'શુભ પ્રભાત ધન્ય દિવસ!' : language === 'english' ? 'Good Morning!' : 'शुभ प्रभात धन्य दिन!',
+                body: language === 'gujarati' ? 'તમારો આજનો વિચાર વાંચવા માટે ટચ કરો.' : language === 'english' ? 'Tap to read your thought of the day.' : 'आज का विचार पढ़ने के लिए टैप करें।',
+                id: 1,
+                schedule: { on: { hour: 6, minute: 30 }, allowWhileIdle: true }
+            });
+        }
+
+        if (eveningNotification) {
+            notificationsList.push({
+                title: language === 'gujarati' ? 'આરતી નો સમય' : language === 'english' ? 'Evening Aarti Time' : 'आरती का समय',
+                body: language === 'gujarati' ? 'શ્રી સોદેવપીર દાદા ની સાંજની આરતી કરવાનો સમય થઈ ગયો છે.' : language === 'english' ? 'It is time for Shri Sodevpir Dada evening Aarti.' : 'श्री सोदेवपीर दादा की शाम की आरती का समय हो गया है।',
+                id: 2,
+                schedule: { on: { hour: 18, minute: 30 }, allowWhileIdle: true }
+            });
+        }
+
+        if (notificationsList.length > 0) {
+           await LocalNotifications.schedule({ notifications: notificationsList });
+        }
+      } catch (e) {
+         console.log('Notification setup failed', e);
+      }
+    };
+    
+    setupNotifications();
+    localStorage.setItem('sodev_morning_notif', morningNotification.toString());
+    localStorage.setItem('sodev_evening_notif', eveningNotification.toString());
+  }, [morningNotification, eveningNotification, language]);
 
   // iOS Safari Stability: Lock body scroll when tray is open to prevent jumping
   useEffect(() => {
@@ -743,6 +837,10 @@ function App() {
           setIsLibraryOpen={setIsLibraryOpen}
           language={language}
           startReading={startReading}
+          morningToggle={setMorningNotification}
+          eveningToggle={setEveningNotification}
+          isMorningOn={morningNotification}
+          isEveningOn={eveningNotification}
         />
 
         {/* LYRICS VIEW */}
