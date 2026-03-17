@@ -578,19 +578,18 @@ function App() {
               <div className="greeting-text">{getGreeting()}</div>
             </div>
 
-            {!isLyricsVisible && !isFocusMode && (dailyQuote.gujarati || dailyQuote.hindi) && (
+            {!isLyricsVisible && !isFocusMode && dailyQuote && (
               <div className="daily-quote-card glass-panel">
                 <div className="quote-header">
                   <span className="quote-icon">❝</span>
-                  <span className="quote-label">{language === 'gujarati' ? 'આજનો વિચાર' : 'आज का विचार'}</span>
+                  <span className="quote-label">
+                    {language === 'gujarati' ? 'આજનો વિચાર' : language === 'english' ? 'Thought of the Day' : 'आज का विचार'}
+                  </span>
                 </div>
                 <div className="quote-content">
                   <div className="main-quote">
-                    {/* For quotes, we stay in original language even if UI is in English */}
-                    {language === 'gujarati' ? dailyQuote.gujarati : dailyQuote.hindi}
+                    {dailyQuote[language] || dailyQuote.english || dailyQuote.hindi}
                   </div>
-                  {language !== 'gujarati' && dailyQuote.gujarati && <div className="sub-quote guj">{dailyQuote.gujarati}</div>}
-                  {language === 'gujarati' && dailyQuote.hindi && <div className="sub-quote hindi">{dailyQuote.hindi}</div>}
                 </div>
               </div>
             )}
