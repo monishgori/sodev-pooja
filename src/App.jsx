@@ -579,7 +579,7 @@ function App() {
 
           <div className="top-bar-side-content">
             <div className="header-greeting" onClick={() => setIsLyricsVisible(false)}>
-              <div className="greeting-text">{getGreeting()}</div>
+              <div className={`greeting-text lang-${language}`}>{getGreeting()}</div>
             </div>
 
             {!isLyricsVisible && !isFocusMode && dailyQuote && (

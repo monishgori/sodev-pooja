@@ -266,6 +266,11 @@ body {
   white-space: nowrap;
 }
 
+.greeting-text.lang-gujarati,
+.greeting-text.lang-hindi {
+  font-size: 1.45rem;
+}
+
 /* Glass Panels */
 .glass-panel {
   background: rgba(0, 0, 0, 0.3);
