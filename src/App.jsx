@@ -264,7 +264,7 @@ function App() {
         // 🛡️ INDEPENDENT BANNER
         try {
           await AdMob.showBanner({
-            adId: 'ca-app-pub-5914382038291713/2444272147',
+            adId: 'ca-app-pub-5914382038291712/9132104576',
             adSize: BannerAdSize.ADAPTIVE_BANNER,
             position: BannerAdPosition.BOTTOM_CENTER,
             margin: 0,
@@ -291,14 +291,14 @@ function App() {
             // Retry after 20 seconds
             setTimeout(() => {
               AdMob.prepareAppOpenAd({
-                adId: 'ca-app-pub-5914382038291713/2200847101',
+                adId: 'ca-app-pub-5914382038291712/7517855355',
                 isTesting: false 
               }).catch(e => console.log("AdMob Open Retry Failed:", e.message));
             }, 20000);
           });
 
           await AdMob.prepareAppOpenAd({
-            adId: 'ca-app-pub-5914382038291713/2200847101',
+            adId: 'ca-app-pub-5914382038291712/7517855355',
             isTesting: false 
           });
         } catch (openErr) { console.warn("App Open Setup Error:", openErr.message); }
