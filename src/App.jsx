@@ -482,7 +482,7 @@ function App() {
       currentMode === 'mantras' ? (mantras[activeItemIndex]?.audio || "/assets/audio/Shree_Sodevpir_Dada_Dhyan_Mantra.mp3") :
         currentMode === 'bhajans' ? (bhajans[activeItemIndex]?.audio || "/assets/audio/Jholi_Meri_Bhar_De.mp3") :
           currentMode === 'aartis' ? (aartis[activeItemIndex]?.audio || "/assets/audio/aarti.mp3") :
-            currentMode === 'stutis' ? (stutis[activeItemIndex]?.audio || "/assets/audio/stuti.mp3") :
+            currentMode === 'stutis' ? (stutis[activeItemIndex]?.audio || "/assets/audio/Stuti.m4a") :
               "/assets/audio/chalisa1.mp3";
   };
 

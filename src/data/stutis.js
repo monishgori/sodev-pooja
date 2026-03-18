@@ -5,7 +5,7 @@ export const stutis = [
         gujarati: "।। શ્રી સોદેવપીર દાદાની સ્તુતિ ।।",
         hindi: "।। श्री सोदेवपीर दादा की स्तुति ।।",
         english: "|| Shri Sodevpir Dada Ki Stuti ||",
-        audio: "/assets/audio/stuti.mp3"
+        audio: "/assets/audio/Stuti.m4a"
     },
     {
         id: "s2",
