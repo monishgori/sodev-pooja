@@ -397,7 +397,7 @@
     </div>
 
     <!-- iOS Instructions -->
-    <div id="ios-content" class="tab-content active active-platform">
+    <div id="ios-content" class="tab-content">
         <div class="card">
             <div class="step-item">
                 <div class="step-visual"><div class="step-num">1</div><div class="step-line"></div></div>
@@ -444,7 +444,7 @@
     </div>
 
     <!-- Android Instructions -->
-    <div id="android-content" class="tab-content active-platform">
+    <div id="android-content" class="tab-content">
         <div class="card">
             <div class="step-item">
                 <div class="step-visual"><div class="step-num">1</div><div class="step-line"></div></div>
@@ -509,16 +509,20 @@
     }
 
     function setPlatform(platform) {
+        console.log('Setting platform to:', platform);
         document.querySelectorAll('.tab-content').forEach(el => {
             if (el.id === platform + '-content') {
+                el.style.display = 'block';
                 el.classList.add('active');
             } else {
+                el.style.display = 'none';
                 el.classList.remove('active');
             }
         });
 
         document.querySelectorAll('.platform-tab').forEach(btn => {
-            if (btn.innerText.toLowerCase().includes(platform)) {
+            const btnText = btn.innerText.toLowerCase();
+            if (btnText.includes(platform)) {
                 btn.classList.add('active');
             } else {
                 btn.classList.remove('active');
