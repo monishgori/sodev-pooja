@@ -268,10 +268,13 @@ function App() {
             adSize: BannerAdSize.ADAPTIVE_BANNER,
             position: BannerAdPosition.BOTTOM_CENTER,
             margin: 0,
-            isTesting: false
+            isTesting: true // 🧪 Enabled testing for Virtual Phone verification
           });
           console.log("AdMob: Banner Loaded ✅");
-        } catch (bannerErr) { console.warn("Banner Error:", bannerErr.message); }
+        } catch (bannerErr) { 
+          console.error("AdMob Banner Error Details:", bannerErr); 
+          window.lastBannerError = bannerErr.message;
+        }
 
         // 🚀 NEW: APP OPEN AD PREP (Using Test ID for verification)
         try {
@@ -292,14 +295,14 @@ function App() {
             setTimeout(() => {
               AdMob.prepareAppOpenAd({
                 adId: 'ca-app-pub-5914382038291713/7517855355',
-                isTesting: false 
+                isTesting: true // 🧪 Enabled testing
               }).catch(e => console.log("AdMob Open Retry Failed:", e.message));
             }, 20000);
           });
 
           await AdMob.prepareAppOpenAd({
             adId: 'ca-app-pub-5914382038291713/7517855355',
-            isTesting: false 
+            isTesting: true // 🧪 Enabled testing
           });
         } catch (openErr) { console.warn("App Open Setup Error:", openErr.message); }
 
