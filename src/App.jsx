@@ -347,7 +347,7 @@ function App() {
     prepareAds();
   }, []);
 
-  const backgroundImage = '/assets/images/1.png';
+  const backgroundImage = '/assets/images/guide_bg1.jpg?v=4';
 
   // Background Slider & Time-based Greeting
   const getGreeting = () => {
