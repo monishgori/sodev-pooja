@@ -167,29 +167,6 @@ const DevotionalLibrary = React.memo(({
           </div>
         </div>
 
-         <div className="tray-guide-footer" style={{ textAlign: 'center', padding: '15px 0 0 0', marginBottom: '-10px' }}>
-          <button
-            onClick={(e) => { e.stopPropagation(); window.open('https://shrisodevpirdada.vercel.app/guide.html', '_blank'); }}
-            style={{
-              background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
-              border: 'none',
-              color: '#000',
-              fontSize: '0.85rem',
-              padding: '10px 20px',
-              borderRadius: '25px',
-              cursor: 'pointer',
-              fontWeight: 'bold',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              boxShadow: '0 4px 15px rgba(255,153,51,0.3)'
-            }}
-          >
-            <span>📖</span>
-            {language === 'gujarati' ? 'એપ કેવી રીતે વાપરવી?' : language === 'english' ? 'How to Use App?' : 'ऐप कैसे उपयोग करें?'}
-          </button>
-        </div>
-
         <div className="tray-privacy-footer" style={{ textAlign: 'center', padding: '25px 0 15px 0', opacity: 0.5 }}>
           <button
             onClick={(e) => { e.stopPropagation(); startReading('policy'); }}
