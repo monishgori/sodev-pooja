@@ -56,16 +56,6 @@
 
         /* Adjusted Header */
         .header { margin-bottom: 60px; text-align: left; position: relative; z-index: 5; }
-        
-        .lux-logo-frame {
-            position: absolute;
-            top: -50px; right: -10px;
-            width: 100px; height: 100px;
-            opacity: 0.15;
-            filter: grayscale(100%) brightness(300%);
-            pointer-events: none;
-            z-index: -1;
-        }
 
         .title-h {
             font-family: 'Outfit', sans-serif;
@@ -75,6 +65,7 @@
             letter-spacing: 0px;
             background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.4));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
             text-transform: uppercase;
@@ -116,7 +107,7 @@
         .ultra-card {
             position: relative;
             padding-left: 50px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             backdrop-filter: blur(15px);
             background: rgba(255,255,255,0.02);
             padding: 24px 24px 24px 50px;
@@ -174,6 +165,7 @@
             font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-top: 10px;
         }
 
         /* Lang Dock */
@@ -304,6 +296,7 @@
     <!-- Tour View -->
     <div id="tour-view" class="section">
         <div class="ultra-card">
+            <div class="card-dot"></div>
             <h2 class="card-head">
                 <span data-lang="gujarati" class="show-lang">મેનુ ક્યાં છે?</span>
                 <span data-lang="hindi">मेनू कहाँ है?</span>
@@ -311,31 +304,33 @@
             </h2>
             <div class="card-body">
                 <span data-lang="gujarati" class="show-lang">પ્લે/પોઝ બટનની ડાબી બાજુએ આપેલ 'ત્રણ ટપકાં' (...) પર ક્લિક કરવાથી બધા ભજન અને સેટિંગ્સ ખુલશે.</span>
-                <span data-lang="hindi">प्ले/पॉज बटन के बाईं ओर दिए गए 'तीन डॉट्स' (...) पर क्लिक करने से सभी भजन और सેટગ્સ खुलेंगे।</span>
+                <span data-lang="hindi">प्ले/पॉज बटन के बाईं ओर दिए गए 'तीन डॉट्स' (...) पर क्लिक करने से सभी भजन और सेटिंग्स खुलेंगे।</span>
                 <span data-lang="english">Click the 'Three Dots' (...) on the left side of the play/pause button to access Bhajans and Settings.</span>
             </div>
         </div>
         <div class="ultra-card">
+            <div class="card-dot"></div>
             <h2 class="card-head">
                 <span data-lang="gujarati" class="show-lang">ભક્તિ સાધનો</span>
-                <span data-lang="hindi">ભક્તિ સાશન</span>
+                <span data-lang="hindi">भक्ति साधन</span>
                 <span data-lang="english">Divine Tools</span>
             </h2>
             <div class="card-body">
                 <span data-lang="gujarati" class="show-lang">કંટ્રોલ બોક્સની ઉપર આપેલ આઇકોનથી તમે ઘંટડી 🔔, શંખ 🐚, ફૂલ 🌸 અને દીવો 🪔 પ્રગટાવી શકો છો.</span>
-                <span data-lang="hindi">કંટ્રોલ બોક્સ કે ઉપર દિએ ગયે આઈકન સે આપ ઘંટી 🔔, શંખ 🐚, ફૂલ 🌸 ઔર દીયા જલા સકતે હૈં।</span>
+                <span data-lang="hindi">कंट्रोल बॉक्स के ऊपर दिए गए आइकन से आप घंटी 🔔, शंख 🐚, फूल 🌸 और दीया जला सकते हैं।</span>
                 <span data-lang="english">Icons above controls: Bell 🔔, Shankh 🐚, Flowers 🌸, and Lamp 🪔.</span>
             </div>
         </div>
         <div class="ultra-card">
+            <div class="card-dot"></div>
             <h2 class="card-head">
                 <span data-lang="gujarati" class="show-lang">ભજન અને મંત્ર</span>
-                <span data-lang="hindi">ભજન ઔર મંત્ર</span>
+                <span data-lang="hindi">भजन और मंत्र</span>
                 <span data-lang="english">Audios</span>
             </h2>
             <div class="card-body">
                 <span data-lang="gujarati" class="show-lang">કોઈ પણ લિસ્ટમાંથી ભજન પર ક્લિક કરો. તમે નીચેના પ્લેયરથી તેને ચાલુ કે બંધ કરી શકો છો.</span>
-                <span data-lang="hindi">કિસી ભી લિસ્ટ સે ભજન પર ક્લિક કરેં। આપ નીચે દિએ ગયે પ્લેયર સે ઇસે કંટ્રોલ કર સકતે હૈં।</span>
+                <span data-lang="hindi">किसी भी लिस्ट से भजन पर क्लिक करें। आप नीचे दिए गए प्लेयर से इसे कंट्रोल कर सकते हैं।</span>
                 <span data-lang="english">Tap any title in the menu to play. Use the bottom bar to pause.</span>
             </div>
         </div>
@@ -349,7 +344,7 @@
     </div>
 
     <div class="footer">
-        <p class="vers">V1.42 • MASTER EDITION</p>
+        <p class="vers">V1.45 • MASTER EDITION</p>
         <span id="auto-tag"></span>
     </div>
 </div>
