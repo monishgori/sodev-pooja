@@ -2,7 +2,7 @@ export const mantras = [
     {
         id: "m1",
         name: "Mahamrityunjaya Mantra",
-        gujarati: "ॐ त्र्यम्बकम् यजामहे सुગન્ધિમ પુષ્ટિવર્ધનમ્।\nઉર્વારુકમિવ બન્ધનાન્ મૃત્યોર્મુક્ષીય મામૃતાત્॥",
+        gujarati: "ઓમ ત્ર્યમ્બકમ યજામહે સુગંધીમ પુષ્ટિવર્ધનમ|\nઉર્વરુકમિવ બંધનં મૃત્યુર્મુક્ષિયા મમૃતત||",
         hindi: "ॐ त्र्यम्बकम् यजामहे सुगन्धिम् पुष्टिवर्धनम्।\nउर्वारुकमिव बन्धनान् मृत्योर्मुक्षीय मामृतात्॥",
         english: "Om Tryambakam Yajamahe Sugandhim Pushtivardhanam|\nUrvarukamiva Bandhanan Mrityormukshiya Mamritat||",
         audio: "/assets/audio/mantra.mp3"

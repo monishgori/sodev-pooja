@@ -83,7 +83,7 @@ const DevotionalLibrary = React.memo(({
               <span className="lib-icon">🎥</span>
               <div className="wide-text">
                 <span className="lib-hindi" style={{ fontSize: '1.3rem' }}>
-                  {language === 'gujarati' ? 'યુટ્યુબ ભક્તિ' : 'यूट्यूब भक्ति'}
+                  {language === 'gujarati' ? 'યુટ્યુબ ભક્તિ' : language === 'english' ? 'YouTube Devotional' : 'यूट्यूब भक्ति'}
                 </span>
                 <span className="lib-eng">VIDEOS</span>
               </div>
@@ -947,7 +947,10 @@ function App() {
                     Jaap {currentRepeat + 1} of {repeatCount}
                   </div>
                 )}
-                {currentMode === 'videos' && 'YouTube Devotional Library'}
+                {currentMode === 'videos' && (
+                  language === 'gujarati' ? 'સોદેવપીર દર્શન સંગ્રહ' : 
+                  language === 'english' ? 'Sodevpir Darshan Collection' : 'सोदेवपीर दर्शन संग्रह'
+                )}
               </div>
             </div>
 
@@ -970,13 +973,15 @@ function App() {
                     }
                   }}
                 >
-                  <div style={{ color: 'var(--secondary)', fontSize: '0.9rem', marginBottom: '10px' }}>
-                    {mantra[language] || mantra.name} {activeItemIndex === index && (
+                  <div style={{ color: 'var(--secondary)', fontSize: '0.9rem', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                    {mantra.name} {activeItemIndex === index && (
                       language === 'gujarati' ? ' (પસંદ કરેલ)' : 
                       language === 'english' ? ' (Selected)' : ' (चयनित)'
                     )}
                   </div>
-                  <div className="hindi-text">{mantra[language] || mantra.gujarati || mantra.hindi}</div>
+                  <div className="hindi-text" style={{ fontSize: '1.2rem' }}>
+                    {mantra[language] || mantra.gujarati || mantra.hindi}
+                  </div>
                 </div>
               ))
             ) : currentMode === 'bhajans' ? (
