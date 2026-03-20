@@ -792,11 +792,9 @@ body.tray-open {
 }
 
 .seek-bar::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  background: #fff;
-  border: 2px solid var(--secondary);
-  border-radius: 50%;
+  width: 0;
+  height: 0;
+  opacity: 0;
   cursor: pointer;
 }
 
