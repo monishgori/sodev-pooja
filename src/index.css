@@ -784,13 +784,11 @@ body.tray-open {
 .seek-bar::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 14px;
-  height: 14px;
-  background: #fff;
-  border: 2px solid var(--secondary);
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
+  opacity: 0;
 }
 
 .seek-bar::-moz-range-thumb {
@@ -1714,4 +1712,25 @@ body.tray-open {
 
 .switch.on .switch-knob {
   transform: translateX(20px);
+}
+
+.settings-time-input {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+  padding: 8px 12px !important;
+  font-size: 1rem !important;
+  font-family: inherit;
+  outline: none;
+  min-height: 44px; /* Proper touch target for Android */
+  min-width: 120px;
+  color-scheme: dark; /* Ensures native picker is dark themed if supported */
+}
+
+/* Fix for some Android browsers hiding the time input */
+.time-picker-row {
+  opacity: 1 !important;
+  display: flex !important;
+  min-height: 50px;
 }

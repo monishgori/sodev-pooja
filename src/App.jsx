@@ -107,27 +107,18 @@ const DevotionalLibrary = React.memo(({
                </div>
              </div>
              {isMorningOn && (
-               <div className="time-picker-row" style={{ marginTop: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', opacity: 0.8 }}>
-                 <span style={{ fontSize: '0.75rem', color: 'var(--secondary)' }}>
-                   {language === 'gujarati' ? 'સમય પસંદ કરો:' : language === 'english' ? 'Select Time:' : 'समय चुनें:'}
-                 </span>
-                 <input 
-                   type="time" 
-                   value={morningTime} 
-                   onChange={(e) => setMorningTime(e.target.value)}
-                   className="settings-time-input"
-                   onClick={(e) => e.stopPropagation()}
-                   style={{ 
-                     background: 'rgba(255,255,255,0.1)', 
-                     border: '1px solid rgba(255,255,255,0.2)', 
-                     color: '#fff', 
-                     borderRadius: '8px', 
-                     padding: '4px 8px',
-                     fontSize: '0.9rem',
-                     outline: 'none'
-                   }}
-                 />
-               </div>
+                <div className="time-picker-row" style={{ marginTop: '12px', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--secondary)' }}>
+                    {language === 'gujarati' ? 'સમય પસંદ કરો:' : language === 'english' ? 'Select Time:' : 'समय चुनें:'}
+                  </span>
+                  <input 
+                    type="time" 
+                    value={morningTime} 
+                    onChange={(e) => setMorningTime(e.target.value)}
+                    className="settings-time-input"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </div>
              )}
           </div>
 
@@ -142,28 +133,19 @@ const DevotionalLibrary = React.memo(({
                </div>
              </div>
              {isEveningOn && (
-               <div className="time-picker-row" style={{ marginTop: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', opacity: 0.8 }}>
-                 <span style={{ fontSize: '0.75rem', color: 'var(--secondary)' }}>
-                   {language === 'gujarati' ? 'સમય પસંદ કરો:' : language === 'english' ? 'Select Time:' : 'समय चुनें:'}
-                 </span>
-                 <input 
-                   type="time" 
-                   value={eveningTime} 
-                   onChange={(e) => setEveningTime(e.target.value)}
-                   className="settings-time-input"
-                   onClick={(e) => e.stopPropagation()}
-                   style={{ 
-                     background: 'rgba(255,255,255,0.1)', 
-                     border: '1px solid rgba(255,255,255,0.2)', 
-                     color: '#fff', 
-                     borderRadius: '8px', 
-                     padding: '4px 8px',
-                     fontSize: '0.9rem',
-                     outline: 'none'
-                   }}
-                 />
-               </div>
-             )}
+                <div className="time-picker-row" style={{ marginTop: '12px', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--secondary)' }}>
+                    {language === 'gujarati' ? 'સમય પસંદ કરો:' : language === 'english' ? 'Select Time:' : 'समय चुनें:'}
+                  </span>
+                  <input 
+                    type="time" 
+                    value={eveningTime} 
+                    onChange={(e) => setEveningTime(e.target.value)}
+                    className="settings-time-input"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                </div>
+              )}
           </div>
         </div>
 
@@ -271,7 +253,7 @@ function App() {
                 title: language === 'gujarati' ? 'આરતી નો સમય' : language === 'english' ? 'Evening Aarti Time' : 'आरती का समय',
                 body: language === 'gujarati' ? 'શ્રી સોદેવપીર દાદા ની સાંજની આરતી કરવાનો સમય થઈ ગયો છે.' : language === 'english' ? 'It is time for Shri Sodevpir Dada evening Aarti.' : 'श्री सोदेवपीर दादा की शाम की आरती का समय हो गया है।',
                 id: 2,
-                schedule: { on: { hour: 18, minute: 30 }, allowWhileIdle: true }
+                schedule: { on: { hour: h, minute: m }, allowWhileIdle: true }
             });
         }
 
