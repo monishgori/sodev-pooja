@@ -1712,6 +1712,77 @@ body.tray-open {
   transform: translateX(20px);
 }
 
+/* Streak Badge Styles */
+.streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 153, 51, 0.15);
+  border: 1px solid rgba(255, 153, 51, 0.3);
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-top: 5px;
+  animation: slide-in-top 0.5s ease-out;
+  box-shadow: 0 4px 15px rgba(255, 153, 51, 0.1);
+  width: fit-content;
+}
+
+.streak-icon {
+  font-size: 0.9rem;
+  filter: drop-shadow(0 0 5px rgba(255, 153, 51, 0.5));
+  animation: fire-pulse 1.5s infinite ease-in-out;
+}
+
+.streak-count {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.streak-label {
+  font-size: 0.6rem;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+}
+
+@keyframes fire-pulse {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.2); filter: brightness(1.3) drop-shadow(0 0 8px #ff4500); }
+}
+
+@keyframes slide-in-top {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Quote Share Button Styles */
+.quote-header {
+  justify-content: space-between !important;
+  width: 100%;
+}
+
+.quote-share-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--secondary);
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.quote-share-btn:active {
+  transform: scale(0.8) rotate(15deg);
+  background: var(--secondary);
+  color: #000;
+}
+
 .settings-time-input {
   background: rgba(255, 255, 255, 0.15) !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
