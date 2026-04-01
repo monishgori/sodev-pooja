@@ -858,7 +858,7 @@ function App() {
 
         {/* LYRICS VIEW */}
         {isLyricsVisible && (
-          <main className="lyrics-container">
+          <main key={`${currentMode}-${language}`} className="lyrics-container">
             <div className="top-actions-row">
               <div className="back-btn glass-panel" onClick={() => setIsLyricsVisible(false)}>
                 <span className="back-icon">←</span> {
