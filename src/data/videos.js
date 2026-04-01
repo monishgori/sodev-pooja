@@ -110,10 +110,10 @@ export const videos = [
   },
   {
     id: 13,
-    title: "Shri Sodevpir Chalisa - Superfast Non-stop",
-    gujarati: "શ્રી સોદેવપીર ચાલીસા - સુપરફાસ્ટ નોન-સ્ટોપ",
-    hindi: "श्री सोदेवपीर चालीसा - सुपरफास्ट नॉन-स्टॉप",
-    english: "Shri Sodevpir Chalisa - Superfast Non-stop",
+    title: "Shri Sodevpir Dada Annual Festival - 31.03.2026",
+    gujarati: "શ્રી સોદેવપીર દાદા નો વાર્ષિક તિથી મહોત્સવ તા : ૩૧.૦૩.૨૦૨૬",
+    hindi: "श्री सोदेवपीर दादा वार्षिक तिथि महोत्सव दि: ३१.०३.२०२६",
+    english: "Shri Sodevpir Dada Varshik Tithi Mahotsav - 31.03.2026",
     youtubeId: "mqw7P4snFvs",
     thumbnail: "https://img.youtube.com/vi/mqw7P4snFvs/mqdefault.jpg"
   }
