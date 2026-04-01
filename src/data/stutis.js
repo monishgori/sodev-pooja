@@ -33,20 +33,20 @@ export const stutis = [
         name: "Verse 4",
         gujarati: "શિવ ધ્યાન મગ્ને મગ્નમાં, શિવરૂપ રૂપે રૂપમાં\nરુદ્ર માલ શોભે કંઠમાં, સોદેવપીરપીર નમો નમઃ. ૪.",
         hindi: "शिव ध्यान मग्न मगन में, शिवरूप रूप रूप में\nरुद्र माल शोभे कंठ में, सोदेवपीर पीर नमो नमः. ૪.",
-        english: "Shiva dhyana magna magan maa, shivarupa rupa rupa maa\nRudra maal shobhe kanth maa, Sodevpir Peer namo namah. ૪."
+        english: "Shiva dhyana magna magan maa, shivarupa rupa rupa maa\nRudra maal shobhe kanth maa, Sodevpir Peer namo namah. 4."
     },
     {
         id: "s6",
         name: "Verse 5",
         gujarati: "નમોસ્તુ ચંદ્રશેખર નમોસ્તુ ભક્ત વત્સલમ\nસંસાર સાગર તારણમ, સોદેવપીર પીર નમો નમ:....૫.",
         hindi: "नमोस्तु चंद्रशेखर नमोस्तु भक्त वत्सलम\nसंसार सागर तारणम, सोदेवपीर पीर नमो नमः....૫.",
-        english: "Namostu chandrashekhara namostu bhakta vatsalam\nSansara sagara taranam, Sodevpir Peer namo namah....૫."
+        english: "Namostu chandrashekhara namostu bhakta vatsalam\nSansara sagara taranam, Sodevpir Peer namo namah....5."
     },
     {
         id: "s7",
         name: "Verse 6",
         gujarati: "તવ દાસ નવુભા વિનવે સદા, વિનવે સદા પ્રાથે સદા\nસમરે રહો સદાય સંગમાં, સોદેવપીર પીર નમો નમઃ....૬.",
         hindi: "तव दास नवुभा विनवे सदा, विनवे सदा प्रार्थे सदा\nसमरे रहो सदा संग में, सोदेवपीर पीर नमो नमः....૬.",
-        english: "Tava das navubha vinave sada, vinave sada prarthe sada\nSamre raho sada sang maa, Sodevpir Peer namo namah....૬."
+        english: "Tava das navubha vinave sada, vinave sada prarthe sada\nSamre raho sada sang maa, Sodevpir Peer namo namah....6."
     }
 ];
