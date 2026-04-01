@@ -1178,7 +1178,6 @@ function App() {
             ) : currentMode === 'policy' ? (
               <div className="policy-section-container">
                 <div className="page-header">
-                  <div className="page-title">{policyData.title[language] || policyData.title.english}</div>
                   <div className="page-subtitle">Privacy & Data Transparency</div>
                 </div>
                 <div className="verse glass-panel" style={{ textAlign: 'center', marginBottom: '30px', padding: '15px' }}>
