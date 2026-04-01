@@ -17,7 +17,7 @@ export const stutis = [
     {
         id: "s3",
         name: "Verse 2",
-        gujarati: "શુભ ઘ્યાન મુદ્રા અખંડમા, ત્રિપુન્ડ શોભે ભાલમાં\nબિરાજે રૂપાંદેમા સંગમા, સોદેવપીરપીર નમો નમ:.......૨.",
+        gujarati: "મુબ ઘ્યાન મુદ્રા અખંડમા, ત્રિપુન્ડ શોભે ભાલમાં\nબિરાજે રૂપાંદેમા સંગમા, સોદેવપીરપીર નમો નમ:.......૨.",
         hindi: "शुभ ध्यान मुद्रा अखंड में, त्रिपुंड शोभे भाल में\nबिराजे रूपांदे मां संग में, सोदेवपीर पीर नमो नमः.......२.",
         english: "Shubha dhyana mudra akhand maa, tripund shobhe bhaal maa\nBiraje Roopande Maa sang maa, Sodevpir Peer namo namah.......2."
     },

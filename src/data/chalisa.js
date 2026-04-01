@@ -3,12 +3,7 @@ export const chalisaData = {
     audio: "/assets/audio/chalisa1.mp3",
     lyrics: [
         {
-            gujarati: "શ્રી સોદેવપીર દાદાય નમઃ",
-            hindi: "श्री सोदेवपीर दादाय नमः",
-            english: "Shri Sodevpir Dadaya Namah"
-        },
-        {
-            gujarati: "ૐ નમઃ સોદેવપીરાય સર્વ સૌખ્ય પ્રદો ભવઃ",
+            gujarati: "ॐ નમઃ સોદેવપીરાય સર્વ સૌખ્ય પ્રદો ભવઃ",
             hindi: "ॐ नमः सोदेवपीराय सर्व सौख्य प्रदो भवः",
             english: "Om Namah Sodevpiraya Sarva Saukhya Prado Bhavah"
         },
@@ -228,9 +223,9 @@ export const chalisaData = {
             english: "|| Doha ||\nShri Sodevpir vandan karu, dukhona harnara |\nDarshan dai pavan karo, aapcho taran haar ||"
         },
         {
-            gujarati: "બોલો શ્રી સોદેવપીર દાદાની જય શ્રી કલ્યાણેશ્વર મહાદેવની જય શ્રી નાગણેચી માતકી જય",
-            hindi: "बोलो श्री सोदेवपीर दादा की जय श्री कल्याणेश्वर महादेव की जय श्री नागणेशी मात की जय",
-            english: "Bolo Shri Sodevpir Dada Ki Jai! Shri Kalyaneshwar Mahadev Ki Jai! Shri Naganechi Maat Ki Jai!"
+            gujarati: "બોલો શ્રી સોદેવપીર દાદાની જય\nશ્રી કલ્યાણેશ્વર મહાદેવની જય\nશ્રી નાગણેચી માતકી જય",
+            hindi: "बोलो श्री सोदेवपीर दादा की जय\nश्री कल्याणेश्वर महादेव की जय\nश्री नागणेशी मात की जय",
+            english: "Bolo Shri Sodevpir Dada Ki Jai!\nShri Kalyaneshwar Mahadev Ki Jai!\nShri Naganechi Maat Ki Jai!"
         }
     ]
 };
