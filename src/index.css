@@ -528,10 +528,10 @@ body {
   left: 50%;
   width: 100%;
   max-width: 550px;
-  /* VIBRANT MAROON & INDIGO GRADIENT */
+  /* SAFFRON & MAHOGANY DEVOTIONAL GRADIENT */
   background: linear-gradient(165deg, 
-    hsla(350, 60%, 15%, 0.98), 
-    hsla(260, 50%, 10%, 0.98)
+    hsla(20, 80%, 15%, 0.98), 
+    hsla(15, 60%, 5%, 0.98)
   ) !important;
   backdrop-filter: blur(50px) !important;
   -webkit-backdrop-filter: blur(50px) !important;
