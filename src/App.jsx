@@ -39,42 +39,42 @@ const DevotionalLibrary = React.memo(({
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('chalisa'); }}>
 
             <span className="lib-hindi">
-              {language === 'gujarati' ? 'સોદેવ ચાલીસા' : language === 'english' ? 'Sodev Chalisa' : 'सोदेव चालीसा'}
+              {language === 'gujarati' ? 'દાદા ની ચાલીસા' : language === 'english' ? "Dada's Chalisa" : 'दादा की चालीसा'}
             </span>
             <span className="lib-eng">CHALISA</span>
           </button>
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('mantras'); }}>
 
             <span className="lib-hindi">
-              {language === 'gujarati' ? 'સિદ્ધ મંત્ર' : language === 'english' ? 'Siddh Mantras' : 'सिद्ध मंत्र'}
+              {language === 'gujarati' ? 'દાદા ના મંત્ર' : language === 'english' ? "Dada's Mantras" : 'दादा के मंत्र'}
             </span>
             <span className="lib-eng">MANTRAS</span>
           </button>
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('bhajans'); }}>
 
             <span className="lib-hindi">
-              {language === 'gujarati' ? 'ભજન સંગ્રહ' : language === 'english' ? 'Bhajan Sangrah' : 'भजन संग्रह'}
+              {language === 'gujarati' ? 'દાદા ના ભજન' : language === 'english' ? "Dada's Bhajans" : 'दादा के भजन'}
             </span>
             <span className="lib-eng">BHAJANS</span>
           </button>
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('aartis'); }}>
 
             <span className="lib-hindi">
-              {language === 'gujarati' ? 'સોદેવ આરતી' : language === 'english' ? 'Sodev Aarti' : 'सोदेव आरती'}
+              {language === 'gujarati' ? 'દાદા ની આરતી' : language === 'english' ? "Dada's Aarti" : 'दादा की आरती'}
             </span>
             <span className="lib-eng">AARTI</span>
           </button>
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('stutis'); }}>
 
             <span className="lib-hindi">
-              {language === 'gujarati' ? 'સોદેવ સ્તુતિ' : language === 'english' ? 'Sodev Stuti' : 'सोदेव स्तुति'}
+              {language === 'gujarati' ? 'દાદા ની સ્તુતિ' : language === 'english' ? "Dada's Stuti" : 'दादा की स्तुति'}
             </span>
             <span className="lib-eng">STUTI</span>
           </button>
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('history'); }}>
 
             <span className="lib-hindi">
-              {language === 'gujarati' ? 'જીવન ચરિત્ર' : language === 'english' ? 'Life History' : 'जीवन चरित्र'}
+              {language === 'gujarati' ? 'દાદા નો ઇતિહાસ' : language === 'english' ? "Dada's History" : 'दादा का इतिहास'}
             </span>
             <span className="lib-eng">HISTORY</span>
           </button>
@@ -83,7 +83,7 @@ const DevotionalLibrary = React.memo(({
 
               <div className="wide-text">
                 <span className="lib-hindi" style={{ fontSize: '1.3rem' }}>
-                  {language === 'gujarati' ? 'યુટ્યુબ ભક્તિ' : language === 'english' ? 'YouTube Devotional' : 'यूट्यूब भक्ति'}
+                  {language === 'gujarati' ? 'દાદા ના દર્શન' : language === 'english' ? "Dada's Darshan" : 'दादा के दर्शन'}
                 </span>
                 <span className="lib-eng">VIDEOS</span>
               </div>
