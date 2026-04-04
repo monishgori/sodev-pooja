@@ -458,17 +458,17 @@ function App() {
     }
   }, [activeVerse, isLyricsVisible, isPlaying]);
 
-  // Flower Shower Logic - DIVINE BOUQUET V2
+  // Flower Shower Logic - DIVINE BOUQUET V3 (Rich Intensity)
   const startFlowerShower = () => {
-    const flowerTypes = ['🌼', '🌹', '🪷', '💮', '🌻', '🌷', '🏵️', '🍁'];
-    const newFlowers = Array.from({ length: 30 }).map((_, i) => ({
+    const flowerTypes = ['🌼', '🌹', '🪷', '💮', '🌻', '🌷', '🏵️', '🌸', '🏵️', '💮'];
+    const newFlowers = Array.from({ length: 80 }).map((_, i) => ({
       id: Date.now() + i,
       type: flowerTypes[Math.floor(Math.random() * flowerTypes.length)],
       left: Math.random() * 100 + '%',
-      delay: Math.random() * 2 + 's',
-      duration: 4 + Math.random() * 3 + 's',
-      sideSway: (Math.random() * 100 - 50) + 'px', // New: Random swaying distance
-      rotateAxis: Math.random() > 0.5 ? 'X' : 'Y' // New: Random rotation axis for 3D look
+      delay: Math.random() * 3 + 's', // Wider delay for layered fall
+      duration: 3 + Math.random() * 5 + 's', // Varying speeds
+      sideSway: (Math.random() * 140 - 70) + 'px', // Increased swaying
+      rotateAxis: Math.random() > 0.5 ? 'X' : 'Y'
     }));
     setFlowers(prev => [...prev, ...newFlowers]);
     setTimeout(() => {
