@@ -1444,7 +1444,7 @@ body.tray-open {
   width: 100%;
   max-width: 650px;
   margin: 0 auto;
-  padding: 0 15px 120px 15px;
+  padding: 0 15px 40px 15px;
   display: flex;
   flex-direction: column;
   gap: 25px;
