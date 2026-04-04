@@ -149,17 +149,21 @@ const DevotionalLibrary = React.memo(({
           </div>
         </div>
 
-        <div className="tray-privacy-footer" style={{ textAlign: 'center', padding: '25px 0 15px 0', opacity: 0.5 }}>
+        <div className="tray-privacy-footer" style={{ textAlign: 'center', padding: '20px 0 15px 0', opacity: 0.5, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div style={{ fontSize: '0.6rem', letterSpacing: '2px', color: 'var(--secondary)', fontWeight: 'bold' }}>
+            {language === 'gujarati' ? 'ડેવલપર: મોનિશ મહેશ ગોરી' : language === 'english' ? 'DEVELOPER: MONISH MAHESH GORI' : 'डेवलपर: मोनिश महेश गोरी'}
+          </div>
           <button
             onClick={(e) => { e.stopPropagation(); startReading('policy'); }}
             style={{
               background: 'none',
               border: 'none',
               color: 'var(--text-primary)',
-              fontSize: '0.65rem',
+              fontSize: '0.6rem',
               letterSpacing: '1px',
               cursor: 'pointer',
-              fontWeight: '500'
+              fontWeight: '500',
+              opacity: 0.8
             }}
           >
             PRIVACY POLICY
@@ -1148,7 +1152,15 @@ function App() {
           </main>
         )}
 
-        {/* No separate footer - all is in dashboard */}
+        {/* Divine Signature Footer */}
+        <footer style={{ textAlign: 'center', padding: '40px 0 120px 0', opacity: 0.25 }}>
+          <div style={{ fontSize: '0.65rem', letterSpacing: '4px', textTransform: 'uppercase', fontWeight: '900' }}>
+            {language === 'gujarati' ? 'બનાવ્યું: મોનિશ મહેશ ગોરી' : language === 'english' ? 'CREATED BY: MONISH MAHESH GORI' : 'बनाया गया: मोनिश महेश गोरी'}
+          </div>
+          <div style={{ fontSize: '0.5rem', letterSpacing: '2px', marginTop: '5px', opacity: 0.8 }}>
+            DIVINE ENGINE V1.2.0
+          </div>
+        </footer>
       </div>
       {showSplash && (
         <div className="divine-splash-clean">
