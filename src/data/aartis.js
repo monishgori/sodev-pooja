@@ -5,7 +5,7 @@ export const aartis = [
         gujarati: "|| શ્રી સોદેવપીર દાદાની આરતી ||",
         hindi: "|| श्री सोदेवपीर दादा की आरती ||",
         english: "|| Shri Sodevpir Dada Ki Aarti ||",
-        audio: "/assets/audio/aarti.mp3"
+        audio: "/assets/audio/aarti.m4a"
     },
     {
         id: "a2",
