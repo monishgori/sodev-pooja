@@ -743,6 +743,7 @@ function App() {
     });
   }, [repeatCount]);
 
+
   const ringBell = () => {
     triggerHaptic(ImpactStyle.Heavy);
     setIsBellRinging(true);
