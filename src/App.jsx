@@ -628,6 +628,7 @@ function App() {
   const [historyView, setHistoryView] = useState('menu'); // 'menu', 'lifeStory', 'incidents'
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [flowerTrigger, setFlowerTrigger] = useState(0);
+  const [isPreparing, setIsPreparing] = useState(false); // GUARD STATE
 
   // Notification States
   const [morningNotification, setMorningNotification] = useState(() => {
@@ -1026,6 +1027,7 @@ function App() {
 
   const prepareNativeTrack = useCallback(async (path) => {
     try {
+      setIsPreparing(true);
       await ensureNotificationPermission();
       const status = await NativeAudio.prepare({
         src: path,
@@ -1038,7 +1040,11 @@ function App() {
       setDuration((statusData.duration || 0) / 1000);
       setCurrentRepeat(Number(statusData.currentRepeat || 0));
       setIsPlaying(Boolean(statusData.isPlaying));
-    } catch (error) { console.error('Native prepare failed:', error); }
+    } catch (error) { 
+      console.error('Native prepare failed:', error); 
+    } finally {
+      setIsPreparing(false);
+    }
   }, [currentMode, activeItemIndex, ensureNotificationPermission]);
 
   const syncNativeStatus = useCallback(async () => {
@@ -1119,6 +1125,8 @@ function App() {
     let endedListener = null;
     const setupNativeListeners = async () => {
       stateListener = await NativeAudio.addListener('playbackStateChange', (status) => {
+        if (isPreparing) return; // IGNORE STALE EVENTS DURING TRANSITION
+        
         setIsPlaying(Boolean(status?.isPlaying));
         if (!isSeeking) setCurrentTime((status?.currentTime || 0) / 1000);
         setDuration((status?.duration || 0) / 1000);
