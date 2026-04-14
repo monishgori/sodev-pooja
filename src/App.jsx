@@ -702,6 +702,13 @@ function App() {
   const scheduleRetentionNotifications = async () => {
     if (!isNativeAndroid) return;
     try {
+      // ENSURE PERMISSION FIRST
+      const hasPerm = await ensureNotificationPermission();
+      if (!hasPerm) {
+        console.warn("Notifications not allowed by user. Retention logic skipped.");
+        return;
+      }
+
       // 1. Cancel existing retention notifications so we reset the timer
       await LocalNotifications.cancel({ notifications: [{ id: 10 }, { id: 11 }, { id: 12 }] });
 
@@ -926,13 +933,23 @@ function App() {
     if (!isNativeAndroid) return true;
 
     try {
-      const permission = await NativeAudio.hasNotificationPermission();
-      if (permission?.granted) {
-        return true;
+      // 1. Check Native Audio (for media notification)
+      const nativePerm = await NativeAudio.hasNotificationPermission();
+      if (!nativePerm?.granted) {
+        await NativeAudio.requestNotificationPermission();
       }
 
-      const requested = await NativeAudio.requestNotificationPermission();
-      return Boolean(requested?.granted);
+      // 2. Check Local Notifications (for reminders)
+      const localPerm = await LocalNotifications.checkPermissions();
+      if (localPerm.display !== 'granted') {
+        const requested = await LocalNotifications.requestPermissions();
+        if (requested.display !== 'granted') {
+          console.warn('Local Notification permission denied');
+          return false;
+        }
+      }
+
+      return true;
     } catch (error) {
       console.error('Notification permission check failed:', error);
       return false;
