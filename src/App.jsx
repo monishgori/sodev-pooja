@@ -679,6 +679,95 @@ function App() {
     return () => clearTimeout(splashTimer);
   }, []);
 
+  // RETENTION NOTIFICATIONS LOGIC
+  const scheduleRetentionNotifications = async () => {
+    if (!isNativeAndroid) return;
+    try {
+      // 1. Cancel existing retention notifications so we reset the timer
+      await LocalNotifications.cancel({ notifications: [{ id: 10 }, { id: 11 }, { id: 12 }] });
+
+      const messages = {
+        'gujarati': {
+          day3: { title: "દાદા આપને યાદ કરે છે! 🔱", body: "સોમનાથની ધરતીથી દાદા આપને આશીર્વાદ મોકલી રહ્યા છે. ચાલીસાનો પાઠ શરૂ કરીએ? 🙏" },
+          day7: { title: "દાદાના દર્શનનો સમય ✨", body: "એક અઠવાડિયું થઈ ગયું! થોડો સમય કાઢીને દાદાનું સ્મરણ કરો અને સકારાત્મક ઉર્જા મેળવો. 🕉️" },
+          day15: { title: "શ્રી સાદેવપીર દાદા કૃપા 🔱", body: "આપની ભક્તિ જ આપની શક્તિ છે. એપ ખોલો અને આજનું વિશેષ ભજન સાંભળો. 🔱🦾" }
+        },
+        'hindi': {
+          day3: { title: "दादा आपको याद कर रहे हैं! 🔱", body: "सोमनाथ की धरती से दादा आपको आशीर्वाद भेज रहे हैं। चालीसा का पाठ शुरू करें? 🙏" },
+          day7: { title: "दादा के दर्शन का समय ✨", body: "एक हफ्ता हो गया है! थोड़ा समय निकाल कर दादा का स्मरण कीजिए और सकारात्मक ऊर्जा पाइए। 🕉️" },
+          day15: { title: "श्री सादेवपीर दादा कृपा 🔱", body: "आपकी भक्ति ही आपकी शक्ति है। ऐप खोलें और आज का विशेष भजन सुनें। 🔱🦾" }
+        },
+        'english': {
+          day3: { title: "Dada is remembering you! 🔱", body: "Dada is sending blessings from Somnath. Shall we start the Chalisa? 🙏" },
+          day7: { title: "Time for Dada's Darshan ✨", body: "It's been a week! Take a moment to remember Dada and get positive energy. 🕉️" },
+          day15: { title: "Shri Sodevpir Dada Grace 🔱", body: "Your devotion is your strength. Open the app and listen to today's special Bhajan. 🔱🦾" }
+        }
+      };
+
+      const lang = language || 'hindi';
+      const selected = messages[lang] || messages['hindi'];
+
+      await LocalNotifications.schedule({
+        notifications: [
+          {
+            id: 10,
+            title: selected.day3.title,
+            body: selected.day3.body,
+            schedule: { at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3) }, // 3 Days
+            sound: 'bell.mp3',
+            smallIcon: 'ic_stat_name',
+            actionTypeId: 'OPEN_APP'
+          },
+          {
+            id: 11,
+            title: selected.day7.title,
+            body: selected.day7.body,
+            schedule: { at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7) }, // 7 Days
+            sound: 'bell.mp3',
+            smallIcon: 'ic_stat_name',
+            actionTypeId: 'OPEN_APP'
+          },
+          {
+            id: 12,
+            title: selected.day15.title,
+            body: selected.day15.body,
+            schedule: { at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 15) }, // 15 Days
+            sound: 'bell.mp3',
+            smallIcon: 'ic_stat_name',
+            actionTypeId: 'OPEN_APP'
+          }
+        ]
+      });
+      console.log("Retention Notifications: Reset & Scheduled ✅");
+    } catch (e) {
+      console.error("Retention Notification Error:", e);
+    }
+  };
+
+  // DEBUG FUNCTION: TRIGGERS IMMEDIATE NOTIFICATION FOR TESTING
+  const testRetentionNotifications = async () => {
+    if (!isNativeAndroid) {
+      alert("Debug: Retention Notification Test (Simulated on Web)");
+      return;
+    }
+    try {
+      await LocalNotifications.schedule({
+        notifications: [{
+          id: 99,
+          title: "TEST: Dada aapko yaad kar rahe hain! 🔱",
+          body: "Verification: This is how your reminder will look after 3 days. 🙏",
+          schedule: { at: new Date(Date.now() + 5000) }, // 5 SECONDS FROM NOW
+          sound: 'bell.mp3'
+        }]
+      });
+      alert("Success: Notification will arrive in 5 seconds. Close the app to see it!");
+    } catch (e) { alert("Test Error: " + e.message); }
+  };
+
+  useEffect(() => {
+    scheduleRetentionNotifications();
+  }, [language]); // Re-schedule if person changes language
+
   // Initialize AdMob & Show Banner
   useEffect(() => {
     const prepareAds = async () => {
@@ -1443,8 +1532,26 @@ function App() {
 
         {/* Divine Signature Footer */}
         <footer style={{ textAlign: 'center', padding: '40px 0 120px 0', opacity: 0.25 }}>
+          {/* TEMPORARY TEST BUTTON - REMOVE BEFORE PLAY STORE BUILD */}
+          <div style={{ marginBottom: '15px', pointerEvents: 'auto', opacity: 1 }}>
+            <button 
+              onClick={testRetentionNotifications}
+              style={{ 
+                background: 'rgba(0,0,0,0.5)', 
+                color: 'var(--secondary)', 
+                border: '1px solid var(--secondary)',
+                padding: '6px 12px',
+                borderRadius: '20px',
+                fontSize: '0.65rem',
+                cursor: 'pointer'
+              }}
+            >
+              DEBUG: TEST NOTIFICATIONS
+            </button>
+          </div>
+          
           <div style={{ fontSize: '0.65rem', letterSpacing: '4px', textTransform: 'uppercase', fontWeight: '900' }}>
-            {language === 'gujarati' ? 'બનાવ્યું: DS Digital\'s' : language === 'english' ? 'CREATED BY: DS DIGITAL\'S' : 'बनाया गया: DS Digital\'s'}
+            {language === 'gujarati' ? 'બનાવ્યું: DS Digital\'s' : language === 'english' ? 'CREATED BY: DS DIGITAL\'S' : 'બનાયા ગયા: DS Digital\'s'}
           </div>
           <div style={{ fontSize: '0.5rem', letterSpacing: '2px', marginTop: '5px', opacity: 0.8 }}>
             DIVINE ENGINE V1.2.0
