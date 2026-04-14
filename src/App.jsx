@@ -238,10 +238,7 @@ const DivineCanvasFlowers = React.memo(({ triggerCount, isAndroid }) => {
       
       ctx.globalAlpha = p.opacity;
       
-      // Premium Blur for out-of-focus background particles
-      if (p.z < 0.3) {
-        ctx.filter = `blur(${Math.round((0.3 - p.z) * 5)}px)`;
-      }
+      // Removed ctx.filter blur as it causes severe lag in emulators/mobile
 
       ctx.font = `${p.size}px serif`;
       ctx.textAlign = 'center';
