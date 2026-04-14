@@ -180,16 +180,21 @@ const DivineCanvasFlowers = React.memo(({ triggerCount, isAndroid }) => {
   const flowerEmojis = ['🌼', '🌹', '🪷', '💮', '🌻', '🌷', '🏵️', '🌸', '🏵️', '💮'];
 
   const initParticle = () => {
+    const z = Math.random(); // 0 (far) to 1 (near)
     return {
       x: Math.random() * window.innerWidth,
-      y: -50,
-      size: Math.random() * 15 + 15,
+      y: -80, // Start higher up
+      z: z,
+      size: (z * 15 + 15), // Size based on depth
       type: flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)],
-      speed: Math.random() * 2 + 1.5,
+      speed: (z * 2 + 1.2), // Speed based on depth
       sway: Math.random() * 2 - 1,
-      swaySpeed: Math.random() * 0.02 + 0.01,
+      swaySpeed: Math.random() * 0.015 + 0.005,
       angle: Math.random() * Math.PI * 2,
-      rotationSpeed: (Math.random() - 0.5) * 0.05
+      rotationSpeed: (Math.random() - 0.5) * 0.03,
+      flip: Math.random() * Math.PI * 2,
+      flipSpeed: Math.random() * 0.03 + 0.01,
+      opacity: 0
     };
   };
 
@@ -210,16 +215,39 @@ const DivineCanvasFlowers = React.memo(({ triggerCount, isAndroid }) => {
 
     for (let i = 0; i < particles.current.length; i++) {
       const p = particles.current[i];
+      
+      // Physics
       p.y += p.speed;
       p.angle += p.rotationSpeed;
-      p.x += Math.sin(p.y * p.swaySpeed) * 2;
+      p.flip += p.flipSpeed;
+      p.x += Math.sin(p.y * p.swaySpeed + p.x * 0.01) * 1.5;
+
+      // Opacity / Fading (Fade in at top, fade out at bottom)
+      if (p.y < 100) p.opacity = Math.min(1, p.y / 100);
+      else if (p.y > canvas.height - 200) p.opacity = Math.max(0, (canvas.height - p.y) / 200);
+      else p.opacity = 1;
 
       ctx.save();
+      
+      // Depth Effect: 3D-like flip and Blur
+      const scaleX = Math.sin(p.flip); // Simulated 3D tumbling
+      
       ctx.translate(p.x, p.y);
       ctx.rotate(p.angle);
+      ctx.scale(scaleX, 1); // Flip effect
+      
+      ctx.globalAlpha = p.opacity;
+      
+      // Premium Blur for out-of-focus background particles
+      if (p.z < 0.3) {
+        ctx.filter = `blur(${Math.round((0.3 - p.z) * 5)}px)`;
+      }
+
       ctx.font = `${p.size}px serif`;
       ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
       ctx.fillText(p.type, 0, 0);
+      
       ctx.restore();
 
       // Remove off-screen
