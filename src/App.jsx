@@ -11,6 +11,7 @@ import { quotes } from './data/quotes';
 import { videos } from './data/videos';
 import { historyData } from './data/history';
 import { policyData } from './data/policy';
+
 // Web haptics fallback
 const ImpactStyle = {
   Light: 10,
@@ -40,42 +41,36 @@ const DevotionalLibrary = React.memo(({
 
         <div className="library-grid">
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('chalisa'); }}>
-
             <span className="lib-hindi">
               {language === 'gujarati' ? 'દાદા ની ચાલીસા' : language === 'english' ? "Dada's Chalisa" : 'दादा की चालीसा'}
             </span>
             <span className="lib-eng">CHALISA</span>
           </button>
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('mantras'); }}>
-
             <span className="lib-hindi">
               {language === 'gujarati' ? 'દાદા ના મંત્ર' : language === 'english' ? "Dada's Mantras" : 'दादा के मंत्र'}
             </span>
             <span className="lib-eng">MANTRAS</span>
           </button>
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('bhajans'); }}>
-
             <span className="lib-hindi">
               {language === 'gujarati' ? 'દાદા ના ભજન' : language === 'english' ? "Dada's Bhajans" : 'दादा के भजन'}
             </span>
             <span className="lib-eng">BHAJANS</span>
           </button>
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('aartis'); }}>
-
             <span className="lib-hindi">
               {language === 'gujarati' ? 'દાદા ની આરતી' : language === 'english' ? "Dada's Aarti" : 'दादा की आरती'}
             </span>
             <span className="lib-eng">AARTI</span>
           </button>
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('stutis'); }}>
-
             <span className="lib-hindi">
               {language === 'gujarati' ? 'દાદા ની સ્તુતિ' : language === 'english' ? "Dada's Stuti" : 'दादा की स्तुति'}
             </span>
             <span className="lib-eng">STUTI</span>
           </button>
           <button className="library-card" onClick={(e) => { e.stopPropagation(); startReading('history'); }}>
-
             <span className="lib-hindi">
               {language === 'gujarati' ? 'દાદા નો ઇતિહાસ' : language === 'english' ? "Dada's History" : 'दादा का इतिहास'}
             </span>
@@ -83,7 +78,6 @@ const DevotionalLibrary = React.memo(({
           </button>
           <button className="library-card library-card-wide" onClick={(e) => { e.stopPropagation(); startReading('videos'); }}>
             <div className="wide-card-content">
-
               <div className="wide-text">
                 <span className="lib-hindi" style={{ fontSize: '1.3rem' }}>
                   {language === 'gujarati' ? 'દાદા ના દર્શન' : language === 'english' ? "Dada's Darshan" : 'दादा के दर्शन'}
@@ -154,7 +148,7 @@ const DevotionalLibrary = React.memo(({
 
         <div className="tray-privacy-footer" style={{ textAlign: 'center', padding: '20px 0 15px 0', opacity: 0.5, display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ fontSize: '0.6rem', letterSpacing: '2px', color: 'var(--secondary)', fontWeight: 'bold' }}>
-            {language === 'gujarati' ? 'ડેવલપર: DS Digital\'s' : language === 'english' ? 'DEVELOPER: DS DIGITAL\'S' : 'डेवलपर: DS Digital\'s'}
+            {language === 'gujarati' ? 'ડેવલપર: DS Digital\'s' : language === 'english' ? 'DEVELOPER: DS DIGITAL\'S' : 'ડેવલપર: DS Digital\'s'}
           </div>
           <button
             onClick={(e) => { e.stopPropagation(); startReading('policy'); }}
@@ -177,20 +171,96 @@ const DevotionalLibrary = React.memo(({
   );
 });
 
-// 1. Memoized Flower Component to prevent unnecessary re-renders of all particles
-const DivineFlowers = React.memo(({ flowers, isAndroid }) => {
+// 1. HIGH-PERFORMANCE CANVAS FLOWERS (Replaces 80+ Divs with 1 Canvas)
+const DivineCanvasFlowers = React.memo(({ triggerCount, isAndroid }) => {
+  const canvasRef = useRef(null);
+  const particles = useRef([]);
+  const requestRef = useRef();
+
+  const flowerEmojis = ['🌼', '🌹', '🪷', '💮', '🌻', '🌷', '🏵️', '🌸', '🏵️', '💮'];
+
+  const initParticle = () => {
+    return {
+      x: Math.random() * window.innerWidth,
+      y: -50,
+      size: Math.random() * 15 + 15,
+      type: flowerEmojis[Math.floor(Math.random() * flowerEmojis.length)],
+      speed: Math.random() * 2 + 1.5,
+      sway: Math.random() * 2 - 1,
+      swaySpeed: Math.random() * 0.02 + 0.01,
+      angle: Math.random() * Math.PI * 2,
+      rotationSpeed: (Math.random() - 0.5) * 0.05
+    };
+  };
+
+  useEffect(() => {
+    if (triggerCount > 0) {
+      const batchSize = isAndroid ? 30 : 60;
+      for (let i = 0; i < batchSize; i++) {
+        particles.current.push(initParticle());
+      }
+    }
+  }, [triggerCount, isAndroid]);
+
+  const animate = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < particles.current.length; i++) {
+      const p = particles.current[i];
+      p.y += p.speed;
+      p.angle += p.rotationSpeed;
+      p.x += Math.sin(p.y * p.swaySpeed) * 2;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.angle);
+      ctx.font = `${p.size}px serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(p.type, 0, 0);
+      ctx.restore();
+
+      // Remove off-screen
+      if (p.y > canvas.height + 100) {
+        particles.current.splice(i, 1);
+        i--;
+      }
+    }
+    requestRef.current = requestAnimationFrame(animate);
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const setSize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    setSize();
+    window.addEventListener('resize', setSize);
+    requestRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      window.removeEventListener('resize', setSize);
+      cancelAnimationFrame(requestRef.current);
+    };
+  }, [animate]);
+
   return (
-    <>
-      {flowers.map(flower => (
-        <div key={flower.id} className="flower" style={{
-          left: flower.left,
-          animationDelay: flower.delay,
-          animationDuration: flower.duration,
-          '--sway': flower.sideSway,
-          '--rot-axis': flower.rotateAxis
-        }}>{flower.type}</div>
-      ))}
-    </>
+    <canvas 
+      ref={canvasRef} 
+      className="divine-canvas-layer"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 1000
+      }}
+    />
   );
 });
 
@@ -547,7 +617,6 @@ function App() {
   });
   const [currentRepeat, setCurrentRepeat] = useState(0);
   const [isBellRinging, setIsBellRinging] = useState(false);
-  const [flowers, setFlowers] = useState([]);
   const [isLyricsVisible, setIsLyricsVisible] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -558,6 +627,7 @@ function App() {
   const [activeIncidentIndex, setActiveIncidentIndex] = useState(null);
   const [historyView, setHistoryView] = useState('menu'); // 'menu', 'lifeStory', 'incidents'
   const [isLibraryOpen, setIsLibraryOpen] = useState(false);
+  const [flowerTrigger, setFlowerTrigger] = useState(0);
 
   // Notification States
   const [morningNotification, setMorningNotification] = useState(() => {
@@ -623,7 +693,7 @@ function App() {
         if (eveningNotification) {
           const [h, m] = eveningTime.split(':').map(Number);
           notificationsList.push({
-            title: language === 'gujarati' ? 'આરતી નો સમય' : language === 'english' ? 'Evening Aarti Time' : 'आरती का समय',
+            title: language === 'gujarati' ? 'આરતી નો સમય' : language === 'english' ? 'Evening Aarti Time' : 'आरતી કા સમય',
             body: language === 'gujarati' ? 'શ્રી સોદેવપીર દાદા ની સાંજની આરતી કરવાનો સમય થઈ ગયો છે.' : language === 'english' ? 'It is time for Shri Sodevpir Dada evening Aarti.' : 'श्री सोदेवपीर दादा की शाम की आरती का समय हो गया है।',
             id: 2,
             schedule: { on: { hour: h, minute: m }, allowWhileIdle: true }
@@ -660,7 +730,6 @@ function App() {
   const [isDiyaLit, setIsDiyaLit] = useState(false);
   const [isSeeking, setIsSeeking] = useState(false);
   const [showSplash, setShowSplash] = useState(true);
-  const [isAppOpenReady, setIsAppOpenReady] = useState(false);
 
   // Platform Detection & Android Body Class
   useEffect(() => {
@@ -675,7 +744,7 @@ function App() {
   useEffect(() => {
     const splashTimer = setTimeout(() => {
       setShowSplash(false);
-    }, 2500); // Shortened to 2.5s to match user expectation (1-2s range)
+    }, 2500); 
     return () => clearTimeout(splashTimer);
   }, []);
 
@@ -683,14 +752,9 @@ function App() {
   const scheduleRetentionNotifications = async () => {
     if (!isNativeAndroid) return;
     try {
-      // ENSURE PERMISSION FIRST
       const hasPerm = await ensureNotificationPermission();
-      if (!hasPerm) {
-        console.warn("Notifications not allowed by user. Retention logic skipped.");
-        return;
-      }
+      if (!hasPerm) return;
 
-      // 1. Cancel existing retention notifications so we reset the timer
       await LocalNotifications.cancel({ notifications: [{ id: 10 }, { id: 11 }, { id: 12 }] });
 
       const messages = {
@@ -720,7 +784,7 @@ function App() {
             id: 10,
             title: selected.day3.title,
             body: selected.day3.body,
-            schedule: { at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3) }, // 3 Days
+            schedule: { at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3) },
             sound: 'bell.mp3',
             smallIcon: 'ic_stat_name',
             actionTypeId: 'OPEN_APP'
@@ -729,7 +793,7 @@ function App() {
             id: 11,
             title: selected.day7.title,
             body: selected.day7.body,
-            schedule: { at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7) }, // 7 Days
+            schedule: { at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7) },
             sound: 'bell.mp3',
             smallIcon: 'ic_stat_name',
             actionTypeId: 'OPEN_APP'
@@ -738,7 +802,7 @@ function App() {
             id: 12,
             title: selected.day15.title,
             body: selected.day15.body,
-            schedule: { at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 15) }, // 15 Days
+            schedule: { at: new Date(Date.now() + 1000 * 60 * 60 * 24 * 15) },
             sound: 'bell.mp3',
             smallIcon: 'ic_stat_name',
             actionTypeId: 'OPEN_APP'
@@ -753,35 +817,21 @@ function App() {
 
   useEffect(() => {
     scheduleRetentionNotifications();
-  }, [language]); // Re-schedule if person changes language
+  }, [language]);
 
   // Initialize AdMob & Show Banner
   useEffect(() => {
     const prepareAds = async () => {
       if (!Capacitor.isNativePlatform()) return;
-
       try {
-        console.log("AdMob: Initializing...");
         await AdMob.initialize();
-
-        // 🛡️ INDEPENDENT BANNER
-        try {
-          await AdMob.showBanner({
-            adId: 'ca-app-pub-5914382038291713/2444272147',
-            adSize: BannerAdSize.ADAPTIVE_BANNER,
-            position: BannerAdPosition.BOTTOM_CENTER,
-            margin: 0,
-            isTesting: false
-          });
-          console.log("AdMob: Production Banner Loaded ✅");
-        } catch (bannerErr) {
-          console.error("AdMob Banner Error Details:", bannerErr);
-          window.lastBannerError = bannerErr.message;
-        }
-
-        // 🚀 NOTE: App Open Ads are not supported in @capacitor-community/admob v8 yet.
-        // Interstitial ads can be used as a full-screen alternative if needed.
-
+        await AdMob.showBanner({
+          adId: 'ca-app-pub-5914382038291713/2444272147',
+          adSize: BannerAdSize.ADAPTIVE_BANNER,
+          position: BannerAdPosition.BOTTOM_CENTER,
+          margin: 0,
+          isTesting: false
+        });
       } catch (e) { console.warn("AdMob Global Error:", e.message); }
     };
     prepareAds();
@@ -789,7 +839,6 @@ function App() {
 
   const backgroundImage = '/assets/images/guide_bg1.jpg';
 
-  // Background Slider & Time-based Greeting
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (language === 'english') {
@@ -814,9 +863,7 @@ function App() {
   };
 
   useEffect(() => {
-    // Select daily quote based on current date (Deterministic)
     const today = new Date();
-    // Using simple hash: (Year * 1000) + (Month * 40) + Date
     const dayHash = (today.getFullYear() * 1000) + (today.getMonth() * 40) + today.getDate();
     const quoteIndex = dayHash % quotes.length;
     setDailyQuote(quotes[quoteIndex]);
@@ -860,13 +907,8 @@ function App() {
         text: 'Download Shri Sodevpir Dada app for Daily Quotes, Chalisa and Bhajans!',
         url: 'https://shrisodevpirdada.vercel.app/',
       }).catch(console.error);
-    } else {
-      alert("Sharing is not supported on this browser/device.");
     }
   };
-
-
-
 
   // Audio Instance Managed by Ref
   const audioRef = useRef(null);
@@ -875,49 +917,29 @@ function App() {
 
   const pauseMainAudio = useCallback(async () => {
     if (isNativeAndroid) {
-      try {
-        await NativeAudio.pause();
-      } catch (error) {
-        console.error('Native pause failed:', error);
-      }
+      try { await NativeAudio.pause(); } catch (error) { console.error('Native pause failed:', error); }
       setIsPlaying(false);
       return;
     }
-
-    if (audioRef.current) {
-      audioRef.current.pause();
-    }
+    if (audioRef.current) { audioRef.current.pause(); }
     setIsPlaying(false);
   }, []);
 
   const ensureNotificationPermission = useCallback(async () => {
     if (!isNativeAndroid) return true;
-
     try {
-      // 1. Check Native Audio (for media notification)
       const nativePerm = await NativeAudio.hasNotificationPermission();
-      if (!nativePerm?.granted) {
-        await NativeAudio.requestNotificationPermission();
-      }
-
-      // 2. Check Local Notifications (for reminders)
+      if (!nativePerm?.granted) { await NativeAudio.requestNotificationPermission(); }
       const localPerm = await LocalNotifications.checkPermissions();
       if (localPerm.display !== 'granted') {
         const requested = await LocalNotifications.requestPermissions();
-        if (requested.display !== 'granted') {
-          console.warn('Local Notification permission denied');
-          return false;
-        }
+        if (requested.display !== 'granted') return false;
       }
-
       return true;
-    } catch (error) {
-      console.error('Notification permission check failed:', error);
-      return false;
-    }
+    } catch (error) { return false; }
   }, []);
 
-  // GLOBAL AUDIO CLEANUP (Memory Leak Prevention)
+  // GLOBAL AUDIO CLEANUP
   useEffect(() => {
     return () => {
       [audioRef, bellAudioRef, shankhAudioRef].forEach(ref => {
@@ -927,9 +949,7 @@ function App() {
           ref.current = null;
         }
       });
-      if (isNativeAndroid) {
-        NativeAudio.stop().catch(() => {});
-      }
+      if (isNativeAndroid) NativeAudio.stop().catch(() => {});
     };
   }, []);
 
@@ -941,9 +961,7 @@ function App() {
   const handleSeekEnd = (e) => {
     const time = Number(e.target.value);
     if (isNativeAndroid) {
-      NativeAudio.seekTo({ position: Math.round(time * 1000) }).catch(error => {
-        console.error('Native seek failed:', error);
-      });
+      NativeAudio.seekTo({ position: Math.round(time * 1000) }).catch(error => { console.error('Native seek failed:', error); });
     } else if (audioRef.current) {
       audioRef.current.currentTime = time;
     }
@@ -966,34 +984,8 @@ function App() {
     }
   }, [activeVerse, isLyricsVisible, isPlaying]);
 
-  // Flower Shower Logic - DIVINE BOUQUET V4 (Performance Optimized)
   const startFlowerShower = () => {
-    const flowerTypes = ['🌼', '🌹', '🪷', '💮', '🌻', '🌷', '🏵️', '🌸', '🏵️', '💮'];
-    
-    setFlowers(prev => {
-      // Limit total concurrent flowers to maintain 60fps on mobile
-      const maxFlowers = isNativeAndroid ? 80 : 150;
-      if (prev.length > maxFlowers) return prev; 
-      
-      const batchSize = isNativeAndroid ? 25 : 45;
-      const newFlowers = Array.from({ length: batchSize }).map((_, i) => ({
-        id: Math.random().toString(36).substr(2, 9) + i,
-        type: flowerTypes[Math.floor(Math.random() * flowerTypes.length)],
-        left: Math.random() * 100 + '%',
-        delay: Math.random() * 2 + 's', 
-        duration: 4 + Math.random() * 4 + 's', // Slower, more elegant fall
-        sideSway: (Math.random() * 100 - 50) + 'px', 
-        rotateAxis: Math.random() > 0.5 ? 'X' : 'Y'
-      }));
-      
-      return [...prev, ...newFlowers];
-    });
-
-    // Cleanup after 8.5 seconds
-    setTimeout(() => {
-      const batchSize = isNativeAndroid ? 25 : 45;
-      setFlowers(prev => prev.slice(batchSize)); // Efficiently remove oldest batch
-    }, 8500);
+    setFlowerTrigger(prev => prev + 1);
   };
 
   const toggleDiya = () => {
@@ -1001,49 +993,25 @@ function App() {
     setIsDiyaLit(!isDiyaLit);
   };
 
-  // Robust Audio Instance Creation for Mobile/Android
   const createAudioInstance = (path) => {
-    console.log("INITIALIZING AUDIO:", path);
-
-    // Ensure we have a persistent audio instance
-    if (!audioRef.current) {
-      audioRef.current = new Audio();
-    }
-
+    if (!audioRef.current) { audioRef.current = new Audio(); }
     const audio = audioRef.current;
     audio.pause();
-
-    // Set source and properties for faster loading
     audio.src = path;
     audio.preload = "auto";
     audio.load();
-
-    // Setup events
     audio.onplay = () => setIsPlaying(true);
     audio.onpause = () => setIsPlaying(false);
-
     audio.ontimeupdate = () => {
       if (!isSeeking) {
         setCurrentTime(audio.currentTime);
-        if (audio.duration && isFinite(audio.duration)) {
-          setDuration(audio.duration);
-        }
+        if (audio.duration && isFinite(audio.duration)) setDuration(audio.duration);
       }
     };
-
     audio.onloadedmetadata = () => {
-      if (audio.duration && isFinite(audio.duration)) {
-        setDuration(audio.duration);
-      }
+      if (audio.duration && isFinite(audio.duration)) setDuration(audio.duration);
     };
-
-    audio.onerror = (e) => {
-      console.error("AUDIO ERROR:", path, e);
-      setIsPlaying(false);
-      // alert("Audio Error: " + path + " - " + (audio.error ? audio.error.code : "unknown"));
-    };
-
-    audio.onended = null;
+    audio.onerror = (e) => { setIsPlaying(false); };
     return audio;
   };
 
@@ -1059,43 +1027,33 @@ function App() {
   const prepareNativeTrack = useCallback(async (path) => {
     try {
       await ensureNotificationPermission();
-
       const status = await NativeAudio.prepare({
         src: path,
         title: getCurrentTrackTitle(),
         artist: 'Shri Sodevpir Dada',
         repeatCount: repeatCountRef.current
       });
-      
       const statusData = status || {};
       setCurrentTime((statusData.currentTime || 0) / 1000);
       setDuration((statusData.duration || 0) / 1000);
       setCurrentRepeat(Number(statusData.currentRepeat || 0));
       setIsPlaying(Boolean(statusData.isPlaying));
-    } catch (error) {
-      console.error('Native prepare failed:', error);
-    }
-  }, [currentMode, activeItemIndex, ensureNotificationPermission]); // Decoupled repeatCount
+    } catch (error) { console.error('Native prepare failed:', error); }
+  }, [currentMode, activeItemIndex, ensureNotificationPermission]);
 
   const syncNativeStatus = useCallback(async () => {
     if (!isNativeAndroid) return;
-
     try {
       const status = await NativeAudio.getStatus();
       setIsPlaying(Boolean(status?.isPlaying));
-      if (!isSeeking) {
-        setCurrentTime((status?.currentTime || 0) / 1000);
-      }
+      if (!isSeeking) setCurrentTime((status?.currentTime || 0) / 1000);
       setDuration((status?.duration || 0) / 1000);
-    } catch (error) {
-      console.error('Native status sync failed:', error);
-    }
+    } catch (error) { console.error('Native status sync failed:', error); }
   }, [isSeeking]);
 
   const getAudioPath = () => {
     const audioModes = ['chalisa', 'mantras', 'bhajans', 'aartis', 'stutis'];
     if (!audioModes.includes(currentMode)) return "/assets/audio/chalisa1.mp3";
-
     return currentMode === 'chalisa' ? "/assets/audio/chalisa1.mp3" :
       currentMode === 'mantras' ? (mantras[activeItemIndex]?.audio || "/assets/audio/Shree_Sodevpir_Dada_Dhyan_Mantra.mp3") :
         currentMode === 'bhajans' ? (bhajans[activeItemIndex]?.audio || "/assets/audio/Jholi_Meri_Bhar_De.mp3") :
@@ -1104,58 +1062,36 @@ function App() {
               "/assets/audio/chalisa1.mp3";
   };
 
-  // Effect to handle source changes (switching tracks)
   useEffect(() => {
     const audioModes = ['chalisa', 'mantras', 'bhajans', 'aartis', 'stutis'];
     if (!audioModes.includes(currentMode)) return;
-
     const path = getAudioPath();
-
-    // RESET counters on track change
     setCurrentTime(0);
     setDuration(0);
     setCurrentRepeat(0);
     setIsPlaying(false);
-
     if (isNativeAndroid) {
       prepareNativeTrack(path);
       return;
     }
-
-    // Safari Fix: Only touch the existing instance if it's already there. 
-    // If not, it will be created on the first user "PLAY" click.
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.src = path;
-      audioRef.current.load(); // Prepare for next play
-    } else {
-      createAudioInstance(path); // Pre-warm
-    }
+      audioRef.current.load();
+    } else { createAudioInstance(path); }
+    return () => { if (audioRef.current) audioRef.current.pause(); };
+  }, [activeItemIndex, currentMode]);
 
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-    };
-  }, [activeItemIndex, currentMode]); // Removed prepareNativeTrack to prevent re-preparation on repeatCount change
-
-  // ROBUST REPEATER LOGIC: Handles looping with state directly
   useEffect(() => {
     if (isNativeAndroid) return;
-
     const audio = audioRef.current;
     if (!audio) return;
-
     audio.onended = () => {
       if (currentRepeat + 1 < repeatCount) {
         const nextRepeatIndex = currentRepeat + 1;
-        
-        // IF NEXT REPEAT IS THE FINAL ONE, PLAY INDICATOR
         if (nextRepeatIndex === repeatCount - 1 && repeatCount > 1) {
-          // Play Bell
           ringBell();
-          
-          // Wait for bell (approx 1s) then play final track
+          setFlowerTrigger(prev => prev + 1);
           setTimeout(() => {
             setCurrentRepeat(nextRepeatIndex);
             if (audio) {
@@ -1164,13 +1100,10 @@ function App() {
             }
           }, 1200);
         } else {
-          // Normal Repeat
           setCurrentRepeat(nextRepeatIndex);
           audio.currentTime = 0;
           setTimeout(() => {
-            if (audio) {
-              audio.play().catch(e => console.error("Repeater Error:", e.message));
-            }
+            if (audio) audio.play().catch(e => console.error("Repeater Error:", e.message));
           }, 200);
         }
       } else {
@@ -1182,34 +1115,23 @@ function App() {
 
   useEffect(() => {
     if (!isNativeAndroid) return;
-
-    let statusInterval = null;
     let stateListener = null;
     let endedListener = null;
-
     const setupNativeListeners = async () => {
       stateListener = await NativeAudio.addListener('playbackStateChange', (status) => {
         setIsPlaying(Boolean(status?.isPlaying));
-        if (!isSeeking) {
-          setCurrentTime((status?.currentTime || 0) / 1000);
-        }
+        if (!isSeeking) setCurrentTime((status?.currentTime || 0) / 1000);
         setDuration((status?.duration || 0) / 1000);
         setCurrentRepeat(Number(status?.currentRepeat || 0));
-        if (status?.repeatCount) {
-          setRepeatCount(Number(status.repeatCount));
-        }
+        if (status?.repeatCount) setRepeatCount(Number(status.repeatCount));
       });
-
       endedListener = await NativeAudio.addListener('playbackEnded', async () => {
         setIsPlaying(false);
         await syncNativeStatus();
       });
-
       await syncNativeStatus();
     };
-
     setupNativeListeners();
-
     return () => {
       stateListener?.remove();
       endedListener?.remove();
@@ -1218,12 +1140,8 @@ function App() {
 
   useEffect(() => {
     if (!isNativeAndroid) return;
-
-    NativeAudio.setRepeatCount({ repeatCount }).catch(error => {
-      console.error('Native repeat count update failed:', error);
-    });
+    NativeAudio.setRepeatCount({ repeatCount }).catch(error => { console.error('Native repeat count update failed:', error); });
   }, [repeatCount]);
-
 
   const ringBell = () => {
     triggerHaptic(ImpactStyle.Heavy);
@@ -1231,10 +1149,7 @@ function App() {
     if (isNativeAndroid) {
       NativeAudio.bell().catch(error => console.error('Native bell failed:', error));
     } else {
-      if (!bellAudioRef.current) {
-        bellAudioRef.current = new Audio("/assets/audio/bell.mp3");
-        bellAudioRef.current.onerror = () => console.log("Bell audio failed to load");
-      }
+      if (!bellAudioRef.current) bellAudioRef.current = new Audio("/assets/audio/bell.mp3");
       bellAudioRef.current.currentTime = 0;
       bellAudioRef.current.play().catch(() => { });
     }
@@ -1246,10 +1161,7 @@ function App() {
     if (isNativeAndroid) {
       NativeAudio.shankh().catch(error => console.error('Native shankh failed:', error));
     } else {
-      if (!shankhAudioRef.current) {
-        shankhAudioRef.current = new Audio("/assets/audio/shankh.mp3");
-        shankhAudioRef.current.onerror = () => console.log("Shankh audio failed to load");
-      }
+      if (!shankhAudioRef.current) shankhAudioRef.current = new Audio("/assets/audio/shankh.mp3");
       shankhAudioRef.current.currentTime = 0;
       shankhAudioRef.current.play().catch(() => { });
     }
@@ -1261,20 +1173,14 @@ function App() {
       setHistoryView('menu');
       setActiveIncidentIndex(null);
     }
-
     const audioModes = ['chalisa', 'mantras', 'bhajans', 'aartis', 'stutis'];
     const isNewModeAudio = audioModes.includes(mode);
-
-    // 1. If we are staying in the same mode, just show the view
-    // 2. If we are entering a non-audio mode (History/Videos), don't disturb background audio
     if (currentMode === mode || !isNewModeAudio) {
       setCurrentMode(mode);
       setIsLyricsVisible(true);
       setIsLibraryOpen(false);
       return;
     }
-
-    // 3. Otherwise, we are switching to a DIFFERENT audio mode - stop previous
     setCurrentMode(mode);
     setIsLyricsVisible(true);
     setIsLibraryOpen(false);
@@ -1285,24 +1191,16 @@ function App() {
   return (
     <>
       <div className={`app-container ${isLyricsVisible ? 'view-mode' : 'home-mode'}`}>
-        {/* Diya (Lamp) */}
         <div className={`diya-container ${isDiyaLit ? 'lit' : ''}`}>
           <div className="diya-glow"></div>
           <div className="diya-base">🪔</div>
         </div>
-        {/* Ambient Particles */}
         <ParticlesBackground />
-
-        {/* Divine Flower Shower */}
-        <DivineFlowers flowers={flowers} isAndroid={isNativeAndroid} />
-
-        {/* Background Section */}
+        <DivineCanvasFlowers triggerCount={flowerTrigger} isAndroid={isNativeAndroid} />
         <div className="background-slider" onClick={() => setIsLyricsVisible(false)}>
           <img src={backgroundImage} alt="SODEV" className="bg-image active" />
           <div className="bg-overlay"></div>
         </div>
-
-        {/* Top Bar */}
         <DivineHeader 
           language={language}
           greeting={getGreeting()}
@@ -1311,13 +1209,8 @@ function App() {
           dailyQuote={dailyQuote}
           onHomeClick={() => setIsLyricsVisible(false)}
         />
-
         <div className="bottom-dashboard-container">
-
-          {/* POOJA DOCK: Celestial Duo-Island */}
           <div className="pooja-dock">
-
-            {/* Island 1: Rituals */}
             <div className="ritual-island glass-panel">
               <div className="ritual-scroller">
                 <div className="dock-icon-item" onClick={ringBell}>
@@ -1338,8 +1231,6 @@ function App() {
                 </div>
               </div>
             </div>
-
-            {/* Island 2: Main Controls */}
             <div className="control-island glass-panel">
               <div className="dock-controls-row">
                 <button
@@ -1352,11 +1243,9 @@ function App() {
                 >
                   ⋯
                 </button>
-
                 <button className="dock-play-btn" onClick={(e) => {
                   e.stopPropagation();
                   triggerHaptic(ImpactStyle.Medium);
-
                   if (isNativeAndroid) {
                     if (isPlaying) {
                       pauseMainAudio();
@@ -1367,51 +1256,25 @@ function App() {
                     }
                     return;
                   }
-
-                  // CRITICAL: Ensure audio instance exists on user interaction for iOS Safari
-                  if (!audioRef.current) {
-                    createAudioInstance(getAudioPath());
-                  }
-
+                  if (!audioRef.current) { createAudioInstance(getAudioPath()); }
                   const audio = audioRef.current;
                   if (audio) {
-                    if (isPlaying) {
-                      audio.pause();
-                      setIsPlaying(false);
-                    } else {
+                    if (isPlaying) { audio.pause(); setIsPlaying(false); }
+                    else {
                       const playPromise = audio.play();
                       if (playPromise !== undefined) {
-                        playPromise
-                          .then(() => setIsPlaying(true))
-                          .catch(err => console.error("Dock Play Error:", err.message));
+                        playPromise.then(() => setIsPlaying(true)).catch(err => console.error("Dock Play Error:", err.message));
                       }
                     }
                   }
                 }}>
                   {isPlaying ? '⏸' : '▶'}
                 </button>
-
                 <div className="language-pill-container mini">
-                  <button
-                    className={`lang-pill-btn ${language === 'gujarati' ? 'active' : ''}`}
-                    onClick={(e) => { e.stopPropagation(); setLanguage('gujarati'); triggerHaptic(); }}
-                  >
-                    G
-                  </button>
-                  <button
-                    className={`lang-pill-btn ${language === 'hindi' ? 'active' : ''}`}
-                    onClick={(e) => { e.stopPropagation(); setLanguage('hindi'); triggerHaptic(); }}
-                  >
-                    H
-                  </button>
-                  <button
-                    className={`lang-pill-btn ${language === 'english' ? 'active' : ''}`}
-                    onClick={(e) => { e.stopPropagation(); setLanguage('english'); triggerHaptic(); }}
-                  >
-                    E
-                  </button>
+                  <button className={`lang-pill-btn ${language === 'gujarati' ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); setLanguage('gujarati'); triggerHaptic(); }}>G</button>
+                  <button className={`lang-pill-btn ${language === 'hindi' ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); setLanguage('hindi'); triggerHaptic(); }}>H</button>
+                  <button className={`lang-pill-btn ${language === 'english' ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); setLanguage('english'); triggerHaptic(); }}>E</button>
                 </div>
-
                 <div className="dock-repeat-island glass-panel">
                   <span className="repeat-icon">🔁</span>
                   <select
@@ -1425,41 +1288,20 @@ function App() {
                     <option value="21">21x</option>
                     <option value="108">108x</option>
                   </select>
-                  {repeatCount > 1 && (
-                    <div className="dock-jaap-badge">
-                      {currentRepeat + 1}/{repeatCount}
-                    </div>
-                  )}
+                  {repeatCount > 1 && <div className="dock-jaap-badge">{currentRepeat + 1}/{repeatCount}</div>}
                 </div>
               </div>
-
               <div className="dock-seek-row">
                 <span className="dock-time">{formatTime(currentTime)}</span>
                 <div className="seek-container">
-                  <div
-                    className="seek-fill"
-                    style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}
-                  ></div>
-                  <input
-                    type="range"
-                    className="seek-bar"
-                    min="0"
-                    max={duration || 0}
-                    value={currentTime}
-                    onMouseDown={() => setIsSeeking(true)}
-                    onTouchStart={() => setIsSeeking(true)}
-                    onMouseUp={handleSeekEnd}
-                    onTouchEnd={handleSeekEnd}
-                    onChange={handleSeek}
-                  />
+                  <div className="seek-fill" style={{ width: `${(currentTime / (duration || 1)) * 100}%` }}></div>
+                  <input type="range" className="seek-bar" min="0" max={duration || 0} value={currentTime} onMouseDown={() => setIsSeeking(true)} onTouchStart={() => setIsSeeking(true)} onMouseUp={handleSeekEnd} onTouchEnd={handleSeekEnd} onChange={handleSeek} />
                 </div>
                 <span className="dock-time">{formatTime(duration)}</span>
               </div>
             </div>
           </div>
         </div>
-
-        {/* DEVOTIONAL LIBRARY TRAY (Isolated to prevent flickering/jumping) */}
         <DevotionalLibrary
           isLibraryOpen={isLibraryOpen}
           setIsLibraryOpen={setIsLibraryOpen}
@@ -1474,8 +1316,6 @@ function App() {
           eveningTime={eveningTime}
           setEveningTime={setEveningTime}
         />
-
-        {/* LYRICS VIEW (Optimized component) */}
         {isLyricsVisible && (
           <LyricsViewer 
             currentMode={currentMode}
@@ -1503,15 +1343,11 @@ function App() {
             setIsLyricsVisible={setIsLyricsVisible}
           />
         )}
-
-        {/* Divine Signature Footer */}
         <footer style={{ textAlign: 'center', padding: '40px 0 120px 0', opacity: 0.25 }}>
           <div style={{ fontSize: '0.65rem', letterSpacing: '4px', textTransform: 'uppercase', fontWeight: '900' }}>
             {language === 'gujarati' ? 'બનાવ્યું: DS Digital\'s' : language === 'english' ? 'CREATED BY: DS DIGITAL\'S' : 'બનાયા ગયા: DS Digital\'s'}
           </div>
-          <div style={{ fontSize: '0.5rem', letterSpacing: '2px', marginTop: '5px', opacity: 0.8 }}>
-            DIVINE ENGINE V1.2.0
-          </div>
+          <div style={{ fontSize: '0.5rem', letterSpacing: '2px', marginTop: '5px', opacity: 0.8 }}>DIVINE ENGINE V1.2.0</div>
         </footer>
       </div>
       {showSplash && (

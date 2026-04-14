@@ -437,6 +437,8 @@ body {
   cursor: pointer;
   position: relative;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* ANDROID OPTIMIZATION: REMOVE TEXT BACKGROUNDS */
@@ -1133,6 +1135,7 @@ body.tray-open {
   filter: blur(1px);
   opacity: 0;
   animation: drift 15s linear infinite;
+  will-change: transform, opacity;
 }
 
 .repeat-control-group {
