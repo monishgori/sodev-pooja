@@ -1097,7 +1097,6 @@ function App() {
         const nextRepeatIndex = currentRepeat + 1;
         if (nextRepeatIndex === repeatCount - 1 && repeatCount > 1) {
           ringBell();
-          setFlowerTrigger(prev => prev + 1);
           setTimeout(() => {
             setCurrentRepeat(nextRepeatIndex);
             if (audio) {
